@@ -24,9 +24,7 @@ const UsersActions = (props) => {
 		resource,
 		displayedFilters,
 		filterValues,
-		hasCreate,
 		basePath,
-		selectedIds,
 		showFilter,
 		total,
 	} = useListContext();
@@ -53,7 +51,6 @@ const UsersActions = (props) => {
 const UserList = (props) => (
 	<List {...props} actions={<UsersActions />}>
 		<Datagrid>
-			<TextField source="id" />
 			<TextField source="name" />
 		</Datagrid>
 	</List>

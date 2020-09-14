@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import buildGraphQLProvider from 'ra-data-graphql-simple';
 import { Admin, Resource } from 'react-admin';
-// import jsonServerProvider from 'ra-data-json-server';
-
 import { CatList, CatCreate, CatEdit } from './cats';
 import { UserCreate, UserEdit, UserList } from './user';
 

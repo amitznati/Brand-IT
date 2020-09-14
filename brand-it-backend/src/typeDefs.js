@@ -1,4 +1,6 @@
 import { gql } from 'apollo-server-express';
+import {typeDefs as CatTypeDefs} from './models/Cat/typeDefs';
+import {typeDefs as UserTypeDefs} from './models/User/typeDefs';
 
 export const typeDefs = gql`
     type Query {
@@ -11,43 +13,12 @@ export const typeDefs = gql`
         allCats(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: CatFilter): [Cat]
         _allCatsMeta(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: CatFilter): ListMetadata
     }
-    type Cat {
-        id: ID!
-        name: String!
-        owner: UserForCat
-    }
-    type UserForCat {
-        id: ID!
-        name: String!
-    }
-    type User {
-        id: ID!
-        name: String!
-        cats: [Cat]
-    }
+    ${CatTypeDefs}
+    ${UserTypeDefs}
     type Mutation {
         createCat(name: String!, owner: UserForUpdteCat!): Cat!
         createUser(name: String!): User!
     }
-    input UserForUpdteCat {
-        id: ID!
-    }
-    input CreateCatInput {
-        name: String!
-        owner: UserForUpdteCat!
-    }
-    input CatFilter {
-        q: String
-        id: ID
-        title: String
-        views: Int
-        views_lt: Int
-        views_lte: Int
-        views_gt: Int
-        views_gte: Int
-        user_id: ID
-    }
-
     type ListMetadata {
         count: Int!
     }
