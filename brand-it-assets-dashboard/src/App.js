@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Component } from 'react';
 import buildGraphQLProvider from 'ra-data-graphql-simple';
 import { Admin, Resource } from 'react-admin';
-import { CatList, CatCreate, CatEdit } from './cats';
-import { UserCreate, UserEdit, UserList } from './user';
+import { BusinessList, BusinessEdit, BusinessCreate } from './business';
+import { CategoryList, CategoryEdit, CategoryCreate } from './category';
 
 class App extends Component {
   constructor(props) {
@@ -24,8 +24,8 @@ class App extends Component {
 
     return (
         <Admin dataProvider={dataProvider}>
-          <Resource name="Cat" list={CatList} edit={CatEdit} create={CatCreate} />
-          <Resource name="User" list={UserList} edit={UserEdit} create={UserCreate} />
+          <Resource name="Business" list={BusinessList} edit={BusinessEdit} create={BusinessCreate} />
+          <Resource name="Category" list={CategoryList} edit={CategoryEdit} create={CategoryCreate} />
         </Admin>
     );
   }

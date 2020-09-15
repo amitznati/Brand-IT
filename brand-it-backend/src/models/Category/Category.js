@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const BusinessCategory = mongoose.model('BusinessCategory',
+const Category = mongoose.model('Category',
 	{
 		name: String,
 		business: {
@@ -12,4 +12,4 @@ const BusinessCategory = mongoose.model('BusinessCategory',
 			ref: 'Product'
 		}]
 	});
-export default BusinessCategory;
+export default Category;

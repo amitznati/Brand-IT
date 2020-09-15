@@ -4,7 +4,6 @@ import {
 	useListContext,
 	TopToolbar,
 	CreateButton,
-	EditButton,
 	ExportButton,
 	sanitizeListRestProps,
 	List,
@@ -12,7 +11,7 @@ import {
 	TextField
 } from 'react-admin';
 
-const CatsActions = (props) => {
+const UsersActions = (props) => {
 	const {
 		className,
 		exporter,
@@ -39,7 +38,6 @@ const CatsActions = (props) => {
 				context: 'button',
 			})}
 			<CreateButton basePath={basePath} />
-			<EditButton basePath={basePath} />
 			<ExportButton
 				disabled={total === 0}
 				resource={resource}
@@ -50,13 +48,11 @@ const CatsActions = (props) => {
 		</TopToolbar>
 	);
 };
-const CatList = (props) => (
-	<List {...props} actions={<CatsActions />}>
+const BusinessList = (props) => (
+	<List {...props} actions={<UsersActions />}>
 		<Datagrid>
-			<TextField source="id" />
 			<TextField source="name" />
-			<TextField label="Owner" source="owner.name" />
 		</Datagrid>
 	</List>
 );
-export default CatList;
+export default BusinessList;

@@ -1,7 +1,7 @@
-import Cat from './Cat';
+import Business from './Business';
 import {resolvers} from './resolvers'
 
 export {
-	Cat as Model,
+	Business as Model,
 	resolvers
 }

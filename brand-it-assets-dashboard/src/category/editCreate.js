@@ -7,23 +7,23 @@ const CatEditActions = ({ basePath, data }) => (
 		<ShowButton basePath={basePath} record={data} />
 	</TopToolbar>
 )
-export const CatCreate = (props) => (
+export const CategoryCreate = (props) => (
 	<Create {...props} actions={<CatEditActions />}>
 		<SimpleForm>
-			<TextInput source="name" />
-			<ReferenceInput label="User" source="owner.id" reference="User" validate={[required()]}>
+			<TextInput source="name" validate={[required()]} />
+			<ReferenceInput label="Business" source="business.id" reference="Business" validate={[required()]}>
 				<SelectInput optionText="name" />
 			</ReferenceInput>
 		</SimpleForm>
 	</Create>
 );
 
-export const CatEdit = (props) => (
+export const CategoryEdit = (props) => (
 	<Edit {...props} actions={<CatEditActions />}>
 		<SimpleForm>
 			<TextInput disabled label="Id" source="id" />
-			<TextInput source="name"/>
-			<ReferenceInput label="User" source="owner.id" reference="User" validate={[required()]}>
+			<TextInput source="name" validate={[required()]} />
+			<ReferenceInput label="Business" source="business.id" reference="Business" validate={[required()]}>
 				<SelectInput optionText="name" />
 			</ReferenceInput>
 		</SimpleForm>

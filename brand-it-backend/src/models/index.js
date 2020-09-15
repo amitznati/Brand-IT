@@ -1,3 +1,3 @@
-import * as User from './User';
-import * as Cat from './Cat';
-export {User, Cat}
+import * as Business from './Business';
+import * as Category from './Category';
+export {Business, Category}

@@ -1,6 +1,7 @@
-import User from './User';
+import Category from './Category';
 import {resolvers} from './resolvers'
+
 export {
-	User as Model,
+	Category as Model,
 	resolvers
 }

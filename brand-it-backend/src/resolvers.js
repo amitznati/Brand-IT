@@ -1,13 +1,17 @@
-import {Cat as CatResource, User as UserResource} from './models'
+import {
+	Business as BusinessResource,
+	Category as CategoryResource
+} from './models'
 
 export const resolvers = {
 	Query: {
-		hello: () => 'Hello world!',
-		...CatResource.resolvers.Query,
-		...UserResource.resolvers.Query
+		hello: () => 'hello',
+		...BusinessResource.resolvers.Query,
+		...CategoryResource.resolvers.Query
 	},
 	Mutation: {
-		...CatResource.resolvers.Mutation,
-		...UserResource.resolvers.Mutation
+		helloMutation: () => 'helloMutation',
+		...BusinessResource.resolvers.Mutation,
+		...CategoryResource.resolvers.Mutation
 	}
 };

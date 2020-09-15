@@ -5,7 +5,7 @@ const Business = mongoose.model('Business',
 		name: String,
 		categories: [{
 			type: Schema.Types.ObjectId,
-			ref: 'BusinessCategory'
+			ref: 'Category'
 		}]
 	});
 export default Business;
