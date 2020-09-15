@@ -12,6 +12,7 @@ export const typeDefs = gql`
     }
     input UserForUpdteCat {
         id: ID!
+        name: String
     }
     input CreateCatInput {
         name: String!

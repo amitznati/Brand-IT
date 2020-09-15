@@ -53,6 +53,7 @@ const CatsActions = (props) => {
 const CatList = (props) => (
 	<List {...props} actions={<CatsActions />}>
 		<Datagrid>
+			<TextField source="id" />
 			<TextField source="name" />
 			<TextField label="Owner" source="owner.name" />
 		</Datagrid>

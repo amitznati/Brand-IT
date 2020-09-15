@@ -17,6 +17,7 @@ export const typeDefs = gql`
     ${UserTypeDefs}
     type Mutation {
         createCat(name: String!, owner: UserForUpdteCat!): Cat!
+        updateCat(id: ID!, name: String!, owner: UserForUpdteCat!): Cat!
         createUser(name: String!): User!
     }
     type ListMetadata {
