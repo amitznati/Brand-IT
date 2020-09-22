@@ -9,6 +9,7 @@ export const typeDefs = gql`
     extend type Mutation {
         createCategory(name: String!, business: BusinessForUpdateCategory!): Category!
         updateCategory(id: ID!, name: String!, business: BusinessForUpdateCategory!): Category!
+        deleteCategory(id: ID!): Category!
     }
     type Category {
         id: ID!
@@ -30,6 +31,7 @@ export const typeDefs = gql`
     input CategoryFilter {
         q: String
         id: ID
+		business: ID
         title: String
         views: Int
         views_lt: Int

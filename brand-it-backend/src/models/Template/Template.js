@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 const Template = mongoose.model('Template',
 	{
 		name: String,
-		products: [{
+		product: {
 			type: Schema.Types.ObjectId,
 			ref: 'Product'
-		}],
+		},
 		layouts: [{
 			type: String,
 			layoutProperties: Object

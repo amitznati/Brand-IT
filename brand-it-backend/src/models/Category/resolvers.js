@@ -41,6 +41,18 @@ export const resolvers = {
 			} else {
 				throw ('category not exist');
 			}
+		},
+		deleteCategory: async (_, {id}) => {
+			const category = await Category.findById(id).populate('business');
+			if (category) {
+				const oldBusiness = await Business.findById(category.business._id);
+				oldBusiness.categories.pull(category);
+				await oldBusiness.save();
+				await category.delete();
+				return category;
+			} else {
+				throw ('category not exist');
+			}
 		}
 	}
 };

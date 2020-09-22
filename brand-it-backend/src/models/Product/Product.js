@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 const Product = mongoose.model('Product',
 	{
 		name: String,
-		image: String,
-		productSize: {
+		imageUrl: String,
+		size: {
 			height: Number,
 			width: Number
 		},
@@ -16,7 +16,7 @@ const Product = mongoose.model('Product',
 		},
 		categories: [{
 			type: Schema.Types.ObjectId,
-			ref: 'BusinessCategories'
+			ref: 'Category'
 		}],
 		templates: [{
 			type: Schema.Types.ObjectId,
