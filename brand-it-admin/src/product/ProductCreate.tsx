@@ -7,61 +7,106 @@ import {
     TabbedForm,
     TextInput,
     required,
-    FileField
+    ReferenceArrayInput,
+    NumberInput,
+    SelectArrayInput
 } from 'react-admin';
 import { InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 export const styles = {
-    price: { width: '7em' },
     width: { width: '7em' },
     height: { width: '7em' },
-    stock: { width: '7em' },
     widthFormGroup: { display: 'inline-block' },
-    heightFormGroup: { display: 'inline-block', marginLeft: 32 },
+    heightFormGroup: { display: 'inline-block'},
+    sizeInput: { margin: '1rem', width: '10rem' }
 };
 
 const useStyles = makeStyles(styles);
-const CustomImage = ({ source, record = {} }) => <span>{record[source]}</span>;
+
 const ProductCreate = props => {
     const classes = useStyles();
     return (
         <Create {...props}>
             <TabbedForm>
                 <FormTab label="Details">
-                    <TextInput autoFocus source="name" validate={required()} />
-                    <ImageInput source="image" label="Related pictures" accept="image/*">
+                    <TextInput source="name" validate={required()} />
+                    <ReferenceArrayInput fullWidth source="categories" reference="Category">
+                        <SelectArrayInput optionText="name" />
+                    </ReferenceArrayInput>
+                    <ImageInput source="image" accept="image/*">
                         <ImageField source="files" title="title" />
                     </ImageInput>
+
                 </FormTab>
-                {/*<FormTab label="Size" path="size">*/}
-                {/*    <NumberInput*/}
-                {/*        source="width"*/}
-                {/*        validate={required()}*/}
-                {/*        className={classes.width}*/}
-                {/*        formClassName={classes.widthFormGroup}*/}
-                {/*        InputProps={{*/}
-                {/*            endAdornment: (*/}
-                {/*                <InputAdornment position="start">*/}
-                {/*                    cm*/}
-                {/*                </InputAdornment>*/}
-                {/*            ),*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*    <NumberInput*/}
-                {/*        source="height"*/}
-                {/*        validate={required()}*/}
-                {/*        className={classes.height}*/}
-                {/*        formClassName={classes.heightFormGroup}*/}
-                {/*        InputProps={{*/}
-                {/*            endAdornment: (*/}
-                {/*                <InputAdornment position="start">*/}
-                {/*                    cm*/}
-                {/*                </InputAdornment>*/}
-                {/*            ),*/}
-                {/*        }}*/}
-                {/*    />*/}
-                {/*</FormTab>*/}
+                <FormTab label="Size">
+                    <NumberInput
+                        source="size.width"
+                        label="Width"
+                        validate={required()}
+                        className={classes.sizeInput}
+                        formClassName={classes.widthFormGroup}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="start">
+                                    cm
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+
+                    <NumberInput
+                        source="size.height"
+                        validate={required()}
+                        className={classes.sizeInput}
+                        formClassName={classes.heightFormGroup}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="start">
+                                    cm
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <NumberInput
+                        source="templateFrame.width"
+                        validate={required()}
+                        className={classes.sizeInput}
+                        formClassName={classes.widthFormGroup}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="start">
+                                    cm
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <NumberInput
+                        source="templateFrame.height"
+                        validate={required()}
+                        className={classes.sizeInput}
+                        formClassName={classes.heightFormGroup}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="start">
+                                    cm
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <NumberInput
+                        source="templateFrame.x"
+                        validate={required()}
+                        className={classes.sizeInput}
+                        formClassName={classes.widthFormGroup}
+                    />
+                    <NumberInput
+                        source="templateFrame.y"
+                        validate={required()}
+                        className={classes.sizeInput}
+                        formClassName={classes.heightFormGroup}
+                    />
+                </FormTab>
             </TabbedForm>
         </Create>
     );

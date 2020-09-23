@@ -3,25 +3,14 @@ import express from 'express';
 import mongoose from 'mongoose';
 import {typeDefs} from './typeDefs'
 import {resolvers} from './resolvers';
+import {createFilesRoutes} from './fileManager';
 
 
 const startServer = async () => {
 	const server = new ApolloServer({	typeDefs, resolvers	});
 
 	const app = express();
-	const router = new express.Router();
-	const getFile = function (req, res) {
-		const path = require('path');
-		const fs = require('fs');
-		const filePath = path.resolve(`${__dirname}/models/Product/images/${req.params.name}`);
-		if (fs.existsSync(filePath)) {
-			res.sendFile(filePath);
-		} else {
-			res.send(null);
-		}
-	};
-	router.get('/:name', getFile);
-	app.use('/product', router);
+	createFilesRoutes(app);
 	server.applyMiddleware({ app });
 
 	await mongoose.connect('mongodb://localhost:27017/brand-it', {useNewUrlParser: true, useUnifiedTopology: true});

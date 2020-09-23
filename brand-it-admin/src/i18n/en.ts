@@ -3,6 +3,7 @@ import englishMessages from 'ra-language-english';
 
 const customEnglishMessages: TranslationMessages = {
     ...englishMessages,
+    Categories: 'Categories',
     pos: {
         search: 'Search',
         configuration: 'Configuration',
@@ -53,9 +54,6 @@ const customEnglishMessages: TranslationMessages = {
         },
         product: {
             name: 'Product |||| Products',
-            fields: {
-                name: 'Name',
-            },
             filters: {
 
             },
@@ -68,6 +66,13 @@ const customEnglishMessages: TranslationMessages = {
             errors: {
             },
         },
+        Product: {
+            fields: {
+                name: 'Name',
+                categories: 'Categories',
+                image: 'Image',
+            },
+        }
     },
 };
 

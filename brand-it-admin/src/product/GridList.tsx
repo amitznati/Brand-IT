@@ -78,7 +78,7 @@ const LoadedGridList = ({ width }) => {
                     key={id}
                     to={linkToRecord(basePath, data[id].id)}
                 >
-                    <img src={data[id].image} alt="" />
+                    <img src={data[id].imageUrl} alt="" />
                     <GridListTileBar
                         className={classes.tileBar}
                         title={data[id].name}

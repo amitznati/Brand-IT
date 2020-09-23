@@ -31,12 +31,7 @@ export const typeDefs = gql`
     input CategoryFilter {
         q: String
         id: ID
+        ids: [ID]
 		business: ID
-        title: String
-        views: Int
-        views_lt: Int
-        views_lte: Int
-        views_gt: Int
-        views_gte: Int
     }
 `;

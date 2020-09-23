@@ -1,16 +1,6 @@
 import Product from './Product';
 import Category from '../Category/Category';
-import { createWriteStream } from 'fs';
-import path from 'path';
-
-const convertFileToBase64 = file =>
-	new Promise((resolve, reject) => {
-		const reader = new FileReader();
-		reader.onload = () => resolve(reader.result);
-		reader.onerror = reject;
-
-		reader.readAsDataURL(file.rawFile);
-	});
+import {saveFile} from '../../fileManager';
 
 export const resolvers = {
 	Query: {
@@ -20,20 +10,25 @@ export const resolvers = {
 	},
 	Mutation: {
 		createProduct: async (_, input) => {
-			const {name, image} = input;
-			const { filename, createReadStream } = await image.rawFile;
-			const newFilename = `${name}.${filename.split('.').pop()}`;
-			await new Promise(res => {
-				createReadStream()
-					.pipe(createWriteStream(path.join(__dirname, '/images', newFilename)))
-					.on('close', res)
-			})
-			console.log()
-			return {
-				name: 'dummy',
-				id: '234234234'
+			const {image, ...rest} = input;
+			const product = new Product({...rest});
+			const categoriesIds = input.categories;
+			if (categoriesIds && categoriesIds.length) {
+				console.log(categoriesIds)
+				categoriesIds.forEach(id => {
+					console.log(id)
+					Category.findById(id).populate('products').then(cat => {
+						console.log(cat);
+						cat.products.push(product);
+						cat.save();
+					});
+				});
 			}
+			product.imageUrl = await saveFile('product', input.name, image);
+			await product.save()
+			return product;
 		},
+
 		// updateProduct: async (_, {id, name, category}) => {
 		// 	const product = await Product.findById(id).populate('category');
 		// 	const categoryId = category.id;

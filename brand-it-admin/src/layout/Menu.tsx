@@ -20,7 +20,7 @@ interface Props {
 
 const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
     const [state, setState] = useState({
-        menuCatalog: false,
+        menuCatalog: true,
         menuSales: false,
         menuCustomers: false,
     });

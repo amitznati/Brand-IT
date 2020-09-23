@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "babel src --out-dir dist --presets=@babel/preset-env",
-    "start": "nodemon --exec babel-node src/index.js"
+    "watch": "babel src --out-dir dist --presets=@babel/preset-env --watch",
+    "start": "nodemon --exec babel-node dist/index.js",
+    "start2": "nodemon --exec babel-node src/index.js"
   },
   "keywords": [],
   "author": "",
