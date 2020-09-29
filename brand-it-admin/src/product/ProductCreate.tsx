@@ -8,24 +8,56 @@ import {
     TextInput,
     required,
     ReferenceArrayInput,
-    NumberInput,
     SelectArrayInput
 } from 'react-admin';
 import { InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import {BoundedNumberField} from "../commonComponents/BoundedNumberField";
 
 export const styles = {
     width: { width: '7em' },
     height: { width: '7em' },
     widthFormGroup: { display: 'inline-block' },
     heightFormGroup: { display: 'inline-block'},
-    sizeInput: { margin: '1rem', width: '10rem' }
+    sizeInput: { margin: '1rem', width: '10rem' },
+    sizeTab: {display: 'flex', '& .ra-input-undefined': {display: 'flex'}}
 };
 
 const useStyles = makeStyles(styles);
+const sizeFields = [
+    {label: 'Width', source: 'size.width'},
+    {label: 'Height', source: 'size.height'},
+    {label: 'Template Frame Width', source: 'templateFrame.width'},
+    {label: 'Template Frame Height', source: 'templateFrame.height'},
+    {label: 'Template Frame X', source: 'templateFrame.x'},
+    {label: 'Template Frame Y', source: 'templateFrame.y'},
+];
 
+const ProductPreview = ({imageSrc}) => {
+    console.log(imageSrc);
+    return (
+        <div>
+            <img src={imageSrc} height={50} width={50}/>
+        </div>
+    );
+}
 const ProductCreate = props => {
     const classes = useStyles();
+    const [sizeState, setSizeState] = React.useState({});
+    const [imageSrc, setImageSrc] = React.useState<string | ArrayBuffer | null>(null);
+    const onSizeChange = React.useCallback((v,name) => {
+        setSizeState({...sizeState, [name]: v});
+    }, [sizeState]);
+    const onImageChanged = (files) => {
+        const self = this;
+        const reader = new FileReader();
+        reader.addEventListener('loadend', function () {
+            const fileContent = reader.result;
+            setImageSrc(fileContent);
+        });
+        reader.readAsDataURL(files[0]);
+
+    }
     return (
         <Create {...props}>
             <TabbedForm>
@@ -34,78 +66,28 @@ const ProductCreate = props => {
                     <ReferenceArrayInput fullWidth source="categories" reference="Category">
                         <SelectArrayInput optionText="name" />
                     </ReferenceArrayInput>
-                    <ImageInput source="image" accept="image/*">
+                    <ImageInput options={{onDropAccepted: onImageChanged}} source="image" accept="image/*">
                         <ImageField source="files" title="title" />
                     </ImageInput>
-
                 </FormTab>
-                <FormTab label="Size">
-                    <NumberInput
-                        source="size.width"
-                        label="Width"
-                        validate={required()}
-                        className={classes.sizeInput}
-                        formClassName={classes.widthFormGroup}
-                        InputProps={{
+                <FormTab label="Size" contentClassName={classes.sizeTab}>
+                    {sizeFields.map((field) => (
+                        <BoundedNumberField
+                            label={field.label}
+                            source={field.source}
+                            key={field.source}
+                            validate={required()}
+                            onChange={(v) => onSizeChange(v, field.source)}
+                            InputProps={{
                             endAdornment: (
                                 <InputAdornment position="start">
                                     cm
                                 </InputAdornment>
-                            ),
-                        }}
-                    />
-
-                    <NumberInput
-                        source="size.height"
-                        validate={required()}
-                        className={classes.sizeInput}
-                        formClassName={classes.heightFormGroup}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="start">
-                                    cm
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <NumberInput
-                        source="templateFrame.width"
-                        validate={required()}
-                        className={classes.sizeInput}
-                        formClassName={classes.widthFormGroup}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="start">
-                                    cm
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <NumberInput
-                        source="templateFrame.height"
-                        validate={required()}
-                        className={classes.sizeInput}
-                        formClassName={classes.heightFormGroup}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="start">
-                                    cm
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <NumberInput
-                        source="templateFrame.x"
-                        validate={required()}
-                        className={classes.sizeInput}
-                        formClassName={classes.widthFormGroup}
-                    />
-                    <NumberInput
-                        source="templateFrame.y"
-                        validate={required()}
-                        className={classes.sizeInput}
-                        formClassName={classes.heightFormGroup}
-                    />
+                                ),
+                            }}
+                        />)
+                    )}
+                    {imageSrc && <ProductPreview imageSrc={imageSrc} />}
                 </FormTab>
             </TabbedForm>
         </Create>

@@ -71,6 +71,10 @@ const customEnglishMessages: TranslationMessages = {
                 name: 'Name',
                 categories: 'Categories',
                 image: 'Image',
+                size: {
+                    width: 'Width',
+                    height: 'Height'
+                }
             },
         }
     },

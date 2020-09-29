@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Logo from './Logo';
+// import Logo from './Logo';
 
 const useStyles = makeStyles({
     title: {

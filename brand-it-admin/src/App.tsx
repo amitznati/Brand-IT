@@ -8,7 +8,7 @@ import './App.css';
 
 import authProvider from './authProvider';
 import themeReducer from './themeReducer';
-import { Login, Layout } from './layout';
+import { Login } from './layout';
 import customRoutes from './routes';
 import englishMessages from './i18n/en';
 
@@ -58,7 +58,7 @@ class App extends React.Component<{}, AppState> {
                 authProvider={authProvider}
                 dashboard={() => <div>Dashboard</div>}
                 loginPage={Login}
-                layout={Layout}
+                // layout={Layout}
                 i18nProvider={i18nProvider}
             >
                 <Resource name="Business" {...business} />
