@@ -20,7 +20,7 @@ export const styles = {
     widthFormGroup: { display: 'inline-block' },
     heightFormGroup: { display: 'inline-block'},
     sizeInput: { margin: '1rem', width: '10rem' },
-    sizeTab: {display: 'flex', '& .ra-input-undefined': {display: 'flex'}}
+    sizeTab: {'& .ra-input': {display: 'inline-flex'}, '& .ra-input-undefined': {display: 'block'}}
 };
 
 const useStyles = makeStyles(styles);
@@ -33,11 +33,11 @@ const sizeFields = [
     {label: 'Template Frame Y', source: 'templateFrame.y'},
 ];
 
-const ProductPreview = ({imageSrc}) => {
+const ProductPreview = ({imageSrc, sizeState}) => {
     console.log(imageSrc);
     return (
         <div>
-            <img src={imageSrc} height={50} width={50}/>
+            <img src={imageSrc} height={sizeState['size.height']} width={sizeState['size.width']}/>
         </div>
     );
 }
@@ -87,7 +87,7 @@ const ProductCreate = props => {
                             }}
                         />)
                     )}
-                    {imageSrc && <ProductPreview imageSrc={imageSrc} />}
+                    {imageSrc && <ProductPreview imageSrc={imageSrc} sizeState={sizeState} />}
                 </FormTab>
             </TabbedForm>
         </Create>
