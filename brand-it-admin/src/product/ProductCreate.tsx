@@ -13,6 +13,7 @@ import {
 import { InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {BoundedNumberField} from "../commonComponents/BoundedNumberField";
+import {TemplatePreviewForProduct} from 'template-editor';
 
 export const styles = {
     width: { width: '7em' },
@@ -35,9 +36,24 @@ const sizeFields = [
 
 const ProductPreview = ({imageSrc, sizeState}) => {
     console.log(imageSrc);
+    const product = {
+        id: 1,
+        name: 'temp product',
+        image: imageSrc,
+        productSize: {
+            height: sizeState['size.height'] || 0,
+            width: sizeState['size.width'] || 0
+        },
+        templateFrame: {
+            height: sizeState['templateFrame.height'] || 0,
+            width: sizeState['templateFrame.width'] || 0,
+            x: sizeState['templateFrame.x'] || 0,
+            y: sizeState['templateFrame.y'] || 0
+        }
+    };
     return (
-        <div>
-            <img src={imageSrc} height={sizeState['size.height']} width={sizeState['size.width']}/>
+        <div style={{ paddingTop: '4rem' }}>
+            <TemplatePreviewForProduct product={product} />
         </div>
     );
 }
