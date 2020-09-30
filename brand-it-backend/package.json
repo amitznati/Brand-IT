@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "babel src --out-dir dist --presets=@babel/preset-env --watch",
     "start": "nodemon --exec babel-node dist/index.js",
+    "debug": "nodemon --exec babel-node src/index.js",
     "start2": "nodemon --exec babel-node src/index.js"
   },
   "keywords": [],

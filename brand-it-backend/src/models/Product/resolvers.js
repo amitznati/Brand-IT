@@ -11,21 +11,17 @@ export const resolvers = {
 	Mutation: {
 		createProduct: async (_, input) => {
 			const {image, ...rest} = input;
-			const product = new Product({...rest});
+			const product = await Product.create({...rest});
 			const categoriesIds = input.categories;
-			if (categoriesIds && categoriesIds.length) {
-				console.log(categoriesIds)
-				categoriesIds.forEach(id => {
-					console.log(id)
-					Category.findById(id).populate('products').then(cat => {
-						console.log(cat);
-						cat.products.push(product);
-						cat.save();
-					});
-				});
-			}
 			product.imageUrl = await saveFile('product', input.name, image);
-			await product.save()
+			await product.save();
+			if (categoriesIds && categoriesIds.length) {
+				await Category.updateMany(
+					{_id: {$in: categoriesIds}},
+					{$push: {products: product}},
+					{multi: true}
+				);
+			}
 			return product;
 		},
 
@@ -51,17 +47,20 @@ export const resolvers = {
 		// 		throw ('product not exist');
 		// 	}
 		// },
-		// deleteProduct: async (_, {id}) => {
-		// 	const product = await Product.findById(id).populate('category');
-		// 	if (product) {
-		// 		const oldCategory = await Category.findById(product.category._id);
-		// 		oldCategory.categories.pull(product);
-		// 		await oldCategory.save();
-		// 		await product.delete();
-		// 		return product;
-		// 	} else {
-		// 		throw ('product not exist');
-		// 	}
-		// }
+		deleteProduct: async (_, {id}) => {
+			const product = await Product.findById(id).populate('categories');
+			console.log(product);
+			if (product) {
+				await Category.updateMany(
+					{},
+					{$pull: {products: id}},
+					{multi: true}
+				);
+				await product.delete();
+				return product;
+			} else {
+				throw ('product not exist');
+			}
+		}
 	}
 };

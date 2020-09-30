@@ -13,7 +13,7 @@ export const typeDefs = gql`
             size: SizeInput!
             templateFrame: TemplateFrameInput!): Product!
 #        updateProduct(id: ID!, name: String!, business: BusinessForUpdateProduct!): Product!
-#        deleteProduct(id: ID!): Product!
+        deleteProduct(id: ID!): Product!
     }
     type ProductSize {
         height: Float!

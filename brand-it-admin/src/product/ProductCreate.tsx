@@ -21,7 +21,7 @@ export const styles = {
     widthFormGroup: { display: 'inline-block' },
     heightFormGroup: { display: 'inline-block'},
     sizeInput: { margin: '1rem', width: '10rem' },
-    sizeTab: {'& .ra-input': {display: 'inline-flex'}, '& .ra-input-undefined': {display: 'block'}}
+    sizeTab: {'& .ra-input': {display: 'inline-flex', margin: '1rem'}, '& .ra-input-undefined': {display: 'block'}}
 };
 
 const useStyles = makeStyles(styles);

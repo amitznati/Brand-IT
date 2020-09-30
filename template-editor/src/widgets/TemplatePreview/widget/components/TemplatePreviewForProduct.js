@@ -25,6 +25,7 @@ const TemplatePreviewForProduct = ({ product }) => {
           width: productW,
           position: 'relative',
           margin: 'auto',
+          overflow: 'hidden',
           background: product.image ? '' : 'white'
         }}
       >

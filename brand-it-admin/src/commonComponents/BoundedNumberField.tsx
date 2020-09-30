@@ -4,9 +4,12 @@ import { useInput, useTranslate } from 'react-admin';
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-	root: { margin: '1rem', width: '10rem', display: 'inline-flex' },
+	root: { width: '10rem', display: 'inline-flex' },
 	errorText: {
 		color: 'red'
+	},
+	inputLabel: {
+		marginBottom: '1rem'
 	}
 });
 export const BoundedNumberField = props => {
@@ -20,13 +23,14 @@ export const BoundedNumberField = props => {
 		isRequired
 	} = inputProps;
 	const onValueChange = e => {
-		setValue(e.target.value);
-		onChange && onChange(e.target.value);
+		const v = Number(e.target.value);
+		setValue(v);
+		onChange && onChange(v);
 	};
 	const id = `input-for-${name}`;
 	return (
 		<FormControl className={classes.root}>
-			<InputLabel shrink htmlFor={id}>
+			<InputLabel shrink htmlFor={id} className={classes.inputLabel}>
 				{props.label}
 			</InputLabel>
 			<Input
