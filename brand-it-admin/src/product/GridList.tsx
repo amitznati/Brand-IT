@@ -11,6 +11,10 @@ const useStyles = makeStyles(theme => ({
     gridList: {
         margin: 0,
     },
+    itemWrap: {
+        background:
+            'linear-gradient(to top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.4) 70%,rgba(0,0,0,0) 100%)',
+    },
     tileBar: {
         background:
             'linear-gradient(to top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.4) 70%,rgba(0,0,0,0) 100%)',
@@ -25,6 +29,12 @@ const useStyles = makeStyles(theme => ({
     },
     link: {
         color: '#fff',
+    },
+    image: {
+        maxWidth: '6rem',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
     },
 }));
 
@@ -77,8 +87,9 @@ const LoadedGridList = ({ width }) => {
                     component={Link}
                     key={id}
                     to={linkToRecord(basePath, data[id].id)}
+                    className={classes.itemWrap}
                 >
-                    <img src={data[id].imageUrl} alt="" />
+                    <img src={data[id].imageUrl} alt="" className={classes.image}/>
                     <GridListTileBar
                         className={classes.tileBar}
                         title={data[id].name}

@@ -2,6 +2,7 @@ import { gql } from 'apollo-server-express';
 import {typeDefs as BusinessTypeDefs} from './models/Business/typeDefs';
 import {typeDefs as CategoryTypeDefs} from './models/Category/typeDefs';
 import {typeDefs as ProductTypeDefs} from './models/Product/typeDefs';
+import {typeDefs as ThemeTypeDefs} from './models/Theme/typeDefs';
 
 export const typeDefs = gql`    
     type Query {
@@ -13,6 +14,7 @@ export const typeDefs = gql`
     ${BusinessTypeDefs}
     ${CategoryTypeDefs}
     ${ProductTypeDefs}
+    ${ThemeTypeDefs}
     type ListMetadata {
         count: Int!
     }

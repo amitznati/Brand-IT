@@ -13,7 +13,7 @@ export const resolvers = {
 			const {image, ...rest} = input;
 			const product = await Product.create({...rest});
 			const categoriesIds = input.categories;
-			product.imageUrl = await saveFile('product', input.name, image);
+			product.imageUrl = await saveFile('images/products', input.name, image);
 			await product.save();
 			if (categoriesIds && categoriesIds.length) {
 				await Category.updateMany(
@@ -22,6 +22,7 @@ export const resolvers = {
 					{multi: true}
 				);
 			}
+			console.log(product);
 			return product;
 		},
 
@@ -48,8 +49,7 @@ export const resolvers = {
 		// 	}
 		// },
 		deleteProduct: async (_, {id}) => {
-			const product = await Product.findById(id).populate('categories');
-			console.log(product);
+			const product = await Product.findById(id);
 			if (product) {
 				await Category.updateMany(
 					{},

@@ -11,7 +11,7 @@ export const resolvers = {
 			return await Business.create({name});
 		},
 		updateBusiness: async (_, {id, name}) => {
-			const business = await Business.findById(id).populate('owner');
+			const business = await Business.findById(id);
 			if (business) {
 				business.name = name;
 				await business.save();
