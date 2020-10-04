@@ -1,5 +1,5 @@
 import Theme from './Theme';
-import {saveFile} from '../../fileManager';
+import {isFontExist, saveFile} from '../../fileManager';
 
 export const resolvers = {
 	Query: {
@@ -9,23 +9,35 @@ export const resolvers = {
 	},
 	Mutation: {
 		createTheme: async (_, input) => {
-			const {name, images, fontFamilies, palette} = input;
-			const theme = await Theme.create({name, palette, images: {}, fontFamilies: {}});
-			await Promise.all(['bg', 'frame', 'sideL', 'sideR', 'sideB', 'sideT'].map( async (imageName) => {
-				if (images[imageName]) {
-					theme.images[imageName] = await saveFile(`themes/${theme.id}`, imageName, images[imageName]);
-				}
-			}));
-			await Promise.all(['primary', 'secondary', 'tertiary'].map( async (fontName) => {
-				if (fontFamilies[fontName]) {
-					const { filename } = await fontFamilies[fontName].rawFile;
-					theme.fontFamilies[fontName] = await saveFile(`themes/${theme.id}`, filename, fontFamilies[fontName]);
-				}
-			}));
-
-			await theme.save();
-			return theme;
-
+			try {
+				console.log(input);
+				const {name, images, fontFamilies, palette} = input;
+				const theme = await Theme.create({name, palette, images: {}, fontFamilies: {}});
+				await Promise.all(['bg', 'frame', 'sideL', 'sideR', 'sideB', 'sideT'].map(async (imageName) => {
+					if (images[imageName]) {
+						console.log('saving image: ', images[imageName]);
+						theme.images[imageName] = await saveFile(`themes/${theme.id}`, imageName, images[imageName]);
+					}
+				}));
+				console.log('after images: ', theme);
+				await Promise.all(['primary', 'secondary', 'tertiary'].map(async (fontName) => {
+					if (fontFamilies[fontName]) {
+						const {filename} = await fontFamilies[fontName].rawFile;
+						const fontPath = await isFontExist(filename);
+						if (fontPath) {
+							theme.fontFamilies[fontName] = fontPath;
+						} else {
+							theme.fontFamilies[fontName] = await saveFile('fonts', filename, fontFamilies[fontName]);
+						}
+					}
+				}));
+				console.log('after fonts: ', theme);
+				await theme.save();
+				return theme;
+			} catch (error) {
+				console.log('error: ', error);
+				throw error;
+			}
 		},
 		updateTheme: async (_, {id, name}) => {
 			const theme = await Theme.findById(id);

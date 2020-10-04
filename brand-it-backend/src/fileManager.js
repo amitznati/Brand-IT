@@ -1,6 +1,6 @@
 import express from 'express';
-import {createWriteStream, existsSync, mkdirSync} from "fs";
-import path from "path";
+import {createWriteStream, existsSync} from 'fs';
+import path from 'path';
 
 
 
@@ -16,6 +16,10 @@ export function createFilesRoutes(app) {
 		const filePath = path.resolve(`${__dirname}/resources/images/${req.params.type}/${req.params.name}`);
 		getFile(filePath, res);
 	};
+	const getFont = (req, res) => {
+		const filePath = path.resolve(`${__dirname}/resources/fonts/${req.params.name}`);
+		getFile(filePath, res);
+	};
 	const getThemeFile = (req, res) => {
 		const filePath = path.resolve(`${__dirname}/resources/themes/${req.params.id}/${req.params.name}`);
 		getFile(filePath, res);
@@ -23,23 +27,32 @@ export function createFilesRoutes(app) {
 	const router = new express.Router();
 	// Themes
 	router.get('/themes/:id/:name', getThemeFile);
+	router.get('/fonts/:name', getFont);
 	// Images
 	router.get('/images/:type/:name', getImage);
 	app.use('/resources', router);
 }
 
-export async function saveFile(path, name, file) {
+export async function saveFile(filePath, name, file) {
 	const { filename, createReadStream } = await file.rawFile;
 	const newFilename = `${name}.${filename.split('.').pop()}`;
-	const dir = path.join(__dirname, `/resources/${path}`)
+	const dir = path.join(__dirname, `/resources/${filePath}`)
 	if (!existsSync(dir)){
+		console.log('creating dir: ', dir);
 		const shell = require('shelljs');
 		shell.mkdir('-p', dir);
 	}
 	await new Promise(res => {
 		createReadStream()
-			.pipe(createWriteStream(dir, newFilename))
+			.pipe(createWriteStream(path.join(dir, newFilename)))
 			.on('close', res)
 	})
-	return `http://localhost:4000/resources/${path}/${newFilename}`;
+	return `http://localhost:4000/resources/${filePath}/${newFilename}`;
+}
+
+export async function isFontExist(fontName) {
+	return existsSync(`${__dirname}/resources/fonts/${fontName}`) ?
+		`${__dirname}/resources/fonts/${fontName}`
+		:
+		false;
 }

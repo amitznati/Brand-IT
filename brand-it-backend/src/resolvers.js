@@ -11,7 +11,7 @@ export const resolvers = {
 		...BusinessResource.resolvers.Query,
 		...CategoryResource.resolvers.Query,
 		...Product.resolvers.Query,
-		...Theme.resolvers.QUERY
+		...Theme.resolvers.Query
 	},
 	Mutation: {
 		helloMutation: () => 'helloMutation',
