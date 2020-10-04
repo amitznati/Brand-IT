@@ -1,18 +1,31 @@
 import * as React from "react";
-import {
-	List,
-	Datagrid,
-	TextField, EditButton
-} from 'react-admin';
+import { Pagination, Title, useListContext, ListBase } from 'react-admin';
+
 import ListActions from '../commonComponents/ListActions';
+import GridList from './GridList';
 
+const ThemeListView = () => {
+	const { defaultTitle } = useListContext();
+	return (
+		<>
+			<Title defaultTitle={defaultTitle}/>
+			<ListActions/>
 
-const ThemeList = (props) => (
-	<List {...props} actions={<ListActions />} >
-		<Datagrid>
-			<TextField source="name" />
-			<EditButton />
-		</Datagrid>
-	</List>
-);
+			<GridList/>
+			<Pagination rowsPerPageOptions={[10, 20, 40]}/>
+		</>
+	);
+}
+
+const ThemeList = props => {
+	return (
+		<ListBase
+			perPage={20}
+			sort={{ field: 'name', order: 'ASC' }}
+			{...props}
+		>
+			<ThemeListView />
+		</ListBase>
+	);
+};
 export default ThemeList;

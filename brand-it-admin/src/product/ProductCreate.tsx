@@ -35,7 +35,6 @@ const sizeFields = [
 ];
 
 const ProductPreview = ({imageSrc, sizeState}) => {
-    console.log(imageSrc);
     const product = {
         id: 1,
         name: 'temp product',
@@ -65,7 +64,6 @@ const ProductCreate = props => {
         setSizeState({...sizeState, [name]: v});
     }, [sizeState]);
     const onImageChanged = (files) => {
-        const self = this;
         const reader = new FileReader();
         reader.addEventListener('loadend', function () {
             const fileContent = reader.result;

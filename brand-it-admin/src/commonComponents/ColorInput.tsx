@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, FormControl, InputLabel } from '@material-ui/core';
+import { FormControl } from '@material-ui/core';
 import { useInput, useTranslate } from 'react-admin';
 import {makeStyles} from "@material-ui/core/styles";
 import { SketchPicker } from 'react-color';
@@ -30,7 +30,6 @@ export const ColorInput = props => {
         console.log(color);
         onChange && onChange(v);
     };
-    const id = `input-for-${name}`;
     return (
         <FormControl className={classes.root}>
             <p className={classes.inputLabel}>

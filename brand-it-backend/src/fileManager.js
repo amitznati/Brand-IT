@@ -18,6 +18,7 @@ export function createFilesRoutes(app) {
 	};
 	const getFont = (req, res) => {
 		const filePath = path.resolve(`${__dirname}/resources/fonts/${req.params.name}`);
+		res.header('Access-Control-Allow-Origin', '*');
 		getFile(filePath, res);
 	};
 	const getThemeFile = (req, res) => {
@@ -35,7 +36,7 @@ export function createFilesRoutes(app) {
 
 export async function saveFile(filePath, name, file) {
 	const { filename, createReadStream } = await file.rawFile;
-	const newFilename = `${name}.${filename.split('.').pop()}`;
+	const newFilename = name ? `${name}.${filename.split('.').pop()}` : filename;
 	const dir = path.join(__dirname, `/resources/${filePath}`)
 	if (!existsSync(dir)){
 		console.log('creating dir: ', dir);

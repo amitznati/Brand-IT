@@ -10,7 +10,6 @@ export const resolvers = {
 	Mutation: {
 		createTheme: async (_, input) => {
 			try {
-				console.log(input);
 				const {name, images, fontFamilies, palette} = input;
 				const theme = await Theme.create({name, palette, images: {}, fontFamilies: {}});
 				await Promise.all(['bg', 'frame', 'sideL', 'sideR', 'sideB', 'sideT'].map(async (imageName) => {
@@ -19,19 +18,17 @@ export const resolvers = {
 						theme.images[imageName] = await saveFile(`themes/${theme.id}`, imageName, images[imageName]);
 					}
 				}));
-				console.log('after images: ', theme);
-				await Promise.all(['primary', 'secondary', 'tertiary'].map(async (fontName) => {
-					if (fontFamilies[fontName]) {
-						const {filename} = await fontFamilies[fontName].rawFile;
+				await Promise.all(['primary', 'secondary', 'tertiary'].map(async (fontType) => {
+					if (fontFamilies[fontType]) {
+						const {filename} = await fontFamilies[fontType].rawFile;
 						const fontPath = await isFontExist(filename);
 						if (fontPath) {
-							theme.fontFamilies[fontName] = fontPath;
+							theme.fontFamilies[fontType] = fontPath;
 						} else {
-							theme.fontFamilies[fontName] = await saveFile('fonts', filename, fontFamilies[fontName]);
+							theme.fontFamilies[fontType] = await saveFile('fonts', undefined, fontFamilies[fontType]);
 						}
 					}
 				}));
-				console.log('after fonts: ', theme);
 				await theme.save();
 				return theme;
 			} catch (error) {
