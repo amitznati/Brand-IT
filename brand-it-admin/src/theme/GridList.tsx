@@ -7,6 +7,9 @@ const useStyles = makeStyles(theme => ({
     gridList: {
         margin: 0,
     },
+    card: {
+        margin: '1rem'
+    },
     imageWrap: {
         display: 'inline-flex',
         flexDirection: 'column',
@@ -45,7 +48,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '50%'
     },
     fontField: {
-        fontSize: '3rem'
+        fontSize: '2rem'
     },
 }));
 
@@ -96,15 +99,12 @@ const fontFields = [
     {type: 'tertiary', text: 'Tertiary font example'}
 ];
 
-const FontField = ({fontUrl, children, fontFamily}) => {
+const FontProvider = ({children, fontFamilies}) => {
     const theme = createMuiTheme({
         overrides: {
             MuiCssBaseline: {
                 '@global': {
-                    '@font-face': [{
-                        fontFamily,
-                        src:`url(${fontUrl}) format("woff2")`
-                    }],
+                    '@font-face': fontFamilies,
                 },
             },
         },
@@ -112,9 +112,7 @@ const FontField = ({fontUrl, children, fontFamily}) => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <span style={{fontFamily}}>
-                {children}
-            </span>
+            {children}
         </ThemeProvider>
     );
 }
@@ -124,58 +122,57 @@ const LoadedGridList = () => {
     const classes = useStyles();
 
     if (!ids || !data) return null;
-
+    const fontFamilies: Array<{fontFamily: string, src: string}> = [];
+    ids.forEach((id) => {
+        fontFields.forEach((fontType) => {
+            data[id].fontFamilies[fontType.type] && fontFamilies.push(
+                {
+                    fontFamily: `${fontType.type}${id}`,
+                    src:`url(${data[id].fontFamilies[fontType.type]}) format("woff2")`
+                });
+        });
+    })
     return (
         <Grid container>
-            {ids.map((id) => {
-                const item = data[id];
-                return (
-                    <Grid key={id} item xs={6}>
-                        <Card>
-                            <CardContent>
-                                <FontField
-                                    fontUrl={item.fontFamilies.primary}
-                                    fontFamily={`primary${id}`}
-                                >
-                                    <span className={classes.title}>{item.name}</span>
-                                </FontField>
-                                <div>
-                                    <p>Images</p>
-                                    {imagesFields.map((field) => {
-                                        return (
-                                            <span key={field.src} className={classes.imageWrap}>
-                                            <span>{field.label}</span>
-                                            <img src={item.images[field.src]} alt={field.label} className={classes.image} />
-                                        </span>)
-                                    })}
-                                </div>
-                                <div>
-                                    <p>Palette</p>
-                                    <div style={{backgroundColor: item.palette.primary}} className={classes.paletteColor} >Primary</div>
-                                    <div style={{backgroundColor: item.palette.secondary}} className={classes.paletteColor} >Secondary</div>
-                                    <div style={{backgroundColor: item.palette.tertiary}} className={classes.paletteColor} >Tertiary</div>
-                                </div>
-                                <div>
-                                    <p>Fonts</p>
-                                    {fontFields.map((font) => {
-                                        return item.fontFamilies[font.type] ? (
-                                            <div key={font.type} className={classes.fontField}>
-                                                <FontField
-                                                    fontUrl={item.fontFamilies[font.type]}
-                                                    fontFamily={`${[font.type]}${id}`}
-                                                >
-                                                    <span>{font.text}</span>
-                                                </FontField>
-                                            </div>)
-                                            :
-                                            null
-                                    })}
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                );
-            })}
+            <FontProvider fontFamilies={fontFamilies}>
+                {ids.map((id) => {
+                    const item = data[id];
+                    return (
+                        <Grid key={id} item sm={12} md={6}>
+                            <Card className={classes.card}>
+                                <CardContent>
+                                    <span style={{fontFamily: `primary${id}`}} className={classes.title}>{item.name}</span>
+                                    <div>
+                                        <p>Images</p>
+                                        {imagesFields.map((field) => {
+                                            return (
+                                                <span key={field.src} className={classes.imageWrap}>
+                                                <span>{field.label}</span>
+                                                <img src={item.images[field.src]} alt={field.label} className={classes.image} />
+                                            </span>)
+                                        })}
+                                    </div>
+                                    <div>
+                                        <p>Palette</p>
+                                        <div style={{backgroundColor: item.palette.primary}} className={classes.paletteColor} >Primary</div>
+                                        <div style={{backgroundColor: item.palette.secondary}} className={classes.paletteColor} >Secondary</div>
+                                        <div style={{backgroundColor: item.palette.tertiary}} className={classes.paletteColor} >Tertiary</div>
+                                    </div>
+                                    <div>
+                                        <p>Fonts</p>
+                                        {fontFields.map((font) => {
+                                            return (
+                                                <div key={font.type} style={{fontFamily: `${font.type}${id}`}} className={classes.fontField}>
+                                                    {item.fontFamilies[font.type] ? font.text : `No ${font.type} font`}
+                                                </div>)
+                                        })}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    );
+                })}
+            </FontProvider>
         </Grid>
     );
 };

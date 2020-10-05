@@ -48,7 +48,7 @@ export async function saveFile(filePath, name, file) {
 			.pipe(createWriteStream(path.join(dir, newFilename)))
 			.on('close', res)
 	})
-	return `http://localhost:4000/resources/${filePath}/${newFilename}`;
+	return new URL(newFilename, `http://localhost:4000/resources/${filePath}/`).href;
 }
 
 export async function isFontExist(fontName) {
