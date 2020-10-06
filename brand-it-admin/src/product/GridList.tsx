@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import { linkToRecord, useListContext } from 'react-admin';
 import { Link } from 'react-router-dom';
+import {Grid} from "@material-ui/core";
+import ProductCard from "./ProductCard";
 
 const useStyles = makeStyles(theme => ({
     gridList: {
@@ -77,31 +79,16 @@ const LoadedGridList = ({ width }) => {
     if (!ids || !data) return null;
 
     return (
-        <MuiGridList
-            cellHeight={180}
-            cols={getColsForWidth(width)}
-            className={classes.gridList}
-        >
-            {ids.map((id) => (
-                <GridListTile
-                    component={Link}
-                    key={id}
-                    to={linkToRecord(basePath, data[id].id)}
-                    className={classes.itemWrap}
-                >
-                    <img src={data[id].imageUrl} alt="" className={classes.image}/>
-                    <GridListTileBar
-                        className={classes.tileBar}
-                        title={data[id].name}
-                        subtitle={
-                            <span>
-                                {data[id].size.width}x{data[id].size.height},{' '}
-                            </span>
-                        }
-                    />
-                </GridListTile>
-            ))}
-        </MuiGridList>
+        <Grid container>
+            {ids.map((id) => {
+                const product = data[id];
+                return (
+                    <Grid item sm={6} md={3} key={id}>
+                        <ProductCard product={product} />
+                    </Grid>
+                )
+            })}
+        </Grid>
     );
 };
 
