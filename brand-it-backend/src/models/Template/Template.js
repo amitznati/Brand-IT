@@ -9,7 +9,7 @@ const Template = mongoose.model('Template',
 		},
 		layouts: [{
 			type: String,
-			layoutProperties: Object
+			layoutProperties: {type: Schema.Types.Mixed}
 		}]
 	});
 export default Template;

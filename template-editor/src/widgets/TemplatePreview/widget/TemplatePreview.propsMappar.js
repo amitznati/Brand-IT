@@ -12,11 +12,14 @@ const mapComponentProps = (props) => {
     onLayoutClick,
     onUpdateLayout,
     onPathChange,
-    templateFilters,
-    templateGradients,
-    editLayouts = []
+    editLayouts = [],
+    previewOnly = false
   } = props;
-  const { layouts = [] } = template;
+  const {
+    layouts = [],
+    templateFilters = [],
+    templateGradients = []
+  } = template;
   return {
     layouts: layouts.concat(editLayouts),
     productH: getPX(product.productSize.height, scale),
@@ -26,6 +29,7 @@ const mapComponentProps = (props) => {
     templateX: getPX(product.templateFrame.x, scale),
     templateY: getPX(product.templateFrame.y, scale),
     product,
+    previewOnly,
     DefsProps: {
       templateFilters,
       templateGradients
@@ -39,7 +43,8 @@ const mapComponentProps = (props) => {
       w: getPX(product.templateFrame.width),
       scale,
       selectedLayout,
-      isSVGPathBuilderOpen
+      isSVGPathBuilderOpen,
+      previewOnly
     },
     PathBuilderProps: {
       scale,

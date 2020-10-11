@@ -9,11 +9,13 @@ const mapStateToProps = (state, props) => {
   const isAddLayoutDialogOpen = editTemplateMainViewApi.isAddLayoutDialogOpenSelector();
   const allFonts = editTemplateMainViewApi.getAllFonts();
   const allFontsLoaded = editTemplateMainViewApi.isAllFontLoadedSelector();
+  const template = editTemplateMainViewApi.getTemplateSelector();
   return {
     scale,
     isAddLayoutDialogOpen,
     allFonts,
     allFontsLoaded,
+    template,
     ...props
   };
 };

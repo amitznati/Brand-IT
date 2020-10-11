@@ -26,20 +26,20 @@ const styles = (theme) => ({
 });
 
 class TemplatePreviewMainView extends React.Component {
-  renderText(layout, index) {
-    return Text({ layout, index });
+  renderText(layout, index, previewOnly) {
+    return Text({ layout, index, previewOnly });
   }
 
-  renderTextPath(layout, index) {
-    return TextPath({ layout, index });
+  renderTextPath(layout, index, previewOnly) {
+    return TextPath({ layout, index, previewOnly });
   }
 
-  renderImage(layout, index) {
-    return Image({ layout, index });
+  renderImage(layout, index, previewOnly) {
+    return Image({ layout, index, previewOnly });
   }
 
-  renderShape(layout, index) {
-    return Shape({ layout, index });
+  renderShape(layout, index, previewOnly) {
+    return Shape({ layout, index, previewOnly });
   }
 
   renderLayout = {
@@ -55,7 +55,8 @@ class TemplatePreviewMainView extends React.Component {
       classes,
       PathBuilderProps,
       SVGRootProps,
-      DefsProps
+      DefsProps,
+      previewOnly
     } = this.props;
     const {
       layouts,
@@ -69,7 +70,7 @@ class TemplatePreviewMainView extends React.Component {
     const renderedLayouts = layouts
       .filter((l) => !l.isIgnore)
       .map((l, i) => {
-        return this.renderLayout[l.type](l, i);
+        return this.renderLayout[l.type](l, i, previewOnly);
       });
     return (
       <div
@@ -105,7 +106,7 @@ class TemplatePreviewMainView extends React.Component {
             <Defs {...DefsProps} />
             {renderedLayouts}
           </RootSVG>
-          {SVGRootProps.isSVGPathBuilderOpen && (
+          {!previewOnly && SVGRootProps.isSVGPathBuilderOpen && (
             <div
               style={{
                 height: templateH,

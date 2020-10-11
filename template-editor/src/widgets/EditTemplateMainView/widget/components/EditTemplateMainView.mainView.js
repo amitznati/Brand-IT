@@ -2,13 +2,11 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Button,
-  Drawer,
   Typography,
   Icon,
   IconButton,
   Toolbar,
-  AppBar,
-  CssBaseline
+  Grid
 } from '@material-ui/core';
 import TemplatePreview from '../../../TemplatePreview/widget/TemplatePreview.connect';
 import LayoutsList from '../../../LayoutsList/widget/LayoutsList.connect';
@@ -80,6 +78,12 @@ class EditTemplateMainViewMainView extends React.Component {
   constructor(props) {
     super(props);
     this.templatePreviewRef = React.createRef();
+    this.saveTemplate = this.saveTemplate.bind(this);
+  }
+
+  saveTemplate() {
+    const { template, onSaveTemplate } = this.props;
+    onSaveTemplate && onSaveTemplate(template);
   }
 
   render() {
@@ -92,7 +96,6 @@ class EditTemplateMainViewMainView extends React.Component {
       toggleAddLayoutDialog,
       handleAddClose,
       isAddLayoutDialogOpen,
-      saveTemplate,
       setAllFontsLoaded,
       logos,
       product
@@ -101,71 +104,66 @@ class EditTemplateMainViewMainView extends React.Component {
       return <div>loading...</div>;
     }
     return (
-      <div className={classes.root}>
-        <CssBaseline />
+      <div>
         <AddLayoutDialog
           open={isAddLayoutDialogOpen}
           onClose={handleAddClose}
           logos={logos}
         />
-        {/* <AddNewLayoutList open={isAddLayoutDialogOpen} onClose={() => handleAddClose({})} onSelect={handleAddClose} /> */}
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <Typography variant='h6' noWrap>
-              SVG Template Editor
-            </Typography>
-            <div className={classes.grow} />
-            <IconButton color='inherit' onClick={saveTemplate}>
-              <Icon>save</Icon>
-            </IconButton>
-            <IconButton color='inherit' onClick={toggleAddLayoutDialog}>
-              <Icon>add</Icon>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer} aria-label='mailbox folders'>
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper
-            }}
-            variant='permanent'
-            open
-          >
-            <Button
-              className={classes.addButton}
-              variant='contained'
-              color='primary'
-              onClick={() => toggleAddLayoutDialog(true)}
+        <Grid container>
+          <Grid item xs={12}>
+            <Toolbar>
+              <Typography variant='h6' noWrap>
+                SVG Template Editor
+              </Typography>
+              <div className={classes.grow} />
+              <IconButton color='inherit' onClick={this.saveTemplate}>
+                <Icon>save</Icon>
+              </IconButton>
+            </Toolbar>
+          </Grid>
+          <Grid item xs={3}>
+            <div classes={classes.drawerPaper}>
+              <Button
+                className={classes.addButton}
+                variant='contained'
+                color='primary'
+                onClick={() => toggleAddLayoutDialog(true)}
+              >
+                + Add Layout
+              </Button>
+              <LayoutsList />
+            </div>
+          </Grid>
+          <Grid item xs={9}>
+            <div className={classes.toolbar} />
+            <CoreSlider
+              label='Scale'
+              value={scale}
+              max={30}
+              step={0.001}
+              handleSliderChange={(v) =>
+                updateScale(Number(Number(v).toFixed(2)))
+              }
+            />
+            <div
+              className={classes.templatePaper}
+              ref={this.templatePreviewRef}
             >
-              + Add Layout
-            </Button>
-            <LayoutsList />
-          </Drawer>
-        </nav>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <CoreSlider
-            label='Scale'
-            value={scale}
-            max={30}
-            step={0.001}
-            handleSliderChange={(v) =>
-              updateScale(Number(Number(v).toFixed(2)))
-            }
-          />
-          <div className={classes.templatePaper} ref={this.templatePreviewRef}>
-            {allFonts && allFonts.length > 0 && (
-              <FontLoader
-                fontProvider='google'
-                fontFamilies={allFonts}
-                onActive={setAllFontsLoaded}
-              />
-            )}
-            {(allFontsLoaded || !allFonts || allFonts.length === 0) && (
-              <TemplatePreview />
-            )}
-          </div>
-        </main>
+              {allFonts && allFonts.length > 0 && (
+                <FontLoader
+                  fontProvider='google'
+                  fontFamilies={allFonts}
+                  onActive={setAllFontsLoaded}
+                />
+              )}
+              {(allFontsLoaded || !allFonts || allFonts.length === 0) && (
+                <TemplatePreview />
+              )}
+            </div>
+          </Grid>
+        </Grid>
+        {/* <AddNewLayoutList open={isAddLayoutDialogOpen} onClose={() => handleAddClose({})} onSelect={handleAddClose} /> */}
       </div>
     );
   }

@@ -67,7 +67,7 @@ class AddLayoutDialogMainView extends React.Component {
           </AppBar>
         </DialogTitle>
         <DialogContent>
-          {value === 0 && (
+          {value === 0 && logos && (
             <Grid container>
               {logos.map((l, i) => {
                 return (

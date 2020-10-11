@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import { useListContext } from 'react-admin';
 import {Grid} from "@material-ui/core";
-import ProductCard from "./ProductCard";
+import LogoCard from "./LogoCard";
 
 const useStyles = makeStyles(theme => ({
     gridList: {
@@ -50,9 +50,9 @@ const times = (nbChildren, fn) =>
     Array.from({ length: nbChildren }, (_, key) => fn(key));
 
 const LoadingGridList = ({
-    width,
-    nbItems = 20,
-}) => {
+                             width,
+                             nbItems = 20,
+                         }) => {
     const classes = useStyles();
     return (
         <MuiGridList
@@ -78,10 +78,10 @@ const LoadedGridList = () => {
     return (
         <Grid container>
             {ids.map((id) => {
-                const product = data[id];
+                const icon = data[id];
                 return (
                     <Grid item sm={6} md={3} key={id}>
-                        <ProductCard product={product} />
+                        <LogoCard icon={icon} />
                     </Grid>
                 )
             })}
