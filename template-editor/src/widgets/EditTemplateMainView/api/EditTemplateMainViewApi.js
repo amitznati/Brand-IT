@@ -33,12 +33,20 @@ const getDefaultFontProps = (templateWidth) => {
     fontWeight: '300'
   };
 };
+const getDefaultColorProps = () => {
+  return {
+    strokeWidth: 0,
+    stroke: '',
+    fill: { fill: 'black' }
+  };
+};
 
 const layoutsTemplate = (type, payload, product) => {
   const x1 = 0;
   const y1 = product.templateFrame.height / 2;
   const defaultProperties = getDefaultProperties({ x: x1, y: y1 });
   const defaultFontProps = getDefaultFontProps(product.templateFrame.width);
+  const defaultColorProps = getDefaultColorProps();
   switch (type) {
     case 'image':
       return {
@@ -55,9 +63,7 @@ const layoutsTemplate = (type, payload, product) => {
           text: payload,
           ...defaultProperties,
           ...defaultFontProps,
-          strokeWidth: 0,
-          stroke: '',
-          fill: { fill: 'black' }
+          ...defaultColorProps
         }
       };
     case 'textPath': {
@@ -70,9 +76,7 @@ const layoutsTemplate = (type, payload, product) => {
           text: payload,
           ...defaultProperties,
           ...defaultFontProps,
-          fill: { fill: 'black' },
-          strokeWidth: 0,
-          stroke: '',
+          ...defaultColorProps,
           pathData: {
             path: `M ${x} ${y} L ${x + addWidth} ${y}`,
             points: [
@@ -81,6 +85,16 @@ const layoutsTemplate = (type, payload, product) => {
             ],
             closePath: false
           }
+        }
+      };
+    }
+    case 'customSVG': {
+      return {
+        type: 'customSVG',
+        properties: {
+          src: payload,
+          ...defaultProperties,
+          ...defaultColorProps
         }
       };
     }
@@ -141,6 +155,13 @@ export default class EditTemplateMainViewApi extends BaseApi {
   onDeleteLayout = (index) => {
     const template = this.getTemplateSelector();
     template.layouts.splice(index, 1);
+    this.updateTemplate(template);
+  };
+
+  onDuplicateLayout = (index) => {
+    const template = this.getTemplateSelector();
+    const duplicateLayout = JSON.parse(JSON.stringify(template.layouts[index]));
+    template.layouts.push(duplicateLayout);
     this.updateTemplate(template);
   };
 

@@ -4,6 +4,7 @@ import { Text, TextPath, Image, RootSVG } from './svgs';
 import PathBuilder from './TemplatePreview.pathBuilder';
 import Defs from './svgs/Defs';
 import Shape from './svgs/Shape';
+import CustomSVG from './svgs/CustomSVG';
 
 const styles = (theme) => ({
   templateRoot: {
@@ -42,11 +43,16 @@ class TemplatePreviewMainView extends React.Component {
     return Shape({ layout, index, previewOnly });
   }
 
+  renderCustomSVG(layout, index, previewOnly) {
+    return CustomSVG({ layout, index, previewOnly });
+  }
+
   renderLayout = {
     text: this.renderText.bind(this),
     textPath: this.renderTextPath.bind(this),
     image: this.renderImage.bind(this),
-    shape: this.renderShape.bind(this)
+    shape: this.renderShape.bind(this),
+    customSVG: this.renderCustomSVG.bind(this)
   };
 
   render() {

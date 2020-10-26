@@ -14,6 +14,7 @@ import ColorProperties from './colorProperties';
 import PathProperties from './pathProperties';
 import FilterProperties from './filtersProperties';
 import { pathToObject } from '../../../core/SVGPathBuilder/utils/points';
+import CustomSVGProperties from './customSVGProperties';
 
 const useStyles = (theme) => ({
   root: {
@@ -30,7 +31,9 @@ const useStyles = (theme) => ({
   paper: {
     margin: theme.spacing(1, 0),
     marginLeft: 0,
-    borderRadius: 0
+    borderRadius: 0,
+    maxHeight: '50rem',
+    overflowY: 'auto'
   },
   fab: {
     margin: theme.spacing(1)
@@ -56,7 +59,8 @@ function LayoutListOpen(props) {
     position: { id: 'positionProperties', title: 'Position' },
     color: { id: 'colorProperties', title: 'Fill Color' },
     path: { id: 'pathProperties', title: 'Path' },
-    filters: { id: 'filterProperties', title: 'Filters' }
+    filters: { id: 'filterProperties', title: 'Filters' },
+    customSVG: { id: 'customSVGProperties', title: 'Custom SVG' }
   };
 
   const fields = {
@@ -73,7 +77,13 @@ function LayoutListOpen(props) {
       allFields.path,
       allFields.filters
     ],
-    image: [allFields.position, allFields.filters]
+    image: [allFields.position, allFields.filters],
+    customSVG: [
+      allFields.customSVG,
+      allFields.position,
+      allFields.color,
+      allFields.filters
+    ]
   };
 
   const onPropertyChange = (name, value) => {
@@ -107,7 +117,8 @@ function LayoutListOpen(props) {
           fill,
           stroke,
           strokeWidth,
-          pathData
+          pathData,
+          src
         }
       }
     } = props;
@@ -153,6 +164,13 @@ function LayoutListOpen(props) {
       case 'filterProperties': {
         return <FilterProperties />;
       }
+      case 'customSVGProperties':
+        return (
+          <CustomSVGProperties
+            src={src}
+            onEdit={(newSrc) => onPropertyChange('src', newSrc)}
+          />
+        );
       default:
         return '';
     }

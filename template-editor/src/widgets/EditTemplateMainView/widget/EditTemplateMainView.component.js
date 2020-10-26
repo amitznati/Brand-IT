@@ -5,7 +5,9 @@ export default class EditTemplateComponent extends Component {
   constructor(props) {
     super(props);
     const { setProduct, product } = props;
-    setProduct(product);
+    if (product) {
+      setProduct(product);
+    }
   }
 
   render() {

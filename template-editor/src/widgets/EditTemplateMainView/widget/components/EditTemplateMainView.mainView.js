@@ -101,7 +101,7 @@ class EditTemplateMainViewMainView extends React.Component {
       product
     } = this.props;
     if (!product) {
-      return <div>loading...</div>;
+      return <div>No Product...</div>;
     }
     return (
       <div>

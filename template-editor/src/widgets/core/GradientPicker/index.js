@@ -1,7 +1,12 @@
 import React from 'react';
 import { SketchPicker } from 'react-color';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, ClickAwayListener } from '@material-ui/core';
+import {
+  Grid,
+  ClickAwayListener,
+  Switch,
+  FormControlLabel
+} from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import CoreNumber from '../CoreNumber';
 import CoreSelect from '../CoreSelect';
@@ -74,7 +79,9 @@ class GradientPicker extends React.Component {
       activeId,
       isActive,
       gradientType,
-      spreadMethod
+      spreadMethod,
+      isForGroup,
+      gradientScale = 1
     } = gradientData;
     return (
       <div>
@@ -98,6 +105,19 @@ class GradientPicker extends React.Component {
               </ToggleButton>
             </ToggleButtonGroup>
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isForGroup}
+                onChange={(e) =>
+                  this.handleChange({ isForGroup: e.target.checked })
+                }
+              />
+            }
+            label='Is For Group'
+          />
         </Grid>
         <ClickAwayListener
           onClickAway={() => this.handleChange({ isActive: false })}
@@ -142,7 +162,7 @@ class GradientPicker extends React.Component {
                 </Grid>
               );
             })}
-            <Grid item md={6}>
+            <Grid item md={3} className={classes.margin}>
               <CoreSelect
                 options={['pad', 'reflect', 'repeat'].map((o) => {
                   return { id: o, name: o };
@@ -159,6 +179,7 @@ class GradientPicker extends React.Component {
                     <CoreNumber
                       type='number'
                       label={name}
+                      margin='normal'
                       inputProps={{ step: '0.1' }}
                       value={gradientData[name]}
                       onChange={(v) =>
@@ -168,6 +189,20 @@ class GradientPicker extends React.Component {
                   </Grid>
                 );
               })}
+            {isForGroup && (
+              <Grid item md={3} className={classes.margin}>
+                <CoreNumber
+                  type='number'
+                  label='Gradient Scale'
+                  margin='normal'
+                  inputProps={{ step: '0.1' }}
+                  value={gradientScale}
+                  onChange={(v) =>
+                    this.handleChange({ gradientScale: v < 0 ? 0 : v })
+                  }
+                />
+              </Grid>
+            )}
           </Grid>
         </div>
       </div>

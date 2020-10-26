@@ -13,7 +13,8 @@ function LayoutListMainView(props) {
     onDeleteLayout,
     onLayoutClick,
     onSortEnd,
-    setIgnoreLayout
+    setIgnoreLayout,
+    onDuplicateLayout
   } = props;
   return (
     <div>
@@ -24,6 +25,7 @@ function LayoutListMainView(props) {
           onLayoutClick={onLayoutClick}
           onDeleteLayout={onDeleteLayout}
           setIgnoreLayout={setIgnoreLayout}
+          onDuplicateLayout={onDuplicateLayout}
         />
       )}
       {selectedLayout && (
