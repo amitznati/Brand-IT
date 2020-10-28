@@ -18,6 +18,8 @@ interface Props {
     onMenuClick: () => void;
 }
 
+const menuItems = ['Business', 'Category', 'Product', 'Logo', 'Theme'];
+
 const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
     const [state, setState] = useState({
         menuCatalog: true,
@@ -47,36 +49,17 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
                 icon={<business.icon />}
                 dense={dense}
             >
-                <MenuItemLink
-                    to={`/Business`}
-                    primaryText={translate(`resources.business.name`, {
-                        smart_count: 2,
-                    })}
-                    // leftIcon={<products.icon />}
-                    onClick={onMenuClick}
-                    sidebarIsOpen={open}
-                    dense={dense}
-                />
-                <MenuItemLink
-                    to={`/Category`}
-                    primaryText={translate(`resources.category.name`, {
-                        smart_count: 2,
-                    })}
-                    // leftIcon={<products.icon />}
-                    onClick={onMenuClick}
-                    sidebarIsOpen={open}
-                    dense={dense}
-                />
-                <MenuItemLink
-                    to={`/Product`}
-                    primaryText={translate(`resources.product.name`, {
-                        smart_count: 2,
-                    })}
-                    // leftIcon={<products.icon />}
-                    onClick={onMenuClick}
-                    sidebarIsOpen={open}
-                    dense={dense}
-                />
+                {menuItems.map((menuItem) => (
+                    <MenuItemLink
+                        key={menuItem}
+                        to={`/${menuItem}`}
+                        primaryText={menuItem}
+                        onClick={onMenuClick}
+                        leftIcon={<business.icon />}
+                        sidebarIsOpen={open}
+                        dense={dense}
+                    />
+                ))}
             </SubMenu>
             {isXSmall && (
                 <MenuItemLink

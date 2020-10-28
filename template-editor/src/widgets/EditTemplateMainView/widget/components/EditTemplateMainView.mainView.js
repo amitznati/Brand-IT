@@ -68,9 +68,7 @@ const styles = (theme) => ({
   grow: {
     flexGrow: 1
   },
-  addButton: {
-
-  }
+  addButton: {}
 });
 
 class EditTemplateMainViewMainView extends React.Component {

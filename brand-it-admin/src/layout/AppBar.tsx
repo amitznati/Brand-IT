@@ -49,7 +49,7 @@ const CustomAppBar = (props: any) => {
                 id="react-admin-title"
             />
             {/*<Logo />*/}
-            Brand-IT
+            Brand-IT-Admin
             <span className={classes.spacer} />
         </AppBar>
     );
