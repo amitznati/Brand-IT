@@ -18,9 +18,9 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product}) => {
             disableEnforceFocus
             fullScreen
             open={open}
-            aria-labelledby='simple-dialog-title'
+            aria-labelledby='Edit-Template-Dialog'
         >
-            <DialogTitle id='simple-dialog-title'>
+            <DialogTitle id='Edit-Template-Dialog'>
                 <AppBar position='static'>
                     <Toolbar>
                         <IconButton
@@ -31,7 +31,7 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product}) => {
                             <CloseIcon />
                         </IconButton>
                         <Typography variant='h6' color='inherit'>
-                            Add Layout
+                            Edit Template
                         </Typography>
                     </Toolbar>
                 </AppBar>

@@ -43,9 +43,9 @@ const styles = (theme) => ({
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth,
-    background: '#ececec',
-    zIndex: 'auto'
+    padding: '1rem',
+    display: 'flex',
+    flexDirection: 'column'
   },
   content: {
     flexGrow: 1,
@@ -69,8 +69,7 @@ const styles = (theme) => ({
     flexGrow: 1
   },
   addButton: {
-    width: '30%',
-    alignSelf: 'center'
+
   }
 });
 
@@ -123,7 +122,7 @@ class EditTemplateMainViewMainView extends React.Component {
             </Toolbar>
           </Grid>
           <Grid item xs={3}>
-            <div classes={classes.drawerPaper}>
+            <div className={classes.drawerPaper}>
               <Button
                 className={classes.addButton}
                 variant='contained'
