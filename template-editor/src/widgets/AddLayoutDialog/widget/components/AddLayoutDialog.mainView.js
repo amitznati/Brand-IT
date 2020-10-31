@@ -36,7 +36,7 @@ class AddLayoutDialogMainView extends React.Component {
   };
 
   render() {
-    const { open, onClose, logos } = this.props;
+    const { open, onClose, logos, dynamicTextOptions } = this.props;
     const { value } = this.state;
     return (
       <Dialog
@@ -87,7 +87,7 @@ class AddLayoutDialogMainView extends React.Component {
             </Grid>
           )}
           {value === 1 && <ImageTab onSelect={onClose} />}
-          {value === 2 && <TextTab onSelect={onClose} />}
+          {value === 2 && <TextTab onSelect={onClose} dynamicTextOptions={dynamicTextOptions} />}
           {value === 3 && <ShapesBuilder />}
           {value === 4 && <CustomSVGTab onSelect={onClose} />}
         </DialogContent>

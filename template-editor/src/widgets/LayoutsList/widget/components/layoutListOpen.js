@@ -107,6 +107,7 @@ function LayoutListOpen(props) {
       layout: {
         properties: {
           text,
+          dynamicOptionValue,
           fontSize,
           fontWeight,
           fontStyle,
@@ -128,6 +129,7 @@ function LayoutListOpen(props) {
           <FontProperties
             {...{
               text,
+              dynamicOptionValue,
               fontSize,
               fontWeight,
               fontStyle,

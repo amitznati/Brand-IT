@@ -4,10 +4,8 @@ import EditTemplateMainViewMainView from './components/EditTemplateMainView.main
 export default class EditTemplateComponent extends Component {
   constructor(props) {
     super(props);
-    const { setProduct, product } = props;
-    if (product) {
-      setProduct(product);
-    }
+    const { setInitialData, initialData } = props;
+    setInitialData(initialData);
   }
 
   render() {

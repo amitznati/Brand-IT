@@ -19,7 +19,7 @@ export const ActionTypes = {
   SET_ALL_FONTS_LOADED: 'SET_ALL_FONTS_LOADED',
   UPDATE_TEMPLATE_GRADIENTS: 'UPDATE_TEMPLATE_GRADIENTS',
   UPDATE_TEMPLATE_FILTERS: 'UPDATE_TEMPLATE_FILTERS',
-  SET_PRODUCT: 'SET_PRODUCT'
+  SET_INITIAL_DATA: 'SET_INITIAL_DATA'
 };
 const getDefaultProperties = (axis) => {
   return { x: axis.x, y: axis.y, transform: {}, filters: [] };
@@ -60,7 +60,7 @@ const layoutsTemplate = (type, payload, product) => {
       return {
         type: 'text',
         properties: {
-          text: payload,
+          ...payload,
           ...defaultProperties,
           ...defaultFontProps,
           ...defaultColorProps
@@ -73,7 +73,7 @@ const layoutsTemplate = (type, payload, product) => {
       return {
         type: 'textPath',
         properties: {
-          text: payload,
+          ...payload,
           ...defaultProperties,
           ...defaultFontProps,
           ...defaultColorProps,
@@ -262,10 +262,10 @@ export default class EditTemplateMainViewApi extends BaseApi {
     return selectors.getProductSelector(this.store.getState());
   };
 
-  setProduct = (product) => {
+  setInitialData = (initialData) => {
     this.dispatchStoreAction({
-      type: ActionTypes.SET_PRODUCT,
-      payload: product
+      type: ActionTypes.SET_INITIAL_DATA,
+      payload: initialData
     });
   };
 

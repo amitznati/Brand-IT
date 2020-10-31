@@ -63,8 +63,8 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.UPDATE_SCALE:
       newState = { ...state, scale: payload };
       break;
-    case ActionTypes.SET_PRODUCT:
-      newState = { ...state, product: payload };
+    case ActionTypes.SET_INITIAL_DATA:
+      newState = { ...state, ...payload };
       break;
     case ActionTypes.SET_ALL_FONTS_LOADED:
       newState = { ...state, allFontsLoaded: true };

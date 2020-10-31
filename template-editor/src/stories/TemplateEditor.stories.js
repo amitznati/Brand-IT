@@ -7,8 +7,9 @@ export default {
   title: 'TemplateEditor',
   component: TemplateEditor
 };
+const dynamicTextOptions = ['@brand_name', '@brand_slogan'];
 
-export const EditorMode = () => {
+export const EditorModeLogo = () => {
   const logo = {
     name: 'Logo',
     image: '',
@@ -23,9 +24,18 @@ export const EditorMode = () => {
       y: 0
     }
   };
+  const dynamicTextValues = {
+    '@brand_name': 'Brant-It'
+  };
   return (
     <Provider store={getStoreInstance()}>
-      <TemplateEditor product={logo} />
+      <TemplateEditor
+        initialData={{
+          dynamicTextOptions,
+          dynamicTextValues,
+          product: logo
+        }}
+      />
     </Provider>
   );
 };

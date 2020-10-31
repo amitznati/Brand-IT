@@ -95,7 +95,7 @@ class EditTemplateMainViewMainView extends React.Component {
       isAddLayoutDialogOpen,
       setAllFontsLoaded,
       logos,
-      product
+      initialData: { product, dynamicTextOptions }
     } = this.props;
     if (!product) {
       return <div>No Product...</div>;
@@ -106,6 +106,7 @@ class EditTemplateMainViewMainView extends React.Component {
           open={isAddLayoutDialogOpen}
           onClose={handleAddClose}
           logos={logos}
+          dynamicTextOptions={dynamicTextOptions}
         />
         <Grid container>
           <Grid item xs={12}>

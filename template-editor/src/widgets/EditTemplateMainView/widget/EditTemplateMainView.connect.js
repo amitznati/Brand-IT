@@ -27,7 +27,7 @@ const mapDispatchToProps = () => ({
   handleAddClose: editTemplateMainViewApi.handleAddClose,
   saveTemplate: editTemplateMainViewApi.saveTemplate,
   setAllFontsLoaded: editTemplateMainViewApi.setAllFontsLoaded,
-  setProduct: editTemplateMainViewApi.setProduct
+  setInitialData: editTemplateMainViewApi.setInitialData
 });
 
 export default connect(
