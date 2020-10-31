@@ -148,16 +148,7 @@ class EditTemplateMainViewMainView extends React.Component {
               className={classes.templatePaper}
               ref={this.templatePreviewRef}
             >
-              {allFonts && allFonts.length > 0 && (
-                <FontLoader
-                  fontProvider='google'
-                  fontFamilies={allFonts}
-                  onActive={setAllFontsLoaded}
-                />
-              )}
-              {(allFontsLoaded || !allFonts || allFonts.length === 0) && (
-                <TemplatePreview />
-              )}
+              <TemplatePreview />
             </div>
           </Grid>
         </Grid>

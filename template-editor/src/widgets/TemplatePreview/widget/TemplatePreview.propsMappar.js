@@ -30,6 +30,7 @@ const mapComponentProps = (props) => {
     templateY: getPX(product.templateFrame.y, scale),
     product,
     previewOnly,
+    allFonts: getAllFonts(template),
     DefsProps: {
       templateFilters,
       templateGradients
@@ -53,6 +54,20 @@ const mapComponentProps = (props) => {
       onPathChange
     }
   };
+};
+
+const getAllFonts = (template) => {
+  const { layouts = [] } = template;
+  const allFonts = [];
+  layouts.forEach((l) => {
+    const { fontFamily, fontStyle, fontWeight } = l.properties;
+    if (l.type === 'text' || l.type === 'textPath') {
+      allFonts.push(
+        `${fontFamily}:${fontWeight || 300}${fontStyle || 'normal'}`
+      );
+    }
+  });
+  return allFonts;
 };
 
 export { mapComponentProps };

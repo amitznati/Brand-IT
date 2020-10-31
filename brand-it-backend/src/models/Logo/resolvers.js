@@ -2,9 +2,9 @@ import Logo from './Logo';
 
 export const resolvers = {
 	Query: {
-		allLogos: () => Logo.find().populate('template'),
+		allLogos: () => Logo.find(),
 		_allLogosMeta: () => {return {count: Logo.find().estimatedDocumentCount()}},
-		Logo: (_, {id}) => Logo.findById(id).populate('template')
+		Logo: (_, {id}) => Logo.findById(id)
 	},
 	Mutation: {
 		createLogo: async (_, {name, template}) => {
@@ -12,7 +12,7 @@ export const resolvers = {
 			console.log(tobj);
 			console.log('tobj.layouts[0].properties: ', tobj.layouts[0].properties);
 
-			return {id: 'sdffsf123123', name, template}
+			return await Logo.create({name, template});
 		},
 		updateLogo: async (_, {id, name}) => {
 			const Logo = await Logo.findById(id);

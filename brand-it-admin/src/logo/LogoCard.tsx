@@ -6,6 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {TemplatePreviewForPreview} from 'template-editor';
 
 const useStyles = makeStyles({
     root: {
@@ -28,7 +29,17 @@ const useStyles = makeStyles({
 
 export default function LogoCard({icon}) {
     const classes = useStyles();
-
+    const logo = {
+        name: 'Logo',
+        image: '',
+        productSize: {
+            height: 10,
+            width: 10
+        },
+        templateFrame: {
+            height: 10,width: 10, x: 0, y: 0
+        }
+    };
     return (
         <Card className={classes.root}>
             <CardActionArea href={`#/Icon/${icon.id}`}>
@@ -39,6 +50,7 @@ export default function LogoCard({icon}) {
                     <Typography gutterBottom variant="h5" component="h2">
                         {icon.name}
                     </Typography>
+                    <TemplatePreviewForPreview scale={0.5} product={logo} template={JSON.parse(icon.template)} />
                 </CardContent>
             </CardActionArea>
             <CardActions>

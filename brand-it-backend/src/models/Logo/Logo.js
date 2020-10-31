@@ -3,9 +3,6 @@ const Schema = mongoose.Schema;
 const Logo = mongoose.model('Logo',
 	{
 		name: String,
-		template: {
-			type: Schema.Types.ObjectId,
-			ref: 'Template'
-		}
+		template: String
 	});
 export default Logo;

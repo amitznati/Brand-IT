@@ -51,7 +51,8 @@ function LayoutListOpen(props) {
     classes,
     onBack,
     onUpdate,
-    isSVGPathBuilderOpen
+    isSVGPathBuilderOpen,
+    dynamicTextOptions
   } = props;
 
   const allFields = {
@@ -130,6 +131,7 @@ function LayoutListOpen(props) {
             {...{
               text,
               dynamicOptionValue,
+              dynamicTextOptions,
               fontSize,
               fontWeight,
               fontStyle,

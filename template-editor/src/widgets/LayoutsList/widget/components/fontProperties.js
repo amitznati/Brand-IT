@@ -41,12 +41,14 @@ const FontProperties = (props) => {
   const {
     text,
     dynamicOptionValue,
+    dynamicTextOptions,
     fontSize,
     fontWeight,
     fontStyle,
     fontFamily,
     onPropertyChange
   } = props;
+  const dynamicOptions = dynamicTextOptions.map((o) => ({ id: o, name: o }));
   const [loadingState, setLoadingState] = React.useState({});
   const classes = useStyles();
   const onFontPropertyChange = (name, value) => {
@@ -100,6 +102,16 @@ const FontProperties = (props) => {
         {dynamicOptionValue && (
           <Chip variant='outlined' color='primary' label={dynamicOptionValue} />
         )}
+      </Grid>
+      <Grid item xs={12}>
+        <CoreSelect
+          label='Dynamic Text'
+          value={dynamicOptionValue}
+          options={[{ id: 'none', name: 'None' }].concat(dynamicOptions)}
+          onChange={(v) =>
+            onFontPropertyChange('dynamicOptionValue', v === 'none' ? '' : v)
+          }
+        />
       </Grid>
       <Grid item xs={12}>
         <CoreFontSelector

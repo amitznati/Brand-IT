@@ -118,7 +118,7 @@ const FontProvider = ({children, fontFamilies}) => {
 }
 
 const LoadedGridList = () => {
-    const { ids, data, basePath } = useListContext();
+    const { ids, data, /* basePath */ } = useListContext();
     const classes = useStyles();
 
     if (!ids || !data) return null;

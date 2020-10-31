@@ -10,7 +10,7 @@ import {
     Typography
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-
+const dynamicTextOptions = ['@brand_name', '@brand_slogan'];
 const EditTemplateDialog = ({onClose, open, onSaveTemplate, product}) => {
     return (
         <Dialog
@@ -37,7 +37,10 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product}) => {
                 </AppBar>
             </DialogTitle>
             <DialogContent>
-                <TemplateEditor product={product} onSaveTemplate={onSaveTemplate} />
+                <TemplateEditor onSaveTemplate={onSaveTemplate} initialData={{
+                    dynamicTextOptions,
+                    product
+                }} />
             </DialogContent>
         </Dialog>
     );

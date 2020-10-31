@@ -7,6 +7,7 @@ const initialState = {
   allFontsLoaded: false,
   isSVGPathBuilderOpen: false,
   templateGradients: [],
+  dynamicTextOptions: [],
   product: {
     id: 1,
     name: '',

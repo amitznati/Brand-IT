@@ -10,11 +10,13 @@ const mapStateToProps = () => {
   } = editTemplateMainViewApi.getSelectedLayoutSelector();
   const template = editTemplateMainViewApi.getTemplateSelector();
   const isSVGPathBuilderOpen = editTemplateMainViewApi.getIsSVGPathBuilderOpenSelector();
+  const dynamicTextOptions = editTemplateMainViewApi.getDynamicTextOptionsSelector();
   return {
     selectedLayout,
     template,
     layouts: template.layouts,
-    isSVGPathBuilderOpen
+    isSVGPathBuilderOpen,
+    dynamicTextOptions
   };
 };
 
