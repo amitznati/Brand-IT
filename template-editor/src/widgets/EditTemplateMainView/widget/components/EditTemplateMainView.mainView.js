@@ -12,7 +12,6 @@ import TemplatePreview from '../../../TemplatePreview/widget/TemplatePreview.con
 import LayoutsList from '../../../LayoutsList/widget/LayoutsList.connect';
 import AddLayoutDialog from '../../../AddLayoutDialog/widget/AddLayoutDialog.connect';
 import { CoreSlider } from '../../../core';
-import FontLoader from '../../../../sdk/services/fontLoader';
 import withRoot from '../../../../withRoot';
 // import AddNewLayoutList from './AddNewLayoutList';
 
@@ -87,13 +86,10 @@ class EditTemplateMainViewMainView extends React.Component {
     const {
       classes,
       scale,
-      allFontsLoaded,
-      allFonts,
       updateScale,
       toggleAddLayoutDialog,
       handleAddClose,
       isAddLayoutDialogOpen,
-      setAllFontsLoaded,
       logos,
       initialData: { product, dynamicTextOptions }
     } = this.props;

@@ -8,6 +8,7 @@ const initialState = {
   isSVGPathBuilderOpen: false,
   templateGradients: [],
   dynamicTextOptions: [],
+  uploadedFonts: [],
   product: {
     id: 1,
     name: '',

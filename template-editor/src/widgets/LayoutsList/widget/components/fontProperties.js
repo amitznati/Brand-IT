@@ -1,13 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, CircularProgress, Chip } from '@material-ui/core';
+import { Grid, CircularProgress, Chip, Tabs, Tab } from '@material-ui/core';
 import WebFont from 'webfontloader';
 
 import {
   CoreNumber,
   CoreSelect,
   CoreText,
-  CoreFontSelector
+  CoreFontSelector,
+  CoreFontProvider
 } from '../../../core';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,21 +47,54 @@ const FontProperties = (props) => {
     fontWeight,
     fontStyle,
     fontFamily,
-    onPropertyChange
+    onPropertyChange,
+    fontProvider,
+    uploadedFonts
   } = props;
   const dynamicOptions = dynamicTextOptions.map((o) => ({ id: o, name: o }));
   const [loadingState, setLoadingState] = React.useState({});
+  const isGoogleFontProvider = fontProvider === 'google';
   const classes = useStyles();
   const onFontPropertyChange = (name, value) => {
+    let fontLoaderOptions;
     const selectedFontFamily = name === 'fontFamily' ? value : fontFamily;
     const selectedFontWeight = name === 'fontWeight' ? value : fontWeight;
     const selectedFontStyle = name === 'fontStyle' ? value : fontStyle;
+    if (isGoogleFontProvider) {
+      fontLoaderOptions = {
+        google: {
+          families: [
+            `${selectedFontFamily}:${selectedFontWeight}${selectedFontStyle}`
+          ]
+        }
+      };
+    } else {
+      const url = uploadedFonts.find((f) => f.name === selectedFontFamily).url;
+      const markup = [
+        '@font-face {\n',
+        "\tfont-family: '",
+        selectedFontFamily,
+        "';\n",
+        "\tsrc: url('",
+        url,
+        "');\n",
+        '}\n'
+      ].join('');
+
+      const style = document.createElement('style');
+      style.setAttribute('type', 'text/css');
+      style.innerHTML = markup;
+      document.getElementsByTagName('head')[0].appendChild(style);
+      fontLoaderOptions = {
+        custom: {
+          families: [selectedFontFamily],
+          urls: [uploadedFonts.find((f) => f.name === selectedFontFamily).url]
+        }
+      };
+    }
+
     WebFont.load({
-      google: {
-        families: [
-          `${selectedFontFamily}:${selectedFontWeight}${selectedFontStyle}`
-        ]
-      },
+      ...fontLoaderOptions,
       fontactive: () => {
         setLoadingState({
           status: 'active',
@@ -70,7 +104,7 @@ const FontProperties = (props) => {
         });
         onPropertyChange && onPropertyChange(name, value);
       },
-      fontinactive: () => {
+      fontinactive: (e) => {
         setLoadingState({
           status: 'inactive',
           selectedFontFamily,
@@ -114,18 +148,39 @@ const FontProperties = (props) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <CoreFontSelector
-          {...{ fontWeight, fontStyle, fontFamily }}
-          handleChange={(v) => onFontPropertyChange('fontFamily', v)}
-        />
+        <Tabs
+          value={isGoogleFontProvider ? 0 : 1}
+          onChange={(e, v) =>
+            onPropertyChange('fontProvider', v === 0 ? 'google' : 'uploaded')
+          }
+        >
+          <Tab label='Google' />
+          <Tab label='Uploaded' />
+        </Tabs>
+        {isGoogleFontProvider && (
+          <CoreFontSelector
+            {...{ fontWeight, fontStyle, fontFamily }}
+            handleChange={(v) => onFontPropertyChange('fontFamily', v)}
+          />
+        )}
+        {!isGoogleFontProvider && (
+          <CoreFontSelector
+            {...{
+              fontWeight,
+              fontStyle,
+              fontFamily,
+              uploadedFonts,
+              isGoogleFontProvider
+            }}
+            handleChange={(v) => onFontPropertyChange('fontFamily', v)}
+          />
+        )}
       </Grid>
       <Grid item xs={3}>
         <CoreNumber
           label='Size'
           value={fontSize}
-          onChange={(v) =>
-            props.onPropertyChange && props.onPropertyChange('fontSize', v)
-          }
+          onChange={(v) => onPropertyChange('fontSize', v)}
         />
       </Grid>
       <Grid item xs={3}>

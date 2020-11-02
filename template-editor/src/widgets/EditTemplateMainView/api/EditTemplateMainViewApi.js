@@ -30,7 +30,8 @@ const getDefaultFontProps = (templateWidth) => {
     fontSize: templateWidth * 8,
     fontFamily: 'Raleway',
     fontStyle: 'normal',
-    fontWeight: '300'
+    fontWeight: '300',
+    fontProvider: 'google'
   };
 };
 const getDefaultColorProps = () => {
@@ -283,5 +284,9 @@ export default class EditTemplateMainViewApi extends BaseApi {
 
   isAllFontLoadedSelector = () => {
     return selectors.isAllFontLoadedSelector(this.store.getState());
+  };
+
+  getUploadedFontsSelector = () => {
+    return selectors.getUploadedFontsSelector(this.store.getState());
   };
 }

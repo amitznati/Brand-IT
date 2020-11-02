@@ -10,8 +10,16 @@ import {
     Typography
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import {useGetList} from "react-admin";
 const dynamicTextOptions = ['@brand_name', '@brand_slogan'];
-const EditTemplateDialog = ({onClose, open, onSaveTemplate, product}) => {
+const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) => {
+    const { data, ids, loading } = useGetList(
+        'Font',
+        { page: 1, perPage: 100 },
+        { field: 'name', order: 'ASC' }
+    );
+    if (loading) return <div>Loading...</div>;
+    const uploadedFonts = ids.map((id) => data[id]);
     return (
         <Dialog
             onClose={onClose}
@@ -39,7 +47,9 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product}) => {
             <DialogContent>
                 <TemplateEditor onSaveTemplate={onSaveTemplate} initialData={{
                     dynamicTextOptions,
-                    product
+                    product,
+                    uploadedFonts,
+                    template
                 }} />
             </DialogContent>
         </Dialog>

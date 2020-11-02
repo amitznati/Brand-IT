@@ -87,7 +87,12 @@ class AddLayoutDialogMainView extends React.Component {
             </Grid>
           )}
           {value === 1 && <ImageTab onSelect={onClose} />}
-          {value === 2 && <TextTab onSelect={onClose} dynamicTextOptions={dynamicTextOptions} />}
+          {value === 2 && (
+            <TextTab
+              onSelect={onClose}
+              dynamicTextOptions={dynamicTextOptions}
+            />
+          )}
           {value === 3 && <ShapesBuilder />}
           {value === 4 && <CustomSVGTab onSelect={onClose} />}
         </DialogContent>

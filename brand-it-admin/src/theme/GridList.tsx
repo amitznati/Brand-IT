@@ -1,7 +1,8 @@
 import React from 'react';
-import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import { useListContext } from 'react-admin';
-import {Grid, Card, CardContent, CssBaseline, withWidth, GridList as MuiGridList, GridListTile } from "@material-ui/core";
+import {Grid, Card, CardContent, withWidth, GridList as MuiGridList, GridListTile } from "@material-ui/core";
+import FontProvider from "../commonComponents/FontProvider";
 
 const useStyles = makeStyles(theme => ({
     gridList: {
@@ -98,24 +99,6 @@ const fontFields = [
     {type: 'secondary', text: 'Secondary font example'},
     {type: 'tertiary', text: 'Tertiary font example'}
 ];
-
-const FontProvider = ({children, fontFamilies}) => {
-    const theme = createMuiTheme({
-        overrides: {
-            MuiCssBaseline: {
-                '@global': {
-                    '@font-face': fontFamilies,
-                },
-            },
-        },
-    });
-    return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {children}
-        </ThemeProvider>
-    );
-}
 
 const LoadedGridList = () => {
     const { ids, data, /* basePath */ } = useListContext();

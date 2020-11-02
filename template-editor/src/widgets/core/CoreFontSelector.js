@@ -25,16 +25,20 @@ const styles = () => ({
 class CoreFontPicker extends React.Component {
   constructor(props) {
     super(props);
+    const { uploadedFonts } = props;
+    const allFontsNames =
+      (uploadedFonts && uploadedFonts.map((f) => f.name)) || [];
+    const activeFonts = allFontsNames.slice(0, 30);
     this.state = {
-      activeFonts: [],
-      hasMore: false,
+      activeFonts,
+      hasMore: !(activeFonts.length === allFontsNames.length),
       open: false,
-      allFontsNames: [],
-      searchResult: [],
+      allFontsNames,
+      searchResult: allFontsNames,
       textSearch: props.fontFamily
     };
     this.inputFamilyRef = React.createRef();
-    this.loadFonts();
+    !uploadedFonts && this.loadFonts();
   }
 
   loadFonts = () => {

@@ -24,6 +24,12 @@ export const getIsSVGPathBuilderOpenSelector = createSelector(
 export const getProductSelector = createSelector(sliceSelector, (slice) => {
   return slice.product;
 });
+export const getUploadedFontsSelector = createSelector(
+  sliceSelector,
+  (slice) => {
+    return slice.uploadedFonts;
+  }
+);
 export const getDynamicTextOptionsSelector = createSelector(
   sliceSelector,
   (slice) => {
@@ -72,5 +78,6 @@ export default {
   isAllFontLoadedSelector,
   templateGradientsSelector,
   templateFiltersSelector,
-  getDynamicTextOptionsSelector
+  getDynamicTextOptionsSelector,
+  getUploadedFontsSelector
 };

@@ -4,6 +4,7 @@ import englishMessages from 'ra-language-english';
 const customEnglishMessages: TranslationMessages = {
     ...englishMessages,
     Categories: 'Categories',
+    Assets: 'Assets',
     pos: {
         search: 'Search',
         configuration: 'Configuration',

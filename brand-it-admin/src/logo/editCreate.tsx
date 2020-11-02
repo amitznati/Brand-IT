@@ -9,29 +9,28 @@ import {
 import 'template-editor/dist/index.css';
 import EditTemplateField from "../commonComponents/EditTemplateField";
 
+const logo = {
+	name: 'Logo',
+	image: '',
+	productSize: {
+		height: 10,
+		width: 10
+	},
+	templateFrame: {
+		height: 10,width: 10, x: 0, y: 0
+	}
+};
 
 export const LogoEdit = (props) => (
 	<Edit {...props}>
-		<SimpleForm>
-			<TextInput source="name" validate={[required()]} />
+		<SimpleForm >
+			<TextInput source="name" validate={[required()]}/>
+			<EditTemplateField product={logo} source="template" />
 		</SimpleForm>
 	</Edit>
 );
 
 export const LogoCreate = (props) => {
-
-	const logo = {
-		name: 'Logo',
-		image: '',
-		productSize: {
-			height: 10,
-			width: 10
-		},
-		templateFrame: {
-			height: 10,width: 10, x: 0, y: 0
-		}
-	};
-
 	return (
 		<Create {...props} >
 			<SimpleForm >

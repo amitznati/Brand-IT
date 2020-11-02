@@ -11,12 +11,14 @@ const mapStateToProps = () => {
   const template = editTemplateMainViewApi.getTemplateSelector();
   const isSVGPathBuilderOpen = editTemplateMainViewApi.getIsSVGPathBuilderOpenSelector();
   const dynamicTextOptions = editTemplateMainViewApi.getDynamicTextOptionsSelector();
+  const uploadedFonts = editTemplateMainViewApi.getUploadedFontsSelector();
   return {
     selectedLayout,
     template,
     layouts: template.layouts,
     isSVGPathBuilderOpen,
-    dynamicTextOptions
+    dynamicTextOptions,
+    uploadedFonts
   };
 };
 

@@ -54,7 +54,7 @@ export default function LogoCard({icon}) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button href={`#/Icon/${icon.id}/edit`} size="small" color="primary">
+                <Button href={`#/Logo/${icon.id}/edit`} size="small" color="primary">
                     Edit
                 </Button>
             </CardActions>

@@ -10,7 +10,7 @@ import business from '../business';
 import SubMenu from './SubMenu';
 import { AppState } from '../types';
 
-type MenuName = 'menuCatalog' | 'menuSales' | 'menuCustomers';
+type MenuName = 'menuCatalog' | 'menuSales' | 'menuCustomers' | 'menuAssets';
 
 interface Props {
     dense: boolean;
@@ -18,13 +18,15 @@ interface Props {
     onMenuClick: () => void;
 }
 
-const menuItems = ['Business', 'Category', 'Product', 'Logo', 'Theme'];
+const catalogItems = ['Business', 'Category', 'Product', 'Logo', 'Theme'];
+const assetsItems = ['Font'];
 
 const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
     const [state, setState] = useState({
         menuCatalog: true,
         menuSales: false,
         menuCustomers: false,
+        menuAssets: false
     });
     const translate = useTranslate();
     const isXSmall = useMediaQuery((theme: Theme) =>
@@ -49,7 +51,27 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
                 icon={<business.icon />}
                 dense={dense}
             >
-                {menuItems.map((menuItem) => (
+                {catalogItems.map((menuItem) => (
+                    <MenuItemLink
+                        key={menuItem}
+                        to={`/${menuItem}`}
+                        primaryText={menuItem}
+                        onClick={onMenuClick}
+                        leftIcon={<business.icon />}
+                        sidebarIsOpen={open}
+                        dense={dense}
+                    />
+                ))}
+            </SubMenu>
+            <SubMenu
+                handleToggle={() => handleToggle('menuAssets')}
+                isOpen={state.menuAssets}
+                sidebarIsOpen={open}
+                name="Assets"
+                icon={<business.icon />}
+                dense={dense}
+            >
+                {assetsItems.map((menuItem) => (
                     <MenuItemLink
                         key={menuItem}
                         to={`/${menuItem}`}

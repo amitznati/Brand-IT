@@ -15,7 +15,8 @@ function LayoutListMainView(props) {
     onSortEnd,
     setIgnoreLayout,
     onDuplicateLayout,
-    dynamicTextOptions
+    dynamicTextOptions,
+    uploadedFonts
   } = props;
   return (
     <div>
@@ -32,10 +33,14 @@ function LayoutListMainView(props) {
       {selectedLayout && (
         <LayoutListOpen
           layout={selectedLayout}
-          onBack={onBack}
           onUpdate={onUpdateLayout}
-          onTogglePathBuilder={onTogglePathBuilder}
-          {...{ isSVGPathBuilderOpen, dynamicTextOptions }}
+          {...{
+            isSVGPathBuilderOpen,
+            dynamicTextOptions,
+            uploadedFonts,
+            onTogglePathBuilder,
+            onBack
+          }}
         />
       )}
     </div>

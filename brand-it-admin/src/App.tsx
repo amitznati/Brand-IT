@@ -17,6 +17,7 @@ import category from './category';
 import product from './product';
 import theme from './theme';
 import logo from './logo';
+import font from './font';
 
 
 const i18nProvider = polyglotI18nProvider(locale => {
@@ -68,6 +69,7 @@ class App extends React.Component<{}, AppState> {
                 <Resource name="Product" {...product} />
                 <Resource name="Theme" {...theme} />
                 <Resource name="Logo" {...logo} />
+                <Resource name="Font" {...font} />
             </Admin>
         );
     }

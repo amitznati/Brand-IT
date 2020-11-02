@@ -14,15 +14,6 @@ export const resolvers = {
 
 			return await Logo.create({name, template});
 		},
-		updateLogo: async (_, {id, name}) => {
-			const Logo = await Logo.findById(id);
-			if (Logo) {
-				Logo.name = name;
-				await Logo.save();
-				return Logo;
-			} else {
-				throw ('Logo not found');
-			}
-		}
+		updateLogo: (_, {id, ...rest}) => Logo.findByIdAndUpdate(id, {...rest})
 	}
 };

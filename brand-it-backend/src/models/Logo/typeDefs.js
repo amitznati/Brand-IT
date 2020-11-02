@@ -8,7 +8,7 @@ export const typeDefs = gql`
     }
     extend type Mutation {
         createLogo(name: String!, template: String!): Logo!
-        updateLogo(id: ID!, name: String!): Logo!
+        updateLogo(id: ID!, name: String!, template: String!): Logo!
     }
     type Logo {
         id: ID!

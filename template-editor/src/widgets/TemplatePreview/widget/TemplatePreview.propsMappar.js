@@ -1,6 +1,6 @@
 import { getPX } from '../../../sdk/utils';
 
-const mapComponentProps = (props) => {
+export const mapComponentProps = (props) => {
   const {
     template = {},
     scale,
@@ -69,5 +69,3 @@ const getAllFonts = (template) => {
   });
   return allFonts;
 };
-
-export { mapComponentProps };

@@ -52,7 +52,8 @@ function LayoutListOpen(props) {
     onBack,
     onUpdate,
     isSVGPathBuilderOpen,
-    dynamicTextOptions
+    dynamicTextOptions,
+    uploadedFonts
   } = props;
 
   const allFields = {
@@ -113,6 +114,7 @@ function LayoutListOpen(props) {
           fontWeight,
           fontStyle,
           fontFamily,
+          fontProvider,
           x,
           y,
           transform,
@@ -136,7 +138,9 @@ function LayoutListOpen(props) {
               fontWeight,
               fontStyle,
               fontFamily,
-              onPropertyChange
+              fontProvider,
+              onPropertyChange,
+              uploadedFonts
             }}
           />
         );

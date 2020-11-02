@@ -3,7 +3,8 @@ import {
 	Category as CategoryResource,
 	Product,
 	Theme,
-	Logo
+	Logo,
+	Font
 } from './models'
 
 export const resolvers = {
@@ -14,6 +15,7 @@ export const resolvers = {
 		...Product.resolvers.Query,
 		...Theme.resolvers.Query,
 		...Logo.resolvers.Query,
+		...Font.resolvers.Query
 	},
 	Mutation: {
 		helloMutation: () => 'helloMutation',
@@ -21,6 +23,7 @@ export const resolvers = {
 		...CategoryResource.resolvers.Mutation,
 		...Product.resolvers.Mutation,
 		...Theme.resolvers.Mutation,
-		...Logo.resolvers.Mutation
+		...Logo.resolvers.Mutation,
+		...Font.resolvers.Mutation
 	}
 };

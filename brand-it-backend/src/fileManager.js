@@ -53,7 +53,7 @@ export async function saveFile(filePath, name, file) {
 
 export async function isFontExist(fontName) {
 	return existsSync(`${__dirname}/resources/fonts/${fontName}`) ?
-		`${__dirname}/resources/fonts/${fontName}`
+		`http://localhost:4000/resources/fonts/${fontName}`
 		:
 		false;
 }
