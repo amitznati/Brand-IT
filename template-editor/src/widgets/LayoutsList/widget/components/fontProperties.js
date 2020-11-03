@@ -7,8 +7,7 @@ import {
   CoreNumber,
   CoreSelect,
   CoreText,
-  CoreFontSelector,
-  CoreFontProvider
+  CoreFontSelector
 } from '../../../core';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,14 +48,29 @@ const FontProperties = (props) => {
     fontFamily,
     onPropertyChange,
     fontProvider,
-    uploadedFonts
+    uploadedFonts,
+    onPropertiesChange
   } = props;
   const dynamicOptions = dynamicTextOptions.map((o) => ({ id: o, name: o }));
   const [loadingState, setLoadingState] = React.useState({});
   const isGoogleFontProvider = fontProvider === 'google';
   const classes = useStyles();
+  const onFontProviderChange = (e, v) => {
+    onPropertiesChange([
+      { name: 'fontProvider', value: v === 0 ? 'google' : 'uploaded' },
+      {
+        name: 'fontFamily',
+        value: v === 0 ? 'Raleway' : uploadedFonts[0].name
+      },
+      {
+        name: 'fontUrl',
+        value: v === 0 ? '' : uploadedFonts[0].url
+      }
+    ]);
+  };
   const onFontPropertyChange = (name, value) => {
     let fontLoaderOptions;
+    let successLoadCallback = () => onPropertyChange(name, value);
     const selectedFontFamily = name === 'fontFamily' ? value : fontFamily;
     const selectedFontWeight = name === 'fontWeight' ? value : fontWeight;
     const selectedFontStyle = name === 'fontStyle' ? value : fontStyle;
@@ -69,6 +83,10 @@ const FontProperties = (props) => {
         }
       };
     } else {
+      if (name !== 'fontFamily') {
+        onPropertyChange(name, value);
+        return;
+      }
       const url = uploadedFonts.find((f) => f.name === selectedFontFamily).url;
       const markup = [
         '@font-face {\n',
@@ -80,16 +98,21 @@ const FontProperties = (props) => {
         "');\n",
         '}\n'
       ].join('');
-
-      const style = document.createElement('style');
-      style.setAttribute('type', 'text/css');
-      style.innerHTML = markup;
-      document.getElementsByTagName('head')[0].appendChild(style);
+      if (!document.getElementById(`uploaded-font-${selectedFontFamily}`)) {
+        const style = document.createElement('style');
+        style.setAttribute('type', 'text/css');
+        style.innerHTML = markup;
+        document.getElementsByTagName('head')[0].appendChild(style);
+      }
       fontLoaderOptions = {
         custom: {
           families: [selectedFontFamily],
-          urls: [uploadedFonts.find((f) => f.name === selectedFontFamily).url]
+          urls: [url]
         }
+      };
+      successLoadCallback = () => {
+        onPropertyChange(name, value);
+        onPropertyChange('fontUrl', url);
       };
     }
 
@@ -102,7 +125,7 @@ const FontProperties = (props) => {
           selectedFontStyle,
           selectedFontWeight
         });
-        onPropertyChange && onPropertyChange(name, value);
+        successLoadCallback();
       },
       fontinactive: (e) => {
         setLoadingState({
@@ -150,9 +173,7 @@ const FontProperties = (props) => {
       <Grid item xs={12}>
         <Tabs
           value={isGoogleFontProvider ? 0 : 1}
-          onChange={(e, v) =>
-            onPropertyChange('fontProvider', v === 0 ? 'google' : 'uploaded')
-          }
+          onChange={onFontProviderChange}
         >
           <Tab label='Google' />
           <Tab label='Uploaded' />

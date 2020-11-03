@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 const createFontQuery = (fontFamilyName, stylesArray) => {
 	const stylesString = stylesArray.join(',');
-	const fontQuery = fontFamilyName + ':' + stylesString;
-	if (stylesString.length === 0) return false;
+	const fontQuery = `${fontFamilyName}${stylesArray.length > 0 ? `:${stylesString}` : ''}`;
+	// if (stylesString.length === 0) return false;
 	return fontQuery;
 };
 
 const checkLoadedFonts = (family, fonts) => {
 	const familyName = family.split(':')[0];
-	const styles = family.split(':')[1].split(',');
+	const styles = family.split(':')[1] ? family.split(':')[1].split(',') : [];
 	const stylesToLoad = [];
 	styles.forEach((style, index) => {
 		const weight = style.charAt(0);
@@ -25,12 +25,39 @@ const checkLoadedFonts = (family, fonts) => {
 	return fontQuery;
 };
 
+const loadFontStylesheet = (fontFamilies) => {
+  fontFamilies.forEach((font) => {
+    const url = font.fontUrl;
+    const selectedFontFamily = font.fontFamily;
+    const markup = [
+      '@font-face {\n',
+      "\tfont-family: '",
+      selectedFontFamily,
+      "';\n",
+      "\tsrc: url('",
+      url,
+      "');\n",
+      '}\n'
+    ].join('');
+    if (!document.getElementById(`uploaded-font-${selectedFontFamily}`)) {
+      const style = document.createElement('style');
+      style.setAttribute('type', 'text/css');
+      style.setAttribute('id', `uploaded-font-${selectedFontFamily}`);
+      style.innerHTML = markup;
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+  })
+};
+
+
+
 export default class FontLoader extends React.Component {
 	componentDidMount() {
 		const { fonts, fontProvider, fontFamilies } = this.props;
 		const stylesToLoad = [];
-
-		if (fontFamilies) {
+    if (fontProvider === 'custom') {
+      this.loadUploadedFonts(fontFamilies);
+    } else if (fontFamilies) {
 			fontFamilies.forEach((family) => {
 				const inactiveFonts = checkLoadedFonts(family, fonts);
 				if (inactiveFonts) stylesToLoad.push(inactiveFonts);
@@ -47,7 +74,14 @@ export default class FontLoader extends React.Component {
 		return false;
 	}
 
-	loadFonts(fontProvider, stylesToLoad) {
+  loadUploadedFonts(fontFamilies) {
+	  loadFontStylesheet(fontFamilies);
+	  const stylesToLoad = fontFamilies.map((f) => f.fontFamily);
+	  const customUrls = fontFamilies.map((f) => f.fontUrl);
+	  this.loadFonts('custom', stylesToLoad, customUrls);
+  }
+
+	loadFonts(fontProvider, stylesToLoad, customUrls) {
 		const {
 			onActive,
 			onInactive,
@@ -61,7 +95,6 @@ export default class FontLoader extends React.Component {
 			monotypeProjectId,
 			monotypeVersion,
 			monotypeLoadAllFonts,
-			customUrls,
 			timeout,
 			text,
 			debug,

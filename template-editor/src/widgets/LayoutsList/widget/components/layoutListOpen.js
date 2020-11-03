@@ -92,6 +92,12 @@ function LayoutListOpen(props) {
     layout.properties[name] = value;
     onUpdate(layout);
   };
+  const onPropertiesChange = (propsArr = []) => {
+    propsArr.forEach(({ name, value }) => {
+      layout.properties[name] = value;
+    });
+    onUpdate(layout);
+  };
 
   const onPathChanged = (path) => {
     const { points, isClose } = pathToObject(path);
@@ -140,6 +146,7 @@ function LayoutListOpen(props) {
               fontFamily,
               fontProvider,
               onPropertyChange,
+              onPropertiesChange,
               uploadedFonts
             }}
           />

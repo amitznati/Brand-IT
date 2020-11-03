@@ -58,14 +58,28 @@ export const mapComponentProps = (props) => {
 
 const getAllFonts = (template) => {
   const { layouts = [] } = template;
-  const allFonts = [];
+  const uploadedFonts = [];
+  const googleFonts = [];
   layouts.forEach((l) => {
-    const { fontFamily, fontStyle, fontWeight } = l.properties;
+    const {
+      fontFamily,
+      fontStyle,
+      fontWeight,
+      fontProvider,
+      fontUrl
+    } = l.properties;
     if (l.type === 'text' || l.type === 'textPath') {
-      allFonts.push(
-        `${fontFamily}:${fontWeight || 300}${fontStyle || 'normal'}`
-      );
+      if (fontProvider === 'google') {
+        googleFonts.push(
+          `${fontFamily}:${fontWeight || 300}${fontStyle || 'normal'}`
+        );
+      } else if (fontProvider === 'uploaded') {
+        uploadedFonts.push({
+          fontFamily,
+          fontUrl
+        });
+      }
     }
   });
-  return allFonts;
+  return { googleFonts, uploadedFonts };
 };

@@ -5,18 +5,17 @@ import FontLoader from '../../../sdk/services/fontLoader';
 
 export default function TemplatePreviewComponent(props) {
   const componentProps = mapComponentProps(props);
-  const [allFontsLoaded, setAllFontsLoaded] = React.useState(false);
+  // const [allFontsLoaded, setAllFontsLoaded] = React.useState(false);
   const { allFonts } = componentProps;
+  const { googleFonts, uploadedFonts } = allFonts || {};
   return (
     <React.Fragment>
-      {allFonts && allFonts.length > 0 && (
-        <FontLoader
-          fontProvider='google'
-          fontFamilies={allFonts}
-          onActive={setAllFontsLoaded}
-        />
+      {googleFonts && googleFonts.length > 0 && (
+        <FontLoader fontProvider='google' fontFamilies={googleFonts} />
       )}
-
+      {uploadedFonts && uploadedFonts.length > 0 && (
+        <FontLoader fontProvider='custom' fontFamilies={uploadedFonts} />
+      )}
       <TemplatePreviewMainView {...componentProps} />
     </React.Fragment>
   );
