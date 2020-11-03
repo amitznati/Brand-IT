@@ -38,7 +38,8 @@ const getDefaultColorProps = () => {
   return {
     strokeWidth: 0,
     stroke: '',
-    fill: { fill: 'black' }
+    fill: { fill: 'black' },
+    themeColor: ''
   };
 };
 

@@ -121,6 +121,7 @@ function LayoutListOpen(props) {
           fontStyle,
           fontFamily,
           fontProvider,
+          themeColor,
           x,
           y,
           transform,
@@ -160,7 +161,7 @@ function LayoutListOpen(props) {
       case 'colorProperties': {
         return (
           <ColorProperties
-            {...{ fill, strokeWidth, stroke, onPropertyChange }}
+            {...{ fill, strokeWidth, stroke, onPropertyChange, themeColor }}
           />
         );
       }

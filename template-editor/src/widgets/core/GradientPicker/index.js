@@ -12,6 +12,7 @@ import CoreNumber from '../CoreNumber';
 import CoreSelect from '../CoreSelect';
 import GradientBuilder from './GradientBuilder';
 import withRoot from '../../../withRoot';
+import CoreThemeColorSelect from '../CoreThemeColorSelect';
 
 const styles = (theme) => ({
   popover: {
@@ -27,10 +28,14 @@ const getRgba = (rgba) => {
   return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`;
 };
 
-const WrappedSketchPicker = ({ onSelect, classes, ...rest }) => {
+const WrappedSketchPicker = ({ onSelect, classes, themeColor, ...rest }) => {
   if (rest && rest.isActive) {
     return (
       <div className={classes.popover}>
+        <CoreThemeColorSelect
+          value={themeColor}
+          onSelect={(tc) => onSelect(rest.color, tc)}
+        />
         <SketchPicker {...rest} onChange={(c) => onSelect(getRgba(c.rgb))} />
       </div>
     );
