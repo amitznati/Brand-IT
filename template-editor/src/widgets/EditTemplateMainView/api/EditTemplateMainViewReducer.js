@@ -1,4 +1,6 @@
 import { ActionTypes } from './EditTemplateMainViewApi';
+import defaultTheme from '../DefualtTheme';
+
 const initialState = {
   template: { templateGradients: [], templateFilters: [], layouts: [] },
   selectedLayout: { selectedLayout: null, selectedLayoutIndex: -1 },
@@ -8,7 +10,9 @@ const initialState = {
   isSVGPathBuilderOpen: false,
   templateGradients: [],
   dynamicTextOptions: [],
+  dynamicImageOptions: [],
   uploadedFonts: [],
+  selectedTheme: defaultTheme,
   product: {
     id: 1,
     name: '',

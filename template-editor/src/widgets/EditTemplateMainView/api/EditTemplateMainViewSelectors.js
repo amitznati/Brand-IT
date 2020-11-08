@@ -36,6 +36,12 @@ export const getDynamicTextOptionsSelector = createSelector(
     return slice.dynamicTextOptions;
   }
 );
+export const getDynamicImageOptionsSelector = createSelector(
+  sliceSelector,
+  (slice) => {
+    return slice.dynamicImageOptions;
+  }
+);
 export const getScaleSelector = createSelector(sliceSelector, (slice) => {
   return slice.scale;
 });
@@ -68,6 +74,13 @@ export const isAllFontLoadedSelector = createSelector(
   }
 );
 
+export const getSelectedThemeSelector = createSelector(
+  sliceSelector,
+  (slice) => {
+    return slice.selectedTheme;
+  }
+);
+
 export default {
   getTemplateSelector,
   getSelectedLayoutSelector,
@@ -79,5 +92,7 @@ export default {
   templateGradientsSelector,
   templateFiltersSelector,
   getDynamicTextOptionsSelector,
-  getUploadedFontsSelector
+  getUploadedFontsSelector,
+  getDynamicImageOptionsSelector,
+  getSelectedThemeSelector
 };

@@ -27,10 +27,10 @@ const theme = createMuiTheme({
 function withRoot(Component) {
   function WithRoot(props) {
     return (
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...props} />
-      </MuiThemeProvider>
+      // <MuiThemeProvider theme={theme}>
+      //   <CssBaseline />
+      <Component {...props} />
+      // </MuiThemeProvider>
     );
   }
 

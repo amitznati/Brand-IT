@@ -54,7 +54,7 @@ const layoutsTemplate = (type, payload, product) => {
       return {
         type: 'image',
         properties: {
-          src: payload.url,
+          ...payload,
           ...defaultProperties
         }
       };
@@ -289,5 +289,13 @@ export default class EditTemplateMainViewApi extends BaseApi {
 
   getUploadedFontsSelector = () => {
     return selectors.getUploadedFontsSelector(this.store.getState());
+  };
+
+  getDynamicImageOptionsSelector = () => {
+    return selectors.getDynamicImageOptionsSelector(this.store.getState());
+  };
+
+  getSelectedThemeSelector = () => {
+    return selectors.getSelectedThemeSelector(this.store.getState());
   };
 }

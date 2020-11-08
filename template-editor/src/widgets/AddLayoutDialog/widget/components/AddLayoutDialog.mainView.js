@@ -36,7 +36,14 @@ class AddLayoutDialogMainView extends React.Component {
   };
 
   render() {
-    const { open, onClose, logos, dynamicTextOptions } = this.props;
+    const {
+      open,
+      onClose,
+      logos,
+      dynamicTextOptions,
+      dynamicImageOptions,
+      selectedTheme
+    } = this.props;
     const { value } = this.state;
     return (
       <Dialog
@@ -86,7 +93,13 @@ class AddLayoutDialogMainView extends React.Component {
               })}
             </Grid>
           )}
-          {value === 1 && <ImageTab onSelect={onClose} />}
+          {value === 1 && (
+            <ImageTab
+              dynamicImageOptions={dynamicImageOptions}
+              onSelect={onClose}
+              selectedTheme={selectedTheme}
+            />
+          )}
           {value === 2 && (
             <TextTab
               onSelect={onClose}

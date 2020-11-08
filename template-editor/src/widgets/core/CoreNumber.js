@@ -8,7 +8,7 @@ const CoreNumber = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { classes, onChange, ...rest } = props;
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl>
       <TextField
         {...rest}
         type='number'

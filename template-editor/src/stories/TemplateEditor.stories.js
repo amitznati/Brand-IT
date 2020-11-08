@@ -8,6 +8,14 @@ export default {
   component: TemplateEditor
 };
 const dynamicTextOptions = ['@brand_name', '@brand_slogan'];
+const dynamicImageOptions = [
+  '@theme-image-bg',
+  '@theme-image-frame',
+  '@theme-image-sideL',
+  '@theme-image-sideR',
+  '@theme-image-sideB',
+  '@theme-image-sideT'
+];
 
 export const EditorModeLogo = () => {
   const logo = {
@@ -33,6 +41,7 @@ export const EditorModeLogo = () => {
         initialData={{
           dynamicTextOptions,
           dynamicTextValues,
+          dynamicImageOptions,
           product: logo
         }}
       />

@@ -15,3 +15,4 @@ export { default as CoreGradientPicker } from './GradientPicker';
 export { default as CoreConfirmationDialog } from './CoreConfirmationDialog';
 export { default as CoreNestedSpeedActions } from './CoreNestedSpeedActions';
 export { default as CoreFontProvider } from './CoreFontProvider';
+export { default as RadioButtonsGroup } from './RadioButtonsGroup';

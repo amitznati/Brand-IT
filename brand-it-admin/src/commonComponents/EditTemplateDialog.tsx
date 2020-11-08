@@ -12,6 +12,14 @@ import {
 import CloseIcon from "@material-ui/icons/Close";
 import {useGetList} from "react-admin";
 const dynamicTextOptions = ['@brand_name', '@brand_slogan'];
+const dynamicImageOptions = [
+    '@theme-image-bg',
+    '@theme-image-frame',
+    '@theme-image-sideL',
+    '@theme-image-sideR',
+    '@theme-image-sideB',
+    '@theme-image-sideT'
+];
 const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) => {
     const { data, ids, loading } = useGetList(
         'Font',
@@ -47,6 +55,7 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
             <DialogContent>
                 <TemplateEditor onSaveTemplate={onSaveTemplate} initialData={{
                     dynamicTextOptions,
+                    dynamicImageOptions,
                     product,
                     uploadedFonts,
                     template

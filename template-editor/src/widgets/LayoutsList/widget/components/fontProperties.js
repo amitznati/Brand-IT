@@ -56,17 +56,19 @@ const FontProperties = (props) => {
   const isGoogleFontProvider = fontProvider === 'google';
   const classes = useStyles();
   const onFontProviderChange = (e, v) => {
-    onPropertiesChange([
-      { name: 'fontProvider', value: v === 0 ? 'google' : 'uploaded' },
-      {
-        name: 'fontFamily',
-        value: v === 0 ? 'Raleway' : uploadedFonts[0].name
-      },
-      {
-        name: 'fontUrl',
-        value: v === 0 ? '' : uploadedFonts[0].url
-      }
-    ]);
+    if (uploadedFonts.length) {
+      onPropertiesChange([
+        { name: 'fontProvider', value: v === 0 ? 'google' : 'uploaded' },
+        {
+          name: 'fontFamily',
+          value: v === 0 ? 'Raleway' : uploadedFonts[0].name
+        },
+        {
+          name: 'fontUrl',
+          value: v === 0 ? '' : uploadedFonts[0].url
+        }
+      ]);
+    }
   };
   const onFontPropertyChange = (name, value) => {
     let fontLoaderOptions;
@@ -184,7 +186,7 @@ const FontProperties = (props) => {
             handleChange={(v) => onFontPropertyChange('fontFamily', v)}
           />
         )}
-        {!isGoogleFontProvider && (
+        {!isGoogleFontProvider && uploadedFonts.length && (
           <CoreFontSelector
             {...{
               fontWeight,

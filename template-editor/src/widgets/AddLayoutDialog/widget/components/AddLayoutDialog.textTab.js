@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
-import { CoreText } from '../../../core';
-import RadioButtonsGroup from '../../../core/RadioButtonsGroup';
+import { CoreText, RadioButtonsGroup } from '../../../core';
 
 export default function TextTab({ onSelect, dynamicTextOptions = [] }) {
   const [value, setValue] = React.useState('');
