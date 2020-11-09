@@ -31,7 +31,7 @@ export default function ProductCard({product}) {
 
     return (
         <Card className={classes.root}>
-            <CardActionArea href={`#/Product/${product.id}`}>
+            <CardActionArea href={`#/Product/${product.id}/show`}>
                 <CardContent>
                     <div className={classes.imageWrap}>
                         <img src={product.imageUrl} alt="" className={classes.image}/>
@@ -45,7 +45,7 @@ export default function ProductCard({product}) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button href={`#/Product/${product.id}/edit`} size="small" color="primary">
+                <Button href={`#/Product/${product.id}`} size="small" color="primary">
                     Edit
                 </Button>
             </CardActions>

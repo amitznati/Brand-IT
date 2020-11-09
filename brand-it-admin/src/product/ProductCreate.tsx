@@ -66,6 +66,11 @@ const ProductImage = (props) => {
     return null;
 };
 
+export const ProductTitle = (props) => {
+    const {record} = props;
+    return record ? <span>Product #{record.name}</span> : null;
+};
+
 const ProductForm = props => {
     const classes = useStyles();
     const {record = {}} = props;
@@ -131,10 +136,6 @@ export const ProductCreate = props => {
     );
 };
 export const ProductEdit = props => {
-    const ProductTitle = (props) => {
-        const {record} = props;
-        return record ? <span>Product #{record.name}</span> : null;
-    }
     return (
         <Edit {...props} title={<ProductTitle />}>
             <ProductForm />

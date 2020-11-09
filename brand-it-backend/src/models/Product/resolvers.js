@@ -1,6 +1,7 @@
 import Product from './Product';
 import Category from '../Category/Category';
 import {saveFile} from '../../fileManager';
+import Template from '../Template/Template';
 
 export const resolvers = {
 	Query: {
@@ -27,7 +28,7 @@ export const resolvers = {
 		},
 
 		// updateProduct: async (_, {id, name, category}) => {
-		// 	const product = await Product.findById(id).populate('category');
+		// 	const product = await Product.findById(id);
 		// 	const categoryId = category.id;
 		// 	if (product) {
 		// 		if (categoryId !== product.category._id) {
@@ -61,6 +62,14 @@ export const resolvers = {
 			} else {
 				throw ('product not exist');
 			}
+		},
+		addTemplate: async (_, {id, template}) => {
+			const newTemplate = await Template.create({template});
+			await Product.findByIdAndUpdate(id, {
+				$push: {templates: newTemplate},
+			});
+			console.log('id: ', id);
+			return Product.findById(id);
 		}
 	}
 };
