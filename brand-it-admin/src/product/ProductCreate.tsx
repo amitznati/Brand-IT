@@ -8,7 +8,7 @@ import {
     TextInput,
     required,
     ReferenceArrayInput,
-    SelectArrayInput
+    SelectArrayInput, Edit
 } from 'react-admin';
 import { InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,7 +16,7 @@ import {BoundedNumberField} from "../commonComponents/BoundedNumberField";
 import {TemplatePreviewForProduct} from 'template-editor';
 import {propertyByString} from "../utils";
 
-export const styles = {
+const styles = {
     width: { width: '7em' },
     height: { width: '7em' },
     widthFormGroup: { display: 'inline-block' },
@@ -26,7 +26,7 @@ export const styles = {
 };
 
 const useStyles = makeStyles(styles);
-export const sizeFields = [
+const sizeFields = [
     {label: 'Width', source: 'size.width'},
     {label: 'Height', source: 'size.height'},
     {label: 'Template Frame Width', source: 'templateFrame.width'},
@@ -35,7 +35,7 @@ export const sizeFields = [
     {label: 'Template Frame Y', source: 'templateFrame.y'},
 ];
 
-export const ProductPreview = ({imageSrc, sizeState}) => {
+const ProductPreview = ({imageSrc, sizeState}) => {
     const product = {
         id: 1,
         name: 'temp product',
@@ -66,7 +66,7 @@ const ProductImage = (props) => {
     return null;
 };
 
-export const ProductForm = props => {
+const ProductForm = props => {
     const classes = useStyles();
     const {record = {}} = props;
     const initialSizeState = {};
@@ -122,7 +122,7 @@ export const ProductForm = props => {
     );
 }
 
-const ProductCreate = props => {
+export const ProductCreate = props => {
 
     return (
         <Create {...props}>
@@ -130,5 +130,14 @@ const ProductCreate = props => {
         </Create>
     );
 };
-
-export default ProductCreate;
+export const ProductEdit = props => {
+    const ProductTitle = (props) => {
+        const {record} = props;
+        return record ? <span>Product #{record.name}</span> : null;
+    }
+    return (
+        <Edit {...props} title={<ProductTitle />}>
+            <ProductForm />
+        </Edit>
+    );
+};
