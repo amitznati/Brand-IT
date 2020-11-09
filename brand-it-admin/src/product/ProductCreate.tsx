@@ -14,6 +14,7 @@ import { InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {BoundedNumberField} from "../commonComponents/BoundedNumberField";
 import {TemplatePreviewForProduct} from 'template-editor';
+import {propertyByString} from "../utils";
 
 export const styles = {
     width: { width: '7em' },
@@ -25,7 +26,7 @@ export const styles = {
 };
 
 const useStyles = makeStyles(styles);
-const sizeFields = [
+export const sizeFields = [
     {label: 'Width', source: 'size.width'},
     {label: 'Height', source: 'size.height'},
     {label: 'Template Frame Width', source: 'templateFrame.width'},
@@ -34,7 +35,7 @@ const sizeFields = [
     {label: 'Template Frame Y', source: 'templateFrame.y'},
 ];
 
-const ProductPreview = ({imageSrc, sizeState}) => {
+export const ProductPreview = ({imageSrc, sizeState}) => {
     const product = {
         id: 1,
         name: 'temp product',
@@ -55,10 +56,24 @@ const ProductPreview = ({imageSrc, sizeState}) => {
             <TemplatePreviewForProduct product={product} />
         </div>
     );
-}
-const ProductCreate = props => {
+};
+
+const ProductImage = (props) => {
+    const {imageSrc} = props;
+    if (imageSrc) {
+        return <img src={imageSrc} alt="product image" height={300} />
+    }
+    return null;
+};
+
+export const ProductForm = props => {
     const classes = useStyles();
-    const [sizeState, setSizeState] = React.useState({});
+    const {record = {}} = props;
+    const initialSizeState = {};
+    sizeFields.forEach((sf) => {
+        initialSizeState[sf.source] = propertyByString(record, sf.source);
+    });
+    const [sizeState, setSizeState] = React.useState(initialSizeState);
     const [imageSrc, setImageSrc] = React.useState<string | ArrayBuffer | null>(null);
     const onSizeChange = React.useCallback((v,name) => {
         setSizeState({...sizeState, [name]: v});
@@ -71,39 +86,47 @@ const ProductCreate = props => {
         });
         reader.readAsDataURL(files[0]);
 
-    }
+    };
     return (
-        <Create {...props}>
-            <TabbedForm>
-                <FormTab label="Details">
-                    <TextInput source="name" validate={required()} />
-                    <ReferenceArrayInput fullWidth source="categories" reference="Category">
-                        <SelectArrayInput optionText="name" />
-                    </ReferenceArrayInput>
-                    <ImageInput options={{onDropAccepted: onImageChanged}} source="image" accept="image/*">
-                        <ImageField source="files" title="title" />
-                    </ImageInput>
-                </FormTab>
-                <FormTab label="Size" contentClassName={classes.sizeTab}>
-                    {sizeFields.map((field) => (
-                        <BoundedNumberField
-                            label={field.label}
-                            source={field.source}
-                            key={field.source}
-                            validate={required()}
-                            onChange={(v) => onSizeChange(v, field.source)}
-                            InputProps={{
+        <TabbedForm {...props}>
+            <FormTab label="Details">
+                <TextInput source="name" validate={required()}/>
+                <ReferenceArrayInput fullWidth source="categories" reference="Category">
+                    <SelectArrayInput optionText="name"/>
+                </ReferenceArrayInput>
+                <ImageInput options={{onDropAccepted: onImageChanged}} source="image" accept="image/*">
+                    <ImageField source="files" title="title"/>
+                </ImageInput>
+                {!imageSrc && <ProductImage imageSrc={record.imageUrl} />}
+            </FormTab>
+            <FormTab label="Size" contentClassName={classes.sizeTab}>
+                {sizeFields.map((field) => (
+                    <BoundedNumberField
+                        label={field.label}
+                        source={field.source}
+                        key={field.source}
+                        validate={required()}
+                        onChange={(v) => onSizeChange(v, field.source)}
+                        InputProps={{
                             endAdornment: (
                                 <InputAdornment position="start">
                                     cm
                                 </InputAdornment>
-                                ),
-                            }}
-                        />)
-                    )}
-                    {imageSrc && <ProductPreview imageSrc={imageSrc} sizeState={sizeState} />}
-                </FormTab>
-            </TabbedForm>
+                            ),
+                        }}
+                    />)
+                )}
+                <ProductPreview imageSrc={imageSrc || record.imageUrl} sizeState={sizeState} />
+            </FormTab>
+        </TabbedForm>
+    );
+}
+
+const ProductCreate = props => {
+
+    return (
+        <Create {...props}>
+            <ProductForm />
         </Create>
     );
 };

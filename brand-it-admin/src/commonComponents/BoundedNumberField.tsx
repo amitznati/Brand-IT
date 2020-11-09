@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, FormControl, InputLabel } from '@material-ui/core';
 import { useInput, useTranslate } from 'react-admin';
 import {makeStyles} from "@material-ui/core/styles";
+import {propertyByString} from "../utils";
 
 const useStyles = makeStyles({
 	root: { width: '10rem', display: 'inline-flex' },
@@ -14,7 +15,7 @@ const useStyles = makeStyles({
 });
 export const BoundedNumberField = props => {
 	const translate = useTranslate();
-	const [value, setValue] = React.useState(props.record?.name);
+	const [value, setValue] = React.useState(propertyByString(props.record, props.source));
 	const classes = useStyles();
 	const inputProps = useInput(props);
 	const {

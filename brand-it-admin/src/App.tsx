@@ -19,6 +19,7 @@ import theme from './theme';
 import logo from './logo';
 import font from './font';
 
+import './utils';
 
 const i18nProvider = polyglotI18nProvider(locale => {
     if (locale === 'fr') {

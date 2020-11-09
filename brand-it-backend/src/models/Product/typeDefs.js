@@ -35,7 +35,7 @@ export const typeDefs = gql`
         imageUrl: String!
         size: ProductSize!
         templateFrame: TemplateFrame!
-        categories: [CategoryForProduct]
+        categories: [ID]
     }
     type BusinessForProduct {
         id: ID!

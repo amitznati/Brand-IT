@@ -4,9 +4,9 @@ import {saveFile} from '../../fileManager';
 
 export const resolvers = {
 	Query: {
-		allProducts: () => Product.find().populate('categories'),
+		allProducts: () => Product.find(),
 		_allProductsMeta: () => {return {count: Product.find().estimatedDocumentCount()}},
-		Product: (_, {id}) => Product.findById(id).populate('categories')
+		Product: (_, {id}) => Product.findById(id)
 	},
 	Mutation: {
 		createProduct: async (_, input) => {
