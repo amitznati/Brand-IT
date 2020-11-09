@@ -17,7 +17,7 @@ const initialState = {
     id: 1,
     name: '',
     image: '',
-    productSize: { height: 30, width: 20 },
+    size: { height: 30, width: 20 },
     templateFrame: {
       height: 25,
       width: 18.5,

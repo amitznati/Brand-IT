@@ -32,7 +32,7 @@ export default function LogoCard({icon}) {
     const logo = {
         name: 'Logo',
         image: '',
-        productSize: {
+        size: {
             height: 10,
             width: 10
         },

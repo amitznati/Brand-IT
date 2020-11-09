@@ -5,16 +5,21 @@ export const typeDefs = gql`
         Product(id: ID!): Product!
         allProducts(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: ProductFilter): [Product]
         _allProductsMeta(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: ProductFilter): ListMetadata
+        getProductWithTemplates(productId: ID!): ProductWithTemplates!
     }
     extend type Mutation {
         createProduct(name: String!
-            image: Upload!
+            image: Upload
             categories: [ID]
             size: SizeInput!
             templateFrame: TemplateFrameInput!): Product!
 #        updateProduct(id: ID!, name: String!, business: BusinessForUpdateProduct!): Product!
         deleteProduct(id: ID!): Product!
         addTemplate(id: ID!, template: String!): Product!
+    }
+    type Template {
+        id: ID!
+        template: String!
     }
     type ProductSize {
         height: Float!
@@ -37,6 +42,16 @@ export const typeDefs = gql`
         size: ProductSize!
         templateFrame: TemplateFrame!
         categories: [ID]
+        templates: [ID]
+    }
+    type ProductWithTemplates {
+        id: ID!
+        name: String!
+        imageUrl: String!
+        size: ProductSize!
+        templateFrame: TemplateFrame!
+        categories: [ID]
+        templates: [Template]
     }
     type BusinessForProduct {
         id: ID!

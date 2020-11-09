@@ -85,13 +85,13 @@ class TemplatePreviewMainView extends React.Component {
           width: productW,
           position: 'relative',
           margin: 'auto',
-          background: product.image ? '' : 'white'
+          background: product.imageUrl ? '' : 'white'
         }}
       >
-        {product.image && (
+        {product.imageUrl && (
           <img
             className={classes.productImage}
-            src={product.image}
+            src={product.imageUrl}
             alt='product'
             style={{ height: productH, width: productW }}
           />
@@ -105,7 +105,7 @@ class TemplatePreviewMainView extends React.Component {
             overflow: 'hidden',
             bottom: templateY,
             left: templateX,
-            boxShadow: product.image ? 'none' : '3px 3px 5px 6px #ccc'
+            boxShadow: product.imageUrl ? 'none' : '3px 3px 5px 6px #ccc'
           }}
         >
           <RootSVG {...SVGRootProps}>

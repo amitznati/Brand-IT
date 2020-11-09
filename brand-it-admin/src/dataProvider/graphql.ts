@@ -35,8 +35,38 @@ const customBuildQuery = (
                         name
                     }
                 }`,
-                variables: { id: params.id, template: params.template },
+                variables: { id: params.id, template: params.template }
+
             };
+        } else if (type === 'getProductWithTemplates') {
+			return {
+				query: gql`query getProductWithTemplates($productId: ID!) {
+                    getProductWithTemplates(productId: $productId) {
+                        name
+                        templates {
+                            id
+                            template
+                        }
+                        id
+                        imageUrl
+                        size {
+                            width
+                            height
+                        }
+                        templateFrame {
+                            height
+                            width
+                            x
+                            y
+                        }
+                    }
+                }`,
+                variables: { productId: params.id },
+                parseResponse: ({ data }) => {
+                    console.log(data);
+                    return {data: data.getProductWithTemplates};
+                },
+			};
         }
 
         return buildQuery(type, resource, params);

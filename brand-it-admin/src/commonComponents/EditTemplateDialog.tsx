@@ -26,8 +26,14 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
         { page: 1, perPage: 100 },
         { field: 'name', order: 'ASC' }
     );
-    if (loading) return <div>Loading...</div>;
+    const { data: themes, ids: themesIds, loading: themesLoading } = useGetList(
+        'Theme',
+        { page: 1, perPage: 100 },
+        { field: 'name', order: 'ASC' }
+    );
+    if (loading || themesLoading) return <div>Loading...</div>;
     const uploadedFonts = ids.map((id) => data[id]);
+    const selectedTheme = themes[themesIds[1]];
     return (
         <Dialog
             onClose={onClose}
@@ -58,7 +64,8 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
                     dynamicImageOptions,
                     product,
                     uploadedFonts,
-                    template
+                    template,
+                    selectedTheme
                 }} />
             </DialogContent>
         </Dialog>

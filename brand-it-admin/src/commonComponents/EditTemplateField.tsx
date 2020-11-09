@@ -5,7 +5,8 @@ import EditTemplateDialog from "./EditTemplateDialog";
 import {useInput} from "react-admin";
 
 export default (props) => {
-    const {product, record, source} = props;
+    const {record, source, scale} = props;
+    const product = props.product || record;
     const inputProps = useInput(props);
     const {
         input: { name, onChange }
@@ -20,7 +21,11 @@ export default (props) => {
         const str = JSON.stringify(template);
         setTemplateString(str);
         setIsEditTemplateOpen(false);
-        onChange && onChange(str)
+        if (props.onSave) {
+            props.onSave(str)
+        } else if (onChange) {
+            onChange(str);
+        }
     };
     return (
         <div>
@@ -35,7 +40,7 @@ export default (props) => {
                     onSaveTemplate={onSaveTemplate}
                     onClose={() => setIsEditTemplateOpen(false)} />
             )}
-            {!isEditTemplateOpen && <TemplatePreviewForPreview product={product} template={JSON.parse(templateString)} />}
+            {!isEditTemplateOpen && <TemplatePreviewForPreview scale={scale} product={product} template={JSON.parse(templateString)} />}
         </div>
     )
 }

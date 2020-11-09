@@ -21,7 +21,7 @@ export const EditorModeLogo = () => {
   const logo = {
     name: 'Logo',
     image: '',
-    productSize: {
+    size: {
       height: 10,
       width: 10
     },

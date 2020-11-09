@@ -4,8 +4,8 @@ import { getPX } from '../../../../sdk/utils';
 
 const TemplatePreviewForProduct = ({ product }) => {
   const [scale, setScale] = React.useState(0.5);
-  const productW = getPX(product.productSize.width, scale);
-  const productH = getPX(product.productSize.height, scale);
+  const productW = getPX(product.size.width, scale);
+  const productH = getPX(product.size.height, scale);
   const templateH = getPX(product.templateFrame.height, scale);
   const templateW = getPX(product.templateFrame.width, scale);
   const templateX = getPX(product.templateFrame.x, scale);
@@ -26,11 +26,11 @@ const TemplatePreviewForProduct = ({ product }) => {
           position: 'relative',
           margin: 'auto',
           overflow: 'hidden',
-          background: product.image ? '' : 'white'
+          background: product.imageUrl ? '' : 'white'
         }}
       >
         <img
-          src={product.image}
+          src={product.imageUrl}
           alt='product'
           style={{ height: productH, width: productW, position: 'absolute' }}
         />

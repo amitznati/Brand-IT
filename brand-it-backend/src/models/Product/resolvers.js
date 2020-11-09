@@ -7,15 +7,18 @@ export const resolvers = {
 	Query: {
 		allProducts: () => Product.find(),
 		_allProductsMeta: () => {return {count: Product.find().estimatedDocumentCount()}},
-		Product: (_, {id}) => Product.findById(id)
+		Product: (_, {id}) => Product.findById(id),
+		getProductWithTemplates: (_, {productId}) => Product.findById(productId).populate('templates')
 	},
 	Mutation: {
 		createProduct: async (_, input) => {
 			const {image, ...rest} = input;
 			const product = await Product.create({...rest});
 			const categoriesIds = input.categories;
-			product.imageUrl = await saveFile('images/products', input.name, image);
-			await product.save();
+			if (image) {
+				product.imageUrl = await saveFile('images/products', input.name, image);
+				await product.save();
+			}
 			if (categoriesIds && categoriesIds.length) {
 				await Category.updateMany(
 					{_id: {$in: categoriesIds}},
@@ -23,7 +26,6 @@ export const resolvers = {
 					{multi: true}
 				);
 			}
-			console.log(product);
 			return product;
 		},
 
@@ -68,7 +70,7 @@ export const resolvers = {
 			await Product.findByIdAndUpdate(id, {
 				$push: {templates: newTemplate},
 			});
-			console.log('id: ', id);
+			console.log(template);
 			return Product.findById(id);
 		}
 	}

@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {BoundedNumberField} from "../commonComponents/BoundedNumberField";
 import {TemplatePreviewForProduct} from 'template-editor';
 import {propertyByString} from "../utils";
+import EditTemplateField from "../commonComponents/EditTemplateField";
 
 const styles = {
     width: { width: '7em' },
@@ -39,8 +40,8 @@ const ProductPreview = ({imageSrc, sizeState}) => {
     const product = {
         id: 1,
         name: 'temp product',
-        image: imageSrc,
-        productSize: {
+        imageUrl: imageSrc,
+        size: {
             height: sizeState['size.height'] || 0,
             width: sizeState['size.width'] || 0
         },

@@ -12,7 +12,7 @@ import EditTemplateField from "../commonComponents/EditTemplateField";
 const logo = {
 	name: 'Logo',
 	image: '',
-	productSize: {
+	size: {
 		height: 10,
 		width: 10
 	},

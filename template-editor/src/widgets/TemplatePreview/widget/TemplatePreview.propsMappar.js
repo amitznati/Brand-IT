@@ -22,8 +22,8 @@ export const mapComponentProps = (props) => {
   } = template;
   return {
     layouts: layouts.concat(editLayouts),
-    productH: getPX(product.productSize.height, scale),
-    productW: getPX(product.productSize.width, scale),
+    productH: getPX(product.size.height, scale),
+    productW: getPX(product.size.width, scale),
     templateH: getPX(product.templateFrame.height, scale),
     templateW: getPX(product.templateFrame.width, scale),
     templateX: getPX(product.templateFrame.x, scale),
