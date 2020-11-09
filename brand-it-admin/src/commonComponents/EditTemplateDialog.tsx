@@ -31,7 +31,7 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
         { page: 1, perPage: 100 },
         { field: 'name', order: 'ASC' }
     );
-    if (loading || themesLoading) return <div>Loading...</div>;
+    if (loading || themesLoading) return <span>Loading...</span>;
     const uploadedFonts = ids.map((id) => data[id]);
     const selectedTheme = themes[themesIds[1]];
     return (

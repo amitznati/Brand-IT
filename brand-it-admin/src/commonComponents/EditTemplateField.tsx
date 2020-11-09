@@ -29,7 +29,7 @@ export default (props) => {
     };
     return (
         <div>
-            <input type="text" id={name} readOnly name={name} value={templateString}/>
+            <input style={{visibility: 'hidden', width: 0}} type="text" id={name} readOnly name={name} value={templateString}/>
             <Button variant="contained" color="primary" onClick={() => setIsEditTemplateOpen(true)}>Edit Template</Button>
 
             {isEditTemplateOpen && (
@@ -40,7 +40,7 @@ export default (props) => {
                     onSaveTemplate={onSaveTemplate}
                     onClose={() => setIsEditTemplateOpen(false)} />
             )}
-            {!isEditTemplateOpen && <TemplatePreviewForPreview scale={scale} product={product} template={JSON.parse(templateString)} />}
+            <TemplatePreviewForPreview scale={scale} product={product} template={JSON.parse(templateString)} />
         </div>
     )
 }

@@ -12,9 +12,11 @@ export const mapComponentProps = (props) => {
     onLayoutClick,
     onUpdateLayout,
     onPathChange,
+    selectedTheme,
     editLayouts = [],
     previewOnly = false
   } = props;
+  replaceDynamicValues(template, selectedTheme);
   const {
     layouts = [],
     templateFilters = [],
@@ -82,4 +84,14 @@ const getAllFonts = (template) => {
     }
   });
   return { googleFonts, uploadedFonts };
+};
+
+const replaceDynamicValues = (template, selectedTheme) => {
+  const { layouts = [] } = template;
+  layouts.forEach((layout) => {
+    if (layout.themeColor) {
+      layout.fill.fill = selectedTheme.colors[layout.themeColor];
+    }
+  });
+  return template;
 };
