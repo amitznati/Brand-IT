@@ -102,9 +102,14 @@ const replaceDynamicValues = (template, selectedTheme) => {
     if (p.themeImage) {
       p.src = selectedTheme.images[p.themeImage.split('-').pop()];
     }
+    if (p.fill && p.fill.gradientId) {
+      p.fill.gradientId = `${p.fill.gradientId}-${selectedTheme.id}`;
+      p.fill.fill = `url(#${p.fill.gradientId})`;
+    }
     return layout;
   });
   template.templateGradients = templateGradients.map((gradient) => {
+    gradient.id = `${gradient.id}-${selectedTheme.id}`;
     gradient.gradientData.palette = gradient.gradientData.palette.map(
       (stop) => {
         if (stop.themeColor) {
@@ -115,5 +120,4 @@ const replaceDynamicValues = (template, selectedTheme) => {
     );
     return gradient;
   });
-  return template;
 };
