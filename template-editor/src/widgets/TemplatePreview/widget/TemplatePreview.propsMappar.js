@@ -14,9 +14,12 @@ export const mapComponentProps = (props) => {
     onPathChange,
     selectedTheme,
     editLayouts = [],
-    previewOnly = false
+    previewOnly = false,
+    isThemeActive = true
   } = props;
-  replaceDynamicValues(template, selectedTheme);
+  if (isThemeActive && selectedTheme) {
+    isThemeActive && replaceDynamicValues(template, selectedTheme);
+  }
   const {
     layouts = [],
     templateFilters = [],
@@ -87,11 +90,30 @@ const getAllFonts = (template) => {
 };
 
 const replaceDynamicValues = (template, selectedTheme) => {
-  const { layouts = [] } = template;
-  layouts.forEach((layout) => {
-    if (layout.themeColor) {
-      layout.fill.fill = selectedTheme.colors[layout.themeColor];
+  const { layouts = [], templateGradients = [] } = template;
+  template.layouts = layouts.map((layout) => {
+    const p = layout.properties;
+    if (p.themeColor) {
+      p.fill.fill = selectedTheme.palette[p.themeColor];
     }
+    if (p.themeFontFamily) {
+      p.fontFamily = `${p.themeFontFamily}${selectedTheme.id}`;
+    }
+    if (p.themeImage) {
+      p.src = selectedTheme.images[p.themeImage.split('-').pop()];
+    }
+    return layout;
+  });
+  template.templateGradients = templateGradients.map((gradient) => {
+    gradient.gradientData.palette = gradient.gradientData.palette.map(
+      (stop) => {
+        if (stop.themeColor) {
+          stop.color = selectedTheme.palette[stop.themeColor];
+        }
+        return stop;
+      }
+    );
+    return gradient;
   });
   return template;
 };

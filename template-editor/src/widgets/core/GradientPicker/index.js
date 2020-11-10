@@ -12,7 +12,7 @@ import CoreNumber from '../CoreNumber';
 import CoreSelect from '../CoreSelect';
 import GradientBuilder from './GradientBuilder';
 import withRoot from '../../../withRoot';
-import CoreThemeColorSelect from '../CoreThemeColorSelect';
+import CoreThemeVariantSelect from '../CoreThemeVariantSelect';
 
 const styles = (theme) => ({
   popover: {
@@ -32,7 +32,7 @@ const WrappedSketchPicker = ({ onSelect, classes, themeColor, ...rest }) => {
   if (rest && rest.isActive) {
     return (
       <div className={classes.popover}>
-        <CoreThemeColorSelect
+        <CoreThemeVariantSelect
           value={themeColor}
           onSelect={(tc) => onSelect(rest.color, tc)}
         />

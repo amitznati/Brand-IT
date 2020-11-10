@@ -114,7 +114,7 @@ const LoadedGridList = () => {
                     src:`url(${data[id].fontFamilies[fontType.type]}) format("woff2")`
                 });
         });
-    })
+    });
     return (
         <Grid container>
             <FontProvider fontFamilies={fontFamilies}>

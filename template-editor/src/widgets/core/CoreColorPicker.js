@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Popover } from '@material-ui/core';
 import { SketchPicker } from 'react-color';
-import CoreThemeColorSelect from './CoreThemeColorSelect';
+import CoreThemeVariantSelect from './CoreThemeVariantSelect';
 
 const getRgba = (rgba) => {
   return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`;
@@ -38,7 +38,7 @@ const CoreColorPicker = ({
       }}
     >
       {onThemeColorSelect && (
-        <CoreThemeColorSelect
+        <CoreThemeVariantSelect
           onSelect={onThemeColorSelect}
           value={themeColor}
         />

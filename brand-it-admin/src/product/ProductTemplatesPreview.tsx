@@ -4,13 +4,12 @@ import {Grid} from "@material-ui/core";
 import {TemplatePreviewForPreview} from 'template-editor';
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 
 const TemplatesGrid = props => {
-    const {product} = props;
+    const {product, selectedTheme} = props;
     const {templates} = product;
     if (!templates || !templates.length) {
         return <div />;
@@ -23,7 +22,12 @@ const TemplatesGrid = props => {
                         <Card>
                             <CardActionArea>
                                 <CardContent>
-                                    <TemplatePreviewForPreview scale={0.4} product={product} template={JSON.parse(template.template)} />
+                                    <TemplatePreviewForPreview
+                                        selectedTheme={selectedTheme}
+                                        scale={0.4}
+                                        product={product}
+                                        template={JSON.parse(template.template)}
+                                    />
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
@@ -41,7 +45,7 @@ const TemplatesGrid = props => {
 
 
 const ProductTemplatesPreview = (props) => {
-    const { record } = props;
+    const { record, selectedTheme } = props;
     return (
         <Query type='getProductWithTemplates' resource='Product' payload={{id: record.id}}>
             {({data, loading, error}) => {
@@ -51,7 +55,7 @@ const ProductTemplatesPreview = (props) => {
                 if (error) {
                     return <Error/>;
                 }
-                return <TemplatesGrid product={data} />;
+                return <TemplatesGrid product={data} selectedTheme={selectedTheme} />;
             }}
         </Query>
     );

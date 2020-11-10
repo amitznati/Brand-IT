@@ -129,7 +129,8 @@ function LayoutListOpen(props) {
           stroke,
           strokeWidth,
           pathData,
-          src
+          src,
+          themeFontFamily
         }
       }
     } = props;
@@ -148,7 +149,8 @@ function LayoutListOpen(props) {
               fontProvider,
               onPropertyChange,
               onPropertiesChange,
-              uploadedFonts
+              uploadedFonts,
+              themeFontFamily
             }}
           />
         );

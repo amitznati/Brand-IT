@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Button, Chip} from '@material-ui/core';
+import { Grid, Button, Chip } from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import Gradients from '../../../Gradients/widget/Gradients.connect';
 import { CoreColorPicker } from '../../../core';

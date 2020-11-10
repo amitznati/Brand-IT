@@ -33,7 +33,7 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
     );
     if (loading || themesLoading) return <span>Loading...</span>;
     const uploadedFonts = ids.map((id) => data[id]);
-    const selectedTheme = themes[themesIds[1]];
+    const selectedTheme = themesIds.length && themes[themesIds[1]];
     return (
         <Dialog
             onClose={onClose}

@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { Admin, Resource } from 'react-admin';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
-import buildGraphQLProvider, {buildQuery as buildQueryFactory} from 'ra-data-graphql-simple';
-import {InMemoryCache} from '@apollo/client';
-import { createUploadLink } from 'apollo-upload-client';
 import './App.css';
 
 import authProvider from './authProvider';

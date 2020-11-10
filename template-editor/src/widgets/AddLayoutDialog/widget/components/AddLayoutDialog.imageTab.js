@@ -10,7 +10,7 @@ export default function ImageTab({
   const [imageSrc, setImageSrc] = React.useState('');
   const [imageName, setImageName] = React.useState('');
   const [selectedTab, setSelectedTab] = React.useState(0);
-  const [isThemeImage, setIsThemeImage] = React.useState(false);
+  const [themeImage, setThemeImage] = React.useState('');
   const dynamicOptions = dynamicImageOptions.map((o) => ({
     value: o,
     label: o
@@ -23,7 +23,7 @@ export default function ImageTab({
       FR.addEventListener('load', (e) => {
         setImageSrc(e.target.result);
         setImageName(iName);
-        setIsThemeImage(false);
+        setThemeImage('');
       });
       FR.readAsDataURL(event.target.files[0]);
     }
@@ -32,13 +32,13 @@ export default function ImageTab({
   const handleFromUrlChange = (url) => {
     setImageName(url);
     setImageSrc(url);
-    setIsThemeImage(false);
+    setThemeImage('');
   };
 
   const handleThemeImageSelect = (themeImage) => {
     setImageSrc(selectedTheme.images[themeImage.split('-').pop()]);
     setImageName(themeImage);
-    setIsThemeImage(true);
+    setThemeImage(themeImage);
   };
 
   return (
@@ -99,7 +99,7 @@ export default function ImageTab({
           onClick={() =>
             onSelect({
               type: 'image',
-              value: { src: imageSrc, isThemeImage, imageName }
+              value: { src: imageSrc, themeImage }
             })
           }
         >

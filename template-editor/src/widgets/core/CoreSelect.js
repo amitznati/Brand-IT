@@ -24,7 +24,7 @@ const SimpleSelect = (props) => {
   }
 
   return (
-    <FormControl fullWidth disabled={disabled} className={classes.formControl}>
+    <FormControl fullWidth disabled={disabled}>
       <InputLabel htmlFor='age-simple'>{props.label}</InputLabel>
       <Select value={value} onChange={handleChange}>
         {options &&

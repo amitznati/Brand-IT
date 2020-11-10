@@ -9,6 +9,7 @@ import {
   CoreText,
   CoreFontSelector
 } from '../../../core';
+import CoreThemeVariantSelect from '../../../core/CoreThemeVariantSelect';
 
 const useStyles = makeStyles((theme) => ({
   progress: {
@@ -49,12 +50,16 @@ const FontProperties = (props) => {
     onPropertyChange,
     fontProvider,
     uploadedFonts,
-    onPropertiesChange
+    onPropertiesChange,
+    themeFontFamily
   } = props;
   const dynamicOptions = dynamicTextOptions.map((o) => ({ id: o, name: o }));
   const [loadingState, setLoadingState] = React.useState({});
   const isGoogleFontProvider = fontProvider === 'google';
   const classes = useStyles();
+  const onSelectThemeFontFamily = (fontVariant) => {
+    onPropertyChange('themeFontFamily', fontVariant);
+  };
   const onFontProviderChange = (e, v) => {
     if (uploadedFonts.length) {
       onPropertiesChange([
@@ -198,6 +203,13 @@ const FontProperties = (props) => {
             handleChange={(v) => onFontPropertyChange('fontFamily', v)}
           />
         )}
+      </Grid>
+      <Grid item xs={12}>
+        <CoreThemeVariantSelect
+          value={themeFontFamily}
+          onSelect={onSelectThemeFontFamily}
+          className={classes.progress}
+        />
       </Grid>
       <Grid item xs={3}>
         <CoreNumber

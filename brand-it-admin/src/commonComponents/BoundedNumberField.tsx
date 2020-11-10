@@ -41,7 +41,7 @@ export const BoundedNumberField = props => {
 				onChange={onValueChange}
 				error={!!(touched && error)}
 				required={isRequired}
-				value={value || ''}
+				value={(value || value === 0) ? value : ''}
 				type="number"
 			/>
 			{error && !touched && <span className={classes.errorText}>{translate(error)}</span>}

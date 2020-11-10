@@ -13,8 +13,6 @@ export default (props) => {
     } = inputProps;
 
     const initialTemplate = (record && record[source]) || JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] });
-    console.log(initialTemplate);
-    console.log(record[source]);
     const [templateString, setTemplateString] = React.useState(initialTemplate);
     const [isEditTemplateOpen, setIsEditTemplateOpen] = React.useState(false);
     const onSaveTemplate = template => {

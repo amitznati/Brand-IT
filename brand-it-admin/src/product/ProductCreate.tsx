@@ -15,7 +15,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {BoundedNumberField} from "../commonComponents/BoundedNumberField";
 import {TemplatePreviewForProduct} from 'template-editor';
 import {propertyByString} from "../utils";
-import EditTemplateField from "../commonComponents/EditTemplateField";
 
 const styles = {
     width: { width: '7em' },
@@ -62,7 +61,7 @@ const ProductPreview = ({imageSrc, sizeState}) => {
 const ProductImage = (props) => {
     const {imageSrc} = props;
     if (imageSrc) {
-        return <img src={imageSrc} alt="product image" height={300} />
+        return <img src={imageSrc} alt="product" height={300} />
     }
     return null;
 };

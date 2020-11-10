@@ -1,8 +1,18 @@
 import * as React from "react";
-import { Show, SimpleShowLayout, TextField, useMutation, Button, SimpleForm, Toolbar} from 'react-admin';
+import {
+    Show,
+    SimpleShowLayout,
+    TextField,
+    useMutation,
+    Button,
+    SimpleForm,
+    Toolbar
+} from 'react-admin';
 import {ProductTitle} from "./ProductCreate";
 import EditTemplateField from "../commonComponents/EditTemplateField";
 import ProductTemplatesPreview from "./ProductTemplatesPreview";
+import ThemeSelect from "../commonComponents/ThemeSelect";
+import {Divider} from "@material-ui/core";
 
 const ApproveButton = (props) => {
     const {record, template} = props;
@@ -28,14 +38,14 @@ const EditTemplateForProduct = props => {
     );
 }
 export const ProductShow = ({hasShow, ...rest}) => {
-
-    console.log(rest);
+    const [selectedTheme, setSelectedTheme] = React.useState();
     return (
         <Show {...rest} title={<ProductTitle/>}>
             <SimpleShowLayout>
                 <TextField source="name"/>
                 <EditTemplateForProduct />
-                <ProductTemplatesPreview />
+                <ThemeSelect onSelect={setSelectedTheme} selectedTheme={selectedTheme} />
+                <ProductTemplatesPreview selectedTheme={selectedTheme} />
             </SimpleShowLayout>
         </Show>
     );
