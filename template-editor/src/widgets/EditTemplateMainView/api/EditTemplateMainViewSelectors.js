@@ -36,12 +36,6 @@ export const getDynamicTextOptionsSelector = createSelector(
     return slice.dynamicTextOptions;
   }
 );
-export const getDynamicImageOptionsSelector = createSelector(
-  sliceSelector,
-  (slice) => {
-    return slice.dynamicImageOptions;
-  }
-);
 export const getScaleSelector = createSelector(sliceSelector, (slice) => {
   return slice.scale;
 });
@@ -93,6 +87,5 @@ export default {
   templateFiltersSelector,
   getDynamicTextOptionsSelector,
   getUploadedFontsSelector,
-  getDynamicImageOptionsSelector,
   getSelectedThemeSelector
 };

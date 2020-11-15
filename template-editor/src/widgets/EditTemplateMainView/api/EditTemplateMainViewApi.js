@@ -302,10 +302,6 @@ export default class EditTemplateMainViewApi extends BaseApi {
     return selectors.getUploadedFontsSelector(this.store.getState());
   };
 
-  getDynamicImageOptionsSelector = () => {
-    return selectors.getDynamicImageOptionsSelector(this.store.getState());
-  };
-
   getSelectedThemeSelector = () => {
     return selectors.getSelectedThemeSelector(this.store.getState());
   };

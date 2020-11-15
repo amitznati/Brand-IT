@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {BoundedNumberField} from "../commonComponents/BoundedNumberField";
 import {TemplatePreviewForProduct} from 'template-editor';
 import {propertyByString} from "../utils";
+import DynamicOptionsSelect from "../commonComponents/DynamicOptionsSelect";
 
 const styles = {
     width: { width: '7em' },
@@ -92,6 +93,7 @@ const ProductForm = props => {
         reader.readAsDataURL(files[0]);
 
     };
+
     return (
         <TabbedForm {...props}>
             <FormTab label="Details">
@@ -103,6 +105,11 @@ const ProductForm = props => {
                     <ImageField source="files" title="title"/>
                 </ImageInput>
                 {!imageSrc && <ProductImage imageSrc={record.imageUrl} />}
+                <DynamicOptionsSelect
+                    label="Dynamic Text Options"
+                    placeholder="option name"
+                    source="dynamicTextOptions"
+                />
             </FormTab>
             <FormTab label="Size" contentClassName={classes.sizeTab}>
                 {sizeFields.map((field) => (

@@ -5,6 +5,7 @@ const customEnglishMessages: TranslationMessages = {
     ...englishMessages,
     Categories: 'Categories',
     Assets: 'Assets',
+    Simulator: 'Simulator',
     pos: {
         search: 'Search',
         configuration: 'Configuration',

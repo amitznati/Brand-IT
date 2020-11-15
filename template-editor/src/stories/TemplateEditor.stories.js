@@ -8,7 +8,6 @@ export default {
   title: 'TemplateEditor',
   component: TemplateEditor
 };
-const dynamicTextOptions = ['@brand_name', '@brand_slogan'];
 const dynamicImageOptions = [
   '@theme-image-bg',
   '@theme-image-frame',
@@ -31,7 +30,8 @@ export const EditorModeLogo = () => {
       width: 10,
       x: 0,
       y: 0
-    }
+    },
+    dynamicImageOptions: ['Brand Name', 'Brand Slogan']
   };
   const dynamicTextValues = {
     '@brand_name': 'Brant-It'
@@ -40,7 +40,6 @@ export const EditorModeLogo = () => {
     <Provider store={getStoreInstance()}>
       <TemplateEditor
         initialData={{
-          dynamicTextOptions,
           dynamicTextValues,
           dynamicImageOptions,
           product: logo
@@ -62,16 +61,16 @@ export const EditorModePaperBag = () => {
       width: 18,
       x: 1,
       y: 1
-    }
+    },
+    dynamicImageOptions: ['Brand Name', 'Brand Slogan']
   };
   const dynamicTextValues = {
-    '@brand_name': 'Brant-It'
+    'Brand Name': 'Brant-It'
   };
   return (
     <Provider store={getStoreInstance()}>
       <TemplateEditor
         initialData={{
-          dynamicTextOptions,
           dynamicTextValues,
           dynamicImageOptions,
           product: product

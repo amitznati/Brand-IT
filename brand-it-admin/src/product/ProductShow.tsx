@@ -12,7 +12,6 @@ import {ProductTitle} from "./ProductCreate";
 import EditTemplateField from "../commonComponents/EditTemplateField";
 import ProductTemplatesPreview from "./ProductTemplatesPreview";
 import ThemeSelect from "../commonComponents/ThemeSelect";
-import {Divider} from "@material-ui/core";
 
 const ApproveButton = (props) => {
     const {record, template} = props;

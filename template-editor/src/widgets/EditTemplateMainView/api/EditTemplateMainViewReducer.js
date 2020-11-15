@@ -9,7 +9,6 @@ const initialState = {
   allFontsLoaded: false,
   isSVGPathBuilderOpen: false,
   templateGradients: [],
-  dynamicTextOptions: [],
   dynamicImageOptions: [],
   uploadedFonts: [],
   selectedTheme: defaultTheme,
@@ -23,7 +22,8 @@ const initialState = {
       width: 18.5,
       x: 0.5,
       y: 1.1
-    }
+    },
+    dynamicImageOptions: []
   }
 };
 // const SUCCESS = '_SUCCESS';

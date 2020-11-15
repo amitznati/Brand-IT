@@ -63,7 +63,6 @@ const customBuildQuery = (
                 }`,
                 variables: { productId: params.id },
                 parseResponse: ({ data }) => {
-                    console.log(data);
                     return {data: data.getProductWithTemplates};
                 },
 			};

@@ -12,8 +12,14 @@ export const typeDefs = gql`
             image: Upload
             categories: [ID]
             size: SizeInput!
-            templateFrame: TemplateFrameInput!): Product!
-#        updateProduct(id: ID!, name: String!, business: BusinessForUpdateProduct!): Product!
+            templateFrame: TemplateFrameInput!
+            dynamicTextOptions: [String]): Product!
+        updateProduct(id: ID!, name: String!
+            image: Upload
+            categories: [ID]
+            size: SizeInput!
+            templateFrame: TemplateFrameInput!
+            dynamicTextOptions: [String]): Product!
         deleteProduct(id: ID!): Product!
         addTemplate(id: ID!, template: String!): Product!
     }
@@ -43,6 +49,7 @@ export const typeDefs = gql`
         templateFrame: TemplateFrame!
         categories: [ID]
         templates: [ID]
+        dynamicTextOptions: [String]
     }
     type ProductWithTemplates {
         id: ID!
@@ -52,6 +59,7 @@ export const typeDefs = gql`
         templateFrame: TemplateFrame!
         categories: [ID]
         templates: [Template]
+        dynamicTextOptions: [String]
     }
     type BusinessForProduct {
         id: ID!
@@ -77,6 +85,7 @@ export const typeDefs = gql`
         categories: [ID]
         size: SizeInput!
         templateFrame: TemplateFrameInput!
+        dynamicTextOptions: [String]
     }
     input ProductFilter {
         q: String

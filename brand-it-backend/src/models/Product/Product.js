@@ -22,5 +22,6 @@ const Product = mongoose.model('Product',
 			type: Schema.Types.ObjectId,
 			ref: 'Template'
 		}],
+		dynamicTextOptions: [String]
 	});
 export default Product;

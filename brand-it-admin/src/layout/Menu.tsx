@@ -10,7 +10,7 @@ import business from '../business';
 import SubMenu from './SubMenu';
 import { AppState } from '../types';
 
-type MenuName = 'menuCatalog' | 'menuSales' | 'menuCustomers' | 'menuAssets';
+type MenuName = 'menuCatalog' | 'menuSimulator' | 'menuCustomers' | 'menuAssets';
 
 interface Props {
     dense: boolean;
@@ -26,7 +26,8 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
         menuCatalog: true,
         menuSales: false,
         menuCustomers: false,
-        menuAssets: false
+        menuAssets: false,
+        menuSimulator: false
     });
     const translate = useTranslate();
     const isXSmall = useMediaQuery((theme: Theme) =>
@@ -82,6 +83,23 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
                         dense={dense}
                     />
                 ))}
+            </SubMenu>
+            <SubMenu
+                handleToggle={() => handleToggle('menuSimulator')}
+                isOpen={state.menuSimulator}
+                sidebarIsOpen={open}
+                name="Simulator"
+                icon={<business.icon />}
+                dense={dense}
+            >
+                    <MenuItemLink
+                        to="/simulator"
+                        primaryText="Simulator"
+                        onClick={onMenuClick}
+                        leftIcon={<business.icon />}
+                        sidebarIsOpen={open}
+                        dense={dense}
+                    />
             </SubMenu>
             {isXSmall && (
                 <MenuItemLink
