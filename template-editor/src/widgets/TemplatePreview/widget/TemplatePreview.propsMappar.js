@@ -17,10 +17,15 @@ export const mapComponentProps = (props) => {
     previewOnly = false,
     isThemeActive = true,
     isNodeRefreshRequire,
-    setIsNodeRefreshRequire
+    setIsNodeRefreshRequire,
+    dynamicTextValues = [],
+    isActiveTextValues = false
   } = props;
   if (isThemeActive && selectedTheme) {
-    isThemeActive && replaceDynamicValues(template, selectedTheme);
+    replaceDynamicThemeValues(template, selectedTheme);
+  }
+  if (isActiveTextValues) {
+    replaceDynamicTextValues(template, dynamicTextValues);
   }
   const {
     layouts = [],
@@ -93,7 +98,7 @@ const getAllFonts = (template) => {
   return { googleFonts, uploadedFonts };
 };
 
-const replaceDynamicValues = (template, selectedTheme) => {
+const replaceDynamicThemeValues = (template, selectedTheme) => {
   const { layouts = [], templateGradients = [] } = template;
   template.layouts = layouts.map((layout) => {
     const p = layout.properties;
@@ -123,5 +128,16 @@ const replaceDynamicValues = (template, selectedTheme) => {
       }
     );
     return gradient;
+  });
+};
+
+const replaceDynamicTextValues = (template, dynamicTextValues) => {
+  const { layouts = [] } = template;
+  template.layouts = layouts.map((layout) => {
+    const p = layout.properties;
+    if (p.dynamicOptionValue) {
+      p.text = dynamicTextValues[p.dynamicOptionValue];
+    }
+    return layout;
   });
 };

@@ -8,8 +8,8 @@ const mapStateToProps = (state, props) => {
   const product = EditTemplateMainViewApi.getProductSelector();
   return {
     selectedTheme: EditTemplateMainViewApi.getSelectedThemeSelector(),
-    dynamicTextOptions: EditTemplateMainViewApi.getDynamicTextOptionsSelector(),
-    dynamicImageOptions: product.dynamicTextOptions,
+    dynamicTextOptions: product.dynamicTextOptions,
+    dynamicImageOptions: EditTemplateMainViewApi.getDynamicImageOptionsSelector(),
     ...props
   };
 };

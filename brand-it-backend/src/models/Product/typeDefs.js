@@ -6,6 +6,7 @@ export const typeDefs = gql`
         allProducts(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: ProductFilter): [Product]
         _allProductsMeta(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: ProductFilter): ListMetadata
         getProductWithTemplates(productId: ID!): ProductWithTemplates!
+        getProductsWithTemplates(params: ProductsWithTemplatesInput): [ProductWithTemplates]!
     }
     extend type Mutation {
         createProduct(name: String!
@@ -91,11 +92,9 @@ export const typeDefs = gql`
         q: String
         id: ID
         categories: [ID]
-        title: String
-        views: Int
-        views_lt: Int
-        views_lte: Int
-        views_gt: Int
-        views_gte: Int
+    }
+    input ProductsWithTemplatesInput {
+        categories: [ID]
+        ids: [ID]
     }
 `;

@@ -47,7 +47,7 @@ const TemplatesGrid = props => {
 const ProductTemplatesPreview = (props) => {
     const { record, selectedTheme } = props;
     return (
-        <Query type='getProductWithTemplates' resource='Product' payload={{id: record.id}}>
+        <Query type='getProductsWithTemplates' resource='Product' payload={{ids: [record.id]}}>
             {({data, loading, error}) => {
                 if (loading) {
                     return <Loading/>;
@@ -55,7 +55,7 @@ const ProductTemplatesPreview = (props) => {
                 if (error) {
                     return <Error/>;
                 }
-                return <TemplatesGrid product={data} selectedTheme={selectedTheme} />;
+                return <TemplatesGrid product={data[0]} selectedTheme={selectedTheme} />;
             }}
         </Query>
     );

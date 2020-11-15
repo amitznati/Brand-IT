@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import {useGetList} from "react-admin";
-const dynamicTextOptions = ['@brand_name', '@brand_slogan'];
 const dynamicImageOptions = [
     '@theme-image-bg',
     '@theme-image-frame',
@@ -60,7 +59,6 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
             </DialogTitle>
             <DialogContent>
                 <TemplateEditor onSaveTemplate={onSaveTemplate} initialData={{
-                    dynamicTextOptions,
                     dynamicImageOptions,
                     product,
                     uploadedFonts,

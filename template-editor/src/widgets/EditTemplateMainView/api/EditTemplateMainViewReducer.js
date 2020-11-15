@@ -23,7 +23,7 @@ const initialState = {
       x: 0.5,
       y: 1.1
     },
-    dynamicImageOptions: []
+    dynamicTextOptions: []
   }
 };
 // const SUCCESS = '_SUCCESS';

@@ -1,55 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getPX } from '../../../../../sdk/utils';
+import { getGlobalLayoutProperties } from './SVGUtils';
 
 const Text = (props) => {
   const textRef = React.createRef();
   const { layout, index, previewOnly } = props;
-  const {
-    fontFamily,
-    fontSize,
-    fontWeight,
-    x,
-    y,
-    text,
-    fill,
-    alignment,
-    transform: {
-      skewY = 0,
-      skewX = 0,
-      scaleX = 1,
-      scaleY = 1,
-      translateX = 0,
-      translateY = 0
-    },
-    filters
-  } = layout.properties;
+  const { fontFamily, fontSize, fontWeight, text, fill } = layout.properties;
   const layoutFill = fill.fill;
-  const layoutProperties = {
-    x: getPX(x),
-    y: getPX(y),
-    transform: `matrix(${scaleX} ${skewX} ${skewY} ${scaleY} ${translateX} ${translateY})`
-  };
+  const layoutProperties = getGlobalLayoutProperties(layout);
   const textProperties = {
     fontFamily,
     fontSize,
     fontWeight,
     fill: layoutFill
   };
-  if (filters.length) {
-    layoutProperties.style = {
-      filter: filters.map((f) => `url(#${f})`).join(' ')
-    };
-  }
-  if (alignment) {
-    if (alignment.vertical) {
-      layoutProperties.dominantBaseline =
-        alignment.vertical.alignmentAttributes;
-    }
-    if (alignment.horizontal) {
-      layoutProperties.textAnchor = alignment.horizontal.alignmentAttributes;
-    }
-  }
 
   return (
     <g

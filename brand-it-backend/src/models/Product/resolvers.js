@@ -24,7 +24,18 @@ export const resolvers = {
 		allProducts: () => Product.find(),
 		_allProductsMeta: () => {return {count: Product.find().estimatedDocumentCount()}},
 		Product: (_, {id}) => Product.findById(id),
-		getProductWithTemplates: (_, {productId}) => Product.findById(productId).populate('templates')
+		getProductWithTemplates: (_, {productId}) => Product.findById(productId).populate('templates'),
+		getProductsWithTemplates: (_, {params}) => {
+			const {categories = [], ids = []} = params;
+			const payload = {};
+			if (categories.length) {
+				payload.categories = {$in: categories};
+			}
+			if (ids.length) {
+				payload['_id'] = {$in: ids};
+			}
+			return Product.find(payload).populate('templates');
+		}
 	},
 	Mutation: {
 		createProduct: async (_, input) => {

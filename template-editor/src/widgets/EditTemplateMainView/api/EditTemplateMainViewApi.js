@@ -286,8 +286,8 @@ export default class EditTemplateMainViewApi extends BaseApi {
     return selectors.getScaleSelector(this.store.getState());
   };
 
-  getDynamicTextOptionsSelector = () => {
-    return selectors.getDynamicTextOptionsSelector(this.store.getState());
+  getDynamicImageOptionsSelector = () => {
+    return selectors.getDynamicImageOptionsSelector(this.store.getState());
   };
 
   isAddLayoutDialogOpenSelector = () => {

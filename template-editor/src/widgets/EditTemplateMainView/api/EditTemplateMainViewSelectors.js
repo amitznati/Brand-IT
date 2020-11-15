@@ -30,10 +30,10 @@ export const getUploadedFontsSelector = createSelector(
     return slice.uploadedFonts;
   }
 );
-export const getDynamicTextOptionsSelector = createSelector(
+export const getDynamicImageOptionsSelector = createSelector(
   sliceSelector,
   (slice) => {
-    return slice.dynamicTextOptions;
+    return slice.dynamicImageOptions;
   }
 );
 export const getScaleSelector = createSelector(sliceSelector, (slice) => {
@@ -85,7 +85,7 @@ export default {
   isAllFontLoadedSelector,
   templateGradientsSelector,
   templateFiltersSelector,
-  getDynamicTextOptionsSelector,
+  getDynamicImageOptionsSelector,
   getUploadedFontsSelector,
   getSelectedThemeSelector
 };

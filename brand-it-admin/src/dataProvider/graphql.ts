@@ -38,20 +38,16 @@ const customBuildQuery = (
                 variables: { id: params.id, template: params.template }
 
             };
-        } else if (type === 'getProductWithTemplates') {
+        } else if (type === 'getProductsWithTemplates') {
 			return {
-				query: gql`query getProductWithTemplates($productId: ID!) {
-                    getProductWithTemplates(productId: $productId) {
-                        name
-                        templates {
-                            id
-                            template
-                        }
+				query: gql`query getProductsWithTemplates($params: ProductsWithTemplatesInput) {
+                    getProductsWithTemplates(params: $params) {
                         id
+                        name
                         imageUrl
                         size {
-                            width
                             height
+                            width
                         }
                         templateFrame {
                             height
@@ -59,11 +55,17 @@ const customBuildQuery = (
                             x
                             y
                         }
+                        categories
+                        templates {
+                            id
+                            template
+                        }
+                        dynamicTextOptions
                     }
                 }`,
-                variables: { productId: params.id },
+                variables: { params },
                 parseResponse: ({ data }) => {
-                    return {data: data.getProductWithTemplates};
+                    return {data: data.getProductsWithTemplates};
                 },
 			};
         }

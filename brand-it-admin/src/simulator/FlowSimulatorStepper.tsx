@@ -6,6 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SelectCategory from "./SelectCategory";
+import SelectBrand from "./SelectBrand";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -23,10 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
             minHeight: '30rem',
         },
         stepContent: {
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
+            // position: 'absolute',
+            // top: '50%',
+            // left: '50%',
+            // transform: 'translate(-50%, -50%)'
         },
     }),
 );
@@ -45,7 +46,7 @@ export default function FlowSimulatorStepper() {
             case 1:
                 return 'What is an ad group anyways?';
             case 2:
-                return 'This is the bit I really care about!';
+                return <SelectBrand selectedCategory={selectedCategory} />;
             default:
                 return 'Unknown step';
         }
