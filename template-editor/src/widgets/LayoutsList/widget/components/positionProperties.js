@@ -77,7 +77,10 @@ const PositionProperties = ({
             { key: 'top', icon: <VerticalAlignTopIcon /> }
           ].map((align) => {
             let buttonStyle = {};
-            if (alignment?.vertical?.value === align.key) {
+            if (
+              alignment?.vertical?.align &&
+              alignment?.vertical?.value === align.key
+            ) {
               buttonStyle = { variant: 'contained', color: 'primary' };
             }
             return (
@@ -107,7 +110,10 @@ const PositionProperties = ({
             }
           ].map((align) => {
             let buttonStyle = {};
-            if (alignment?.horizontal?.value === align.key) {
+            if (
+              alignment?.horizontal?.align &&
+              alignment?.horizontal?.value === align.key
+            ) {
               buttonStyle = { variant: 'contained', color: 'primary' };
             }
             return (

@@ -206,6 +206,7 @@ export default class EditTemplateMainViewApi extends BaseApi {
     const { selectedLayoutIndex } = this.getSelectedLayoutSelector();
     template.layouts[selectedLayoutIndex] = layout;
     this.updateTemplate(template);
+    this.apis.TemplatePreviewApi.setIsNodeRefreshRequire(true);
   };
 
   saveTemplate = () => {

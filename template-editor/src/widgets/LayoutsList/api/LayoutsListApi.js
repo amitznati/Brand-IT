@@ -11,7 +11,6 @@ export default class LayoutsListApi extends BaseApi {
     const templateH = getPX(templateFrame.height);
     const templateW = getPX(templateFrame.width);
     const newLayout = { ...layout };
-
     if (alignment === 'vertical') {
       let translateY;
       let alignmentAttributes;
@@ -34,7 +33,32 @@ export default class LayoutsListApi extends BaseApi {
       newLayout.properties.transform.translateY = translateY;
       newLayout.properties.alignment = {
         ...newLayout.properties.alignment,
-        vertical: { value, alignmentAttributes }
+        vertical: { value, alignmentAttributes, align: true },
+      };
+    }
+    if (alignment === 'horizontal') {
+      let translateX;
+      let alignmentAttributes;
+      switch (value) {
+        case 'left':
+          translateX = 0;
+          alignmentAttributes = 'start';
+          break;
+        case 'right':
+          translateX = templateW;
+          alignmentAttributes = 'end';
+          break;
+        case 'center':
+          translateX = templateW / 2;
+          alignmentAttributes = 'middle';
+          break;
+        default:
+          break;
+      }
+      newLayout.properties.transform.translateX = translateX;
+      newLayout.properties.alignment = {
+        ...newLayout.properties.alignment,
+        horizontal: { value, alignmentAttributes, align: true }
       };
     }
     editTemplateMainViewApi.onUpdateLayout(newLayout);

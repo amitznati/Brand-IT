@@ -76,18 +76,26 @@ class DesignCanvas extends React.Component {
 
   methods = {
     onDrop: (e, el) => {
-      const newVals = this.getPropertiesFromActiveNode(el);
+      const newValues = this.getPropertiesFromActiveNode(el);
       this.refreshNode();
-      this.updateNode(newVals);
+      this.updateNode(newValues);
     }
   };
 
-  updateNode = (newVals) => {
+  updateNode = (newValues) => {
     const { selectedLayout, onUpdateLayout } = this.props;
+    const { alignment } = selectedLayout.properties;
+    const newAlignment = { ...alignment };
+    if (newAlignment.vertical) {
+      newAlignment.vertical.align = false;
+    }
+    if (newAlignment.horizontal) {
+      newAlignment.horizontal.align = false;
+    }
     selectedLayout.properties = {
       ...selectedLayout.properties,
-      alignment: '',
-      ...newVals
+      alignment: newAlignment,
+      ...newValues
     };
     onUpdateLayout && onUpdateLayout(selectedLayout);
   };
