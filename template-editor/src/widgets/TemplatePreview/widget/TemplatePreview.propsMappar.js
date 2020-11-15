@@ -15,7 +15,9 @@ export const mapComponentProps = (props) => {
     selectedTheme,
     editLayouts = [],
     previewOnly = false,
-    isThemeActive = true
+    isThemeActive = true,
+    isNodeRefreshRequire,
+    setIsNodeRefreshRequire
   } = props;
   if (isThemeActive && selectedTheme) {
     isThemeActive && replaceDynamicValues(template, selectedTheme);
@@ -50,7 +52,9 @@ export const mapComponentProps = (props) => {
       scale,
       selectedLayout,
       isSVGPathBuilderOpen,
-      previewOnly
+      previewOnly,
+      isNodeRefreshRequire,
+      setIsNodeRefreshRequire
     },
     PathBuilderProps: {
       scale,

@@ -3,6 +3,7 @@ import TemplateEditor from '../widgets/EditTemplateMainView/widget/EditTemplateM
 import { Provider } from 'react-redux';
 import { getStoreInstance } from '../sdk';
 
+import bagImage from './paper_bag_bround.png';
 export default {
   title: 'TemplateEditor',
   component: TemplateEditor
@@ -43,6 +44,37 @@ export const EditorModeLogo = () => {
           dynamicTextValues,
           dynamicImageOptions,
           product: logo
+        }}
+      />
+    </Provider>
+  );
+};
+export const EditorModePaperBag = () => {
+  const product = {
+    name: 'Bag',
+    imageUrl: bagImage,
+    size: {
+      height: 30,
+      width: 20
+    },
+    templateFrame: {
+      height: 17,
+      width: 18,
+      x: 1,
+      y: 1
+    }
+  };
+  const dynamicTextValues = {
+    '@brand_name': 'Brant-It'
+  };
+  return (
+    <Provider store={getStoreInstance()}>
+      <TemplateEditor
+        initialData={{
+          dynamicTextOptions,
+          dynamicTextValues,
+          dynamicImageOptions,
+          product: product
         }}
       />
     </Provider>

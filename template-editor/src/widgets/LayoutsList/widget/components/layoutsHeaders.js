@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Avatar, Chip, Grid } from '@material-ui/core';
-import {makeStyles, withStyles} from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import styles from '../../../../styles/styles';
 
 const useStyles = makeStyles({

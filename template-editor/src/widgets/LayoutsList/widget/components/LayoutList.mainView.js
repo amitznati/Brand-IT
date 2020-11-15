@@ -16,7 +16,8 @@ function LayoutListMainView(props) {
     setIgnoreLayout,
     onDuplicateLayout,
     dynamicTextOptions,
-    uploadedFonts
+    uploadedFonts,
+    onAlignmentClick
   } = props;
   return (
     <div>
@@ -39,7 +40,8 @@ function LayoutListMainView(props) {
             dynamicTextOptions,
             uploadedFonts,
             onTogglePathBuilder,
-            onBack
+            onBack,
+            onAlignmentClick
           }}
         />
       )}

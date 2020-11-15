@@ -4,14 +4,16 @@ import Filters from '../widgets/Filters';
 import AddLayoutDialog from '../widgets/AddLayoutDialog';
 import ShapesBuilder from '../widgets/ShapesBuilder';
 import Gradients from '../widgets/Gradients';
+import LayoutList from '../widgets/LayoutsList';
 
 export const widgets = [
-	EditTemplateMainView,
-	TemplatePreview,
-	Filters,
-	AddLayoutDialog,
-	ShapesBuilder,
-	Gradients
+  EditTemplateMainView,
+  TemplatePreview,
+  Filters,
+  AddLayoutDialog,
+  ShapesBuilder,
+  Gradients,
+  LayoutList
 ];
 
 export default widgets;

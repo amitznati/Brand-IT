@@ -3,7 +3,7 @@ import { getInstance } from '../../../sdk';
 import LayoutsListComponent from './LayoutsList.component';
 
 const editTemplateMainViewApi = getInstance().EditTemplateMainViewApi;
-
+const layoutListApi = getInstance().LayoutsListApi;
 const mapStateToProps = () => {
   const {
     selectedLayout
@@ -30,7 +30,8 @@ const mapDispatchToProps = () => ({
   onDeleteLayout: editTemplateMainViewApi.onDeleteLayout,
   onSortEnd: editTemplateMainViewApi.onSortEnd,
   setIgnoreLayout: editTemplateMainViewApi.setIgnoreLayout,
-  onDuplicateLayout: editTemplateMainViewApi.onDuplicateLayout
+  onDuplicateLayout: editTemplateMainViewApi.onDuplicateLayout,
+  onAlignmentClick: layoutListApi.onAlignmentClick
 });
 
 export default connect(

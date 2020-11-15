@@ -53,7 +53,8 @@ function LayoutListOpen(props) {
     onUpdate,
     isSVGPathBuilderOpen,
     dynamicTextOptions,
-    uploadedFonts
+    uploadedFonts,
+    onAlignmentClick
   } = props;
 
   const allFields = {
@@ -122,9 +123,6 @@ function LayoutListOpen(props) {
           fontFamily,
           fontProvider,
           themeColor,
-          x,
-          y,
-          transform,
           fill,
           stroke,
           strokeWidth,
@@ -157,7 +155,9 @@ function LayoutListOpen(props) {
       }
       case 'positionProperties': {
         return (
-          <PositionProperties {...{ x, y, transform, onPropertyChange }} />
+          <PositionProperties
+            {...{ layout, onPropertyChange, onAlignmentClick }}
+          />
         );
       }
       case 'colorProperties': {

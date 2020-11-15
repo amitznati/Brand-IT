@@ -22,7 +22,17 @@ export const ActionTypes = {
   SET_INITIAL_DATA: 'SET_INITIAL_DATA'
 };
 const getDefaultProperties = (axis) => {
-  return { x: axis.x, y: axis.y, transform: {}, filters: [] };
+  return {
+    x: 0,
+    y: 0,
+    transform: {
+      translateY: getPX(axis.y),
+      translateX: getPX(axis.x),
+      scaleX: 1,
+      scaleY: 1
+    },
+    filters: []
+  };
 };
 
 const getDefaultFontProps = (templateWidth) => {

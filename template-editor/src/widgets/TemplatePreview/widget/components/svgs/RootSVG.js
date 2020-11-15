@@ -34,7 +34,7 @@ class DesignCanvas extends React.Component {
     const { selectedLayoutIndex } = this.props;
     let node;
     React.Children.map(this.props.children, (element) => {
-      if (element.props.layoutindex === selectedLayoutIndex) {
+      if (element.props['data-layout-index'] === selectedLayoutIndex) {
         node = element.ref.current;
       }
     });
@@ -42,10 +42,12 @@ class DesignCanvas extends React.Component {
   };
 
   refreshNode = () => {
+    const { setIsNodeRefreshRequire } = this.props;
     this.currentLayout && this.currentLayout.disable();
     const node = this.getActiveNode();
     this.currentLayout =
       node && subjx(node).drag(svgOptions(this.methods, this.props.scale))[0];
+    setIsNodeRefreshRequire(false);
   };
 
   getPropertiesFromActiveNode = (el) => {
@@ -84,6 +86,7 @@ class DesignCanvas extends React.Component {
     const { selectedLayout, onUpdateLayout } = this.props;
     selectedLayout.properties = {
       ...selectedLayout.properties,
+      alignment: '',
       ...newVals
     };
     onUpdateLayout && onUpdateLayout(selectedLayout);
@@ -110,10 +113,16 @@ class DesignCanvas extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.previewOnly) return;
-    const { selectedLayoutIndex, isSVGPathBuilderOpen, scale } = this.props;
+    const {
+      selectedLayoutIndex,
+      isSVGPathBuilderOpen,
+      scale,
+      isNodeRefreshRequire
+    } = this.props;
     if (
       selectedLayoutIndex !== prevProps.selectedLayoutIndex ||
-      scale !== prevProps.scale
+      scale !== prevProps.scale ||
+      isNodeRefreshRequire
     ) {
       this.refreshNode();
     } else if (isSVGPathBuilderOpen !== prevProps.isSVGPathBuilderOpen) {

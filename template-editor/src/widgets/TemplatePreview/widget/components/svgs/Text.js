@@ -13,6 +13,7 @@ const Text = (props) => {
     y,
     text,
     fill,
+    alignment,
     transform: {
       skewY = 0,
       skewX = 0,
@@ -24,43 +25,45 @@ const Text = (props) => {
     filters
   } = layout.properties;
   const layoutFill = fill.fill;
-  const shapes = [];
   const layoutProperties = {
     x: getPX(x),
     y: getPX(y),
     transform: `matrix(${scaleX} ${skewX} ${skewY} ${scaleY} ${translateX} ${translateY})`
   };
-
-  const styleFilter = {};
-  if (filters.length) {
-    styleFilter.style = {
-      filter: filters.map((f) => `url(#${f})`).join(' ')
-    };
-  }
-
   const textProperties = {
     fontFamily,
     fontSize,
     fontWeight,
-    fill: layoutFill,
-    ...layoutProperties
+    fill: layoutFill
   };
+  if (filters.length) {
+    layoutProperties.style = {
+      filter: filters.map((f) => `url(#${f})`).join(' ')
+    };
+  }
+  if (alignment) {
+    if (alignment.vertical) {
+      layoutProperties.dominantBaseline =
+        alignment.vertical.alignmentAttributes;
+    }
+    if (alignment.horizontal) {
+      layoutProperties.textAnchor = alignment.horizontal.alignmentAttributes;
+    }
+  }
 
-  shapes.push(
-    <text
-      {...textProperties}
-      {...styleFilter}
+  return (
+    <g
       className={previewOnly ? '' : 'drag-svg'}
       name={index}
       key={`text_${index}`}
+      id={`text_${index}`}
       ref={textRef}
-      layoutindex={index}
+      data-layout-index={index}
+      {...layoutProperties}
     >
-      {text}
-    </text>
+      <text {...textProperties}>{text}</text>
+    </g>
   );
-
-  return shapes;
 };
 
 Text.propTypes = {
