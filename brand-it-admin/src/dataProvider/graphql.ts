@@ -30,12 +30,12 @@ const customBuildQuery = (
     return (type, resource, params) => {
         if (type === 'addTemplate') {
             return {
-                query: gql`mutation addTemplate($id: ID!, $template: String!) {
-                    addTemplate(id: $id, template: $template) {
+                query: gql`mutation addTemplate($id: ID!, $template: String!, $templateId: ID) {
+                    addTemplate(id: $id, template: $template, templateId: $templateId) {
                         name
                     }
                 }`,
-                variables: { id: params.id, template: params.template }
+                variables: { id: params.id, template: params.template, templateId: params.templateId }
 
             };
         } else if (type === 'getProductsWithTemplates') {

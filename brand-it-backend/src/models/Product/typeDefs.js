@@ -22,7 +22,7 @@ export const typeDefs = gql`
             templateFrame: TemplateFrameInput!
             dynamicTextOptions: [String]): Product!
         deleteProduct(id: ID!): Product!
-        addTemplate(id: ID!, template: String!): Product!
+        addTemplate(id: ID!, template: String!, templateId: ID): Product!
     }
     type Template {
         id: ID!

@@ -25,7 +25,7 @@ const Text = (props) => {
       data-layout-index={index}
       {...layoutProperties}
     >
-      <text {...textProperties}>{text}</text>
+      <text data-layout-index={index} {...textProperties}>{text}</text>
     </g>
   );
 };

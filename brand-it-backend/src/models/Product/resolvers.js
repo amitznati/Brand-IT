@@ -73,12 +73,15 @@ export const resolvers = {
 				throw ('product not exist');
 			}
 		},
-		addTemplate: async (_, {id, template}) => {
-			const newTemplate = await Template.create({template});
-			await Product.findByIdAndUpdate(id, {
-				$push: {templates: newTemplate},
-			});
-			console.log(template);
+		addTemplate: async (_, {id, template, templateId}) => {
+			if (templateId) {
+				await Template.findByIdAndUpdate(templateId, {template});
+			} else {
+				const newTemplate = await Template.create({template});
+				await Product.findByIdAndUpdate(id, {
+					$push: {templates: newTemplate},
+				});
+			}
 			return Product.findById(id);
 		}
 	}

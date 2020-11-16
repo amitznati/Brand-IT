@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 
 const TemplatesGrid = props => {
-    const {product, selectedTheme} = props;
+    const {product, selectedTheme, onEditTemplate} = props;
     const {templates} = product;
     if (!templates || !templates.length) {
         return <div />;
@@ -31,7 +31,7 @@ const TemplatesGrid = props => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Button size="small" color="primary">
+                                <Button size="small" color="primary" onClick={() => onEditTemplate(template)}>
                                     Edit
                                 </Button>
                             </CardActions>
@@ -45,7 +45,7 @@ const TemplatesGrid = props => {
 
 
 const ProductTemplatesPreview = (props) => {
-    const { record, selectedTheme } = props;
+    const { record, selectedTheme, onEditTemplate } = props;
     return (
         <Query type='getProductsWithTemplates' resource='Product' payload={{ids: [record.id]}}>
             {({data, loading, error}) => {
@@ -55,7 +55,7 @@ const ProductTemplatesPreview = (props) => {
                 if (error) {
                     return <Error/>;
                 }
-                return <TemplatesGrid product={data[0]} selectedTheme={selectedTheme} />;
+                return <TemplatesGrid product={data[0]} selectedTheme={selectedTheme} onEditTemplate={onEditTemplate} />;
             }}
         </Query>
     );

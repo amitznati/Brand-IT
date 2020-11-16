@@ -18,7 +18,7 @@ const Image = (props) => {
       data-layout-index={index}
       {...layoutProperties}
     >
-      <image href={src} />
+      <image data-layout-index={index} href={src} />
     </g>
   );
 };

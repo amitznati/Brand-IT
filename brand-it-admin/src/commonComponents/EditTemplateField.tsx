@@ -5,14 +5,19 @@ import EditTemplateDialog from "./EditTemplateDialog";
 import {useInput} from "react-admin";
 
 export default (props) => {
-    const {record, source, scale} = props;
+    const {record, source, scale, template} = props;
     const product = props.product || record;
     const inputProps = useInput(props);
     const {
         input: { name, onChange }
     } = inputProps;
-
-    const initialTemplate = (record && record[source]) || JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] });
+    React.useEffect(() => {
+        if (template) {
+            setTemplateString(template)
+        }
+    }, [template]);
+    const initialTemplate = (record && record[source]) ||
+        JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] });
     const [templateString, setTemplateString] = React.useState(initialTemplate);
     const [isEditTemplateOpen, setIsEditTemplateOpen] = React.useState(false);
     const onSaveTemplate = template => {

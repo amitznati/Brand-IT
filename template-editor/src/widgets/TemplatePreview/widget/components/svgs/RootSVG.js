@@ -110,7 +110,9 @@ class DesignCanvas extends React.Component {
     if (e.target.classList.contains('sjx-drag')) return;
     // this.currentLayout && this.currentLayout.disable();
     // this.currentLayout = subjx(e.target).drag(svgOptions(this.methods))[0];
-    this.props.onLayoutClick(Number(e.target.getAttribute('name')));
+    this.props.onLayoutClick(
+      Number(e.target.getAttribute('data-layout-index'))
+    );
   };
 
   componentDidMount() {

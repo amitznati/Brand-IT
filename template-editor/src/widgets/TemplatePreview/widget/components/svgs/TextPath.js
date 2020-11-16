@@ -52,7 +52,7 @@ const TextPath = (props) => {
       {...layoutProperties}
       {...textProperties}
     >
-      <textPath href={`#Path-${index}`}>{text}</textPath>
+      <textPath data-layout-index={index} href={`#Path-${index}`}>{text}</textPath>
     </text>
   );
 

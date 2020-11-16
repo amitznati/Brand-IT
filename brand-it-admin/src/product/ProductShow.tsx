@@ -14,11 +14,11 @@ import ProductTemplatesPreview from "./ProductTemplatesPreview";
 import ThemeSelect from "../commonComponents/ThemeSelect";
 
 const ApproveButton = (props) => {
-    const {record, template} = props;
+    const {record, template: {template, id}} = props;
     const [approve, { loading }] = useMutation({
         type: 'addTemplate',
         resource: 'Product',
-        payload: { id: record.id, template}
+        payload: { id: record.id, template, templateId: id}
     });
     return <Button label="Save" onClick={approve} disabled={loading} />;
 };
@@ -28,23 +28,29 @@ const PostCreateToolbar = ({template, ...props}) => (
         <ApproveButton template={template} />
     </Toolbar>
 );
-const EditTemplateForProduct = props => {
-    const [templateInEdit, setTemplateInEdit] = React.useState(JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] }));
+const EditTemplateForProduct = ({templateInEdit, setTemplateInEdit, ...props}) => {
     return (
         <SimpleForm toolbar={<PostCreateToolbar template={templateInEdit} />} {...props}>
-            <EditTemplateField recource="template" scale={0.4} onSave={setTemplateInEdit} />
+            <EditTemplateField
+                template={templateInEdit.template}
+                recource="template"
+                scale={0.4}
+                onSave={(template) => setTemplateInEdit({...templateInEdit, template})} />
         </SimpleForm>
     );
 }
 export const ProductShow = ({hasShow, ...rest}) => {
     const [selectedTheme, setSelectedTheme] = React.useState();
+    const [templateInEdit, setTemplateInEdit] = React.useState({
+        template: JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] }),
+    });
     return (
         <Show {...rest} title={<ProductTitle/>}>
             <SimpleShowLayout>
                 <TextField source="name"/>
-                <EditTemplateForProduct />
+                <EditTemplateForProduct templateInEdit={templateInEdit} setTemplateInEdit={setTemplateInEdit}/>
                 <ThemeSelect onSelect={setSelectedTheme} selectedTheme={selectedTheme} />
-                <ProductTemplatesPreview selectedTheme={selectedTheme} />
+                <ProductTemplatesPreview selectedTheme={selectedTheme} onEditTemplate={setTemplateInEdit}/>
             </SimpleShowLayout>
         </Show>
     );
