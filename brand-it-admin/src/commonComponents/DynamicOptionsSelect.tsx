@@ -9,14 +9,22 @@ export default function DynamicOptionsSelect({placeholder, label, ...props}) {
     const [value, setValue] = React.useState(props.record?.dynamicTextOptions || [])
     const [options, setOptions] = React.useState<Array<string>>([]);
     const [newOptions, setNewOptions] = React.useState<Array<string>>([]);
-    const { data, ids, loading } = useGetList(
+    useGetList(
         'Product',
         { page: 1, perPage: 100 },
-        { field: 'name', order: 'ASC' }
+        { field: 'name', order: 'ASC' },
+        undefined,
+        {
+            onSuccess: ({ data }) => {
+                const ops: Array<string> = [];
+                data.forEach(prod => prod.dynamicTextOptions.forEach(dyn => {
+                    if (!ops.includes(dyn)) ops.push(dyn);
+                }));
+                setOptions(ops);
+            },
+            onFailure: (error) => console.error(`Error: ${error.message}`),
+        }
     );
-    React.useEffect(() => {
-        ids.forEach(id => setOptions([ ...options, ...data[id].dynamicTextOptions]));
-    }, [loading]);
 
     const {
         input: { name, onChange },

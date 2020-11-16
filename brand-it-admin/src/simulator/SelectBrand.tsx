@@ -21,34 +21,61 @@ export default function SelectBrand({selectedCategory}) {
     const [products, setProducts] = React.useState<Array<any>>([]);
     const [dynamicTextValues, setDynamicTextValues] = React.useState({});
     const classes = useStyles();
-    const { data = [], loading } = useQueryWithStore({
-        type: 'getProductsWithTemplates',
-        resource: 'Products',
-        payload: { categories: [selectedCategory] }
-    });
-    React.useEffect(() => {
-        const dynOptions: Array<string> = [];
-        const dynValues = {};
-        let maxTemplatesSize = 0;
-        data.forEach(product => {
-            if (product.categories.includes(selectedCategory)) {
-                maxTemplatesSize = Math.max(maxTemplatesSize, product.templates.length);
-                if (product.dynamicTextOptions &&
-                    product.dynamicTextOptions.length) {
-                    product.dynamicTextOptions.forEach(textOption => {
-                        if (!dynOptions.includes(textOption)) {
-                            dynOptions.push(textOption);
-                            dynValues[textOption] = textOption;
+    const { loading } = useQueryWithStore(
+        {
+            type: 'getProductsWithTemplates',
+            resource: 'Products',
+            payload: { categories: [selectedCategory] },
+        },
+        {
+            onSuccess: ({ data }) => {
+                const dynOptions: Array<string> = [];
+                const dynValues = {};
+                let maxTemplatesSize = 0;
+                data.forEach(product => {
+                    if (product.categories.includes(selectedCategory)) {
+                        maxTemplatesSize = Math.max(maxTemplatesSize, product.templates.length);
+                        if (product.dynamicTextOptions &&
+                            product.dynamicTextOptions.length) {
+                            product.dynamicTextOptions.forEach(textOption => {
+                                if (!dynOptions.includes(textOption)) {
+                                    dynOptions.push(textOption);
+                                    dynValues[textOption] = textOption;
+                                }
+                            });
                         }
-                    });
-                }
+                    }
+                });
+                setDynamicTextOptions(dynOptions);
+                setDynamicTextValues(dynValues);
+                setProducts(data);
+                setMaxTemplatesLength(maxTemplatesSize);
             }
-        });
-        setDynamicTextOptions(dynOptions);
-        setDynamicTextValues(dynValues);
-        setProducts(data);
-        setMaxTemplatesLength(maxTemplatesSize);
-    }, [loading]);
+        }
+    );
+    // React.useEffect(() => {
+    //     const dynOptions: Array<string> = [];
+    //     const dynValues = {};
+    //     let maxTemplatesSize = 0;
+    //     data.forEach(product => {
+    //         if (product.categories.includes(selectedCategory)) {
+    //             maxTemplatesSize = Math.max(maxTemplatesSize, product.templates.length);
+    //             if (product.dynamicTextOptions &&
+    //                 product.dynamicTextOptions.length) {
+    //                 product.dynamicTextOptions.forEach(textOption => {
+    //                     if (!dynOptions.includes(textOption)) {
+    //                         dynOptions.push(textOption);
+    //                         dynValues[textOption] = textOption;
+    //                     }
+    //                 });
+    //             }
+    //         }
+    //     });
+    //     setDynamicTextOptions(dynOptions);
+    //     setDynamicTextValues(dynValues);
+    //     setProducts(data);
+    //     setMaxTemplatesLength(maxTemplatesSize);
+    // }, [loading]);
     if (loading) return <Loading />;
     const renderProducts = () => {
         const kits: Array<Array<{product: any, template: any}>> = [];

@@ -17,36 +17,56 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
+interface BusinessType {
+    name: string;
+    id: string;
+}
+interface CategoryType {
+    name: string;
+    id: string;
+    business: BusinessType
+}
 export default function SelectCategory({onSelectCategory, selectedCategory}) {
     const classes = useStyles();
     const [selectedBusiness, setSelectedBusiness] = React.useState('');
-    React.useEffect(() => {
-        if (selectedCategory) {
-            setSelectedBusiness(categoriesData[selectedCategory].business.id);
-        }
-    }, [selectedCategory]);
+    const [businesses, setBusinesses] = React.useState<Array<BusinessType>>([]);
+    const [categories, setCategories] = React.useState<Array<CategoryType>>([]);
+
     const handleBusinessChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setSelectedBusiness(event.target.value as string);
     };
     const handleCategoryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         onSelectCategory(event.target.value);
     };
-    const { data: businessesData, ids: businessesIds, loading: businessesLoading } = useGetList(
+    useGetList(
         'Business',
         { page: 1, perPage: 100 },
-        { field: 'name', order: 'ASC' }
+        { field: 'name', order: 'ASC' },
+        undefined,
+        {
+            onSuccess: ({ data }) => setBusinesses(data),
+            onFailure: (error) => console.error(`Error: ${error.message}`),
+        }
     );
-    const { data: categoriesData, ids: categoriesIds, loading: categoriesLoading } = useGetList(
+    useGetList(
         'Category',
         { page: 1, perPage: 100 },
-        { field: 'name', order: 'ASC' }
+        { field: 'name', order: 'ASC' },
+        undefined,
+        {
+            onSuccess: ({ data }) => {
+                setCategories(data);
+                if (selectedCategory) {
+                    setSelectedBusiness(data.find(c => c.id === selectedCategory)?.business?.id);
+                }
+            },
+            onFailure: (error) => console.error(`Error: ${error.message}`),
+        }
     );
-    if (businessesLoading || categoriesLoading) {
+    if (!businesses.length || !categories.length) {
         return <Loading />;
     }
-    // const businesses = businessesIds.map(id => businessesData[id]);
-    // const categories = categoriesIds.map(id => categoriesData[id]);
+
     return (
         <div>
             <div>
@@ -59,9 +79,9 @@ export default function SelectCategory({onSelectCategory, selectedCategory}) {
                         onChange={handleBusinessChange}
                         label="Business"
                     >
-                        {businessesIds.map((id) => {
+                        {businesses.map((business) => {
                             return (
-                                <MenuItem key={id} value={id}>{businessesData[id].name}</MenuItem>
+                                <MenuItem key={business.id} value={business.id}>{business.name}</MenuItem>
                             )
                         })}
                     </Select>
@@ -77,9 +97,9 @@ export default function SelectCategory({onSelectCategory, selectedCategory}) {
                         onChange={handleCategoryChange}
                         label="Category"
                     >
-                        {categoriesIds.filter(id => categoriesData[id].business.id === selectedBusiness).map((id) => {
+                        {categories.filter(cat => cat.business.id === selectedBusiness).map((cat) => {
                             return (
-                                <MenuItem key={id} value={id}>{categoriesData[id].name}</MenuItem>
+                                <MenuItem key={cat.id} value={cat.id}>{cat.name}</MenuItem>
                             )
                         })}
                     </Select>
