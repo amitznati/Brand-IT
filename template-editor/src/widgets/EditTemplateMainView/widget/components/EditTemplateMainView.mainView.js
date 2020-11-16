@@ -115,7 +115,7 @@ class EditTemplateMainViewMainView extends React.Component {
               </IconButton>
             </Toolbar>
           </Grid>
-          <Grid item sm={12} md={3}>
+          <Grid item xs={12} sm={12} md={3}>
             <div className={classes.drawerPaper}>
               <Button
                 className={classes.addButton}
@@ -128,7 +128,7 @@ class EditTemplateMainViewMainView extends React.Component {
               <LayoutsList />
             </div>
           </Grid>
-          <Grid item sm={12} md={9}>
+          <Grid item xs={12} sm={12} md={9}>
             <div className={classes.toolbar} />
             <CoreSlider
               label='Scale'

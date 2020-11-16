@@ -45,11 +45,11 @@ export default function CoreExpandableSortablePaper({
               <DragHandle />
             </Grid>
           )}
-          <Grid item xs={10}>
+          <Grid item xs={9}>
             {header}
           </Grid>
           {actions && (
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               <CoreSpeedActions {...{ actions }} />
             </Grid>
           )}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getPX } from '../../../../../sdk/utils';
+import { getGlobalLayoutProperties } from './SVGUtils';
 
 const getPathDef = (id, pathData) => {
   const path = pathData.path;
@@ -12,7 +13,7 @@ const getPathDef = (id, pathData) => {
 };
 
 const TextPath = (props) => {
-  const textRef = React.createRef();
+  const ref = React.createRef();
   const { layout, index, previewOnly } = props;
   const {
     fontFamily,
@@ -22,38 +23,18 @@ const TextPath = (props) => {
     y,
     text,
     fill,
-    transform: {
-      skewY = 0,
-      skewX = 0,
-      scaleX = 1,
-      scaleY = 1,
-      translateX = 0,
-      translateY = 0
-    },
-    pathData,
-    filters
+    pathData
   } = layout.properties;
   const layoutFill = fill.fill;
   const shapes = [];
-  const layoutProperties = {
-    // x: pathData.path ? 0 : getPX(x),
-    // y: pathData.path ? 0 : getPX(y),
-    transform: `matrix(${scaleX} ${skewX} ${skewY} ${scaleY} ${translateX} ${translateY})`
-  };
 
-  const styleFilter = {};
-  if (filters.length) {
-    styleFilter.style = {
-      filter: filters.map((f) => `url(#${f})`).join(' ')
-    };
-  }
+  const layoutProperties = getGlobalLayoutProperties(layout);
 
   const textProperties = {
     fontFamily,
     fontSize,
     fontWeight,
-    fill: layoutFill,
-    ...layoutProperties
+    fill: layoutFill
   };
   if (!pathData.path) {
     pathData.path = `M ${getPX(x)} ${getPX(y)} L ${getPX(x) + 200} ${getPX(y)}`;
@@ -62,16 +43,16 @@ const TextPath = (props) => {
 
   shapes.push(
     <text
-      {...textProperties}
-      {...styleFilter}
       className={previewOnly ? '' : 'drag-svg'}
-      ref={textRef}
-      key={`path_${index}`}
-      layoutindex={index}
+      name={index}
+      key={`textPath_${index}`}
+      id={`textPath_${index}`}
+      ref={ref}
+      data-layout-index={index}
+      {...layoutProperties}
+      {...textProperties}
     >
-      <textPath layoutindex={index} name={index} href={`#Path-${index}`}>
-        {text}
-      </textPath>
+      <textPath href={`#Path-${index}`}>{text}</textPath>
     </text>
   );
 

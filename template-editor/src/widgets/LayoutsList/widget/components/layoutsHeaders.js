@@ -67,7 +67,12 @@ export const CustomSVGHeader = ({ layout }) => {
   return (
     <Grid container alignItems='center'>
       <Grid item xs={12}>
-        <svg dangerouslySetInnerHTML={{ __html: layout.properties.src }} />
+        <svg
+          viewBox='0 0 100 100'
+          height='80px'
+          width='80px'
+          dangerouslySetInnerHTML={{ __html: layout.properties.src }}
+        />
       </Grid>
     </Grid>
   );

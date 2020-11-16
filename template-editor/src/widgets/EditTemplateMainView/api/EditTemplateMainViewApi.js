@@ -80,7 +80,6 @@ const layoutsTemplate = (type, payload, product) => {
       };
     case 'textPath': {
       const x = getPX(x1);
-      const y = getPX(y1);
       const addWidth = getPX(product.templateFrame.width);
       return {
         type: 'textPath',
@@ -90,10 +89,10 @@ const layoutsTemplate = (type, payload, product) => {
           ...defaultFontProps,
           ...defaultColorProps,
           pathData: {
-            path: `M ${x} ${y} L ${x + addWidth} ${y}`,
+            path: `M ${x} 0 L ${x + addWidth} 0`,
             points: [
-              { x, y },
-              { x: x + addWidth, y }
+              { x, y: 0 },
+              { x: x + addWidth, y: 0 }
             ],
             closePath: false
           }

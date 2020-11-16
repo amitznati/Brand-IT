@@ -31,7 +31,7 @@ export const EditorModeLogo = () => {
       x: 0,
       y: 0
     },
-    dynamicImageOptions: ['Brand Name', 'Brand Slogan']
+    dynamicTextOptions: ['Brand Name', 'Brand Slogan']
   };
   const dynamicTextValues = {
     '@brand_name': 'Brant-It'
@@ -62,7 +62,7 @@ export const EditorModePaperBag = () => {
       x: 1,
       y: 1
     },
-    dynamicImageOptions: ['Brand Name', 'Brand Slogan']
+    dynamicTextOptions: ['Brand Name', 'Brand Slogan']
   };
   const dynamicTextValues = {
     'Brand Name': 'Brant-It'
