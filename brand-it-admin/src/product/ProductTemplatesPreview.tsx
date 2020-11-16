@@ -31,7 +31,10 @@ const TemplatesGrid = props => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Button size="small" color="primary" onClick={() => onEditTemplate(template)}>
+                                <Button size="small" color="primary" onClick={() => {
+                                    onEditTemplate(template);
+                                    window.scrollTo(0, 0);
+                                }}>
                                     Edit
                                 </Button>
                             </CardActions>
