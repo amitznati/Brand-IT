@@ -26,7 +26,7 @@ export const getGlobalLayoutProperties = (layout) => {
       filter: filters.map((f) => `url(#${f})`).join(' ')
     };
   }
-  if (alignment) {
+  if (alignment && layout.type === 'image') {
     if (alignment.vertical) {
       layoutProperties.dominantBaseline =
         alignment.vertical.alignmentAttributes;

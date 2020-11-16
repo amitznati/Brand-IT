@@ -47,8 +47,9 @@ const CustomSVG = (props) => {
       className={previewOnly ? '' : 'drag-svg'}
       name={index}
       key={`customSVG_${index}`}
+      id={`customSVG_${index}`}
       ref={ref}
-      layoutindex={index}
+      data-layout-index={index}
     />
   );
 };
