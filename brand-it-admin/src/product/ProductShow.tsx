@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import RefreshIcon from '@material-ui/icons/Refresh';
 import {
     Show,
     SimpleShowLayout,
@@ -6,31 +7,51 @@ import {
     useMutation,
     Button,
     SimpleForm,
-    Toolbar
+    Toolbar,
+    useNotify,
+    useRefresh
 } from 'react-admin';
 import {ProductTitle} from "./ProductCreate";
 import EditTemplateField from "../commonComponents/EditTemplateField";
 import ProductTemplatesPreview from "./ProductTemplatesPreview";
 import ThemeSelect from "../commonComponents/ThemeSelect";
 
-const ApproveButton = (props) => {
-    const {record, template: {template, id}} = props;
+const initialTemplate = JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] });
+
+const SaveTemplateButton = (props) => {
+    const {record, template: {template, id}, onAddTemplate} = props;
+    const notify = useNotify();
     const [approve, { loading }] = useMutation({
         type: 'addTemplate',
         resource: 'Product',
         payload: { id: record.id, template, templateId: id}
+    }, {
+        onSuccess: () => {
+            notify('Template Saved', 'info', {}, true);
+            onAddTemplate()
+        }
     });
-    return <Button label="Save" onClick={approve} disabled={loading} />;
+    return (
+        <Button
+            label="Save"
+            onClick={approve}
+            disabled={loading || template === initialTemplate}
+        />
+    );
 };
 
-const PostCreateToolbar = ({template, ...props}) => (
+const PostCreateToolbar = ({template, resetTemplateInEdit, onAddTemplate, ...props}) => (
     <Toolbar {...props} >
-        <ApproveButton template={template} />
+        <SaveTemplateButton template={template} {...{onAddTemplate}} />
+        <Button
+            label="Cancel"
+            onClick={resetTemplateInEdit}
+            disabled={template.template === initialTemplate} />;
     </Toolbar>
 );
-const EditTemplateForProduct = ({templateInEdit, setTemplateInEdit, ...props}) => {
+const EditTemplateForProduct = ({templateInEdit, setTemplateInEdit, resetTemplateInEdit, onAddTemplate, ...props}) => {
     return (
-        <SimpleForm toolbar={<PostCreateToolbar template={templateInEdit} />} {...props}>
+        <SimpleForm toolbar={<PostCreateToolbar template={templateInEdit} {...{resetTemplateInEdit, onAddTemplate}} />} {...props}>
             <EditTemplateField
                 template={templateInEdit.template}
                 recource="template"
@@ -40,17 +61,36 @@ const EditTemplateForProduct = ({templateInEdit, setTemplateInEdit, ...props}) =
     );
 }
 export const ProductShow = ({hasShow, ...rest}) => {
-    const [selectedTheme, setSelectedTheme] = React.useState();
+    const refresh = useRefresh();
+    const [selectedTheme, setSelectedTheme] = React.useState<{id: string} | null>(null);
     const [templateInEdit, setTemplateInEdit] = React.useState({
-        template: JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] }),
+        template: initialTemplate,
     });
+    const [isRefreshRequired, setIsRefreshRequired] = React.useState(true);
+    const resetTemplateInEdit = () => {
+        setTemplateInEdit({
+            template: initialTemplate,
+        });
+    };
+    const onAddTemplate = () => {
+        resetTemplateInEdit();
+        refresh();
+    }
+    const onSelectTheme = (theme) => {
+      if (theme.id === selectedTheme?.id) {
+          setSelectedTheme(null);
+      } else {
+          setSelectedTheme(theme);
+      }
+    };
     return (
         <Show {...rest} title={<ProductTitle/>}>
             <SimpleShowLayout>
                 <TextField source="name"/>
-                <EditTemplateForProduct templateInEdit={templateInEdit} setTemplateInEdit={setTemplateInEdit}/>
-                <ThemeSelect onSelect={setSelectedTheme} selectedTheme={selectedTheme} />
-                <ProductTemplatesPreview selectedTheme={selectedTheme} onEditTemplate={setTemplateInEdit}/>
+                <EditTemplateForProduct {...{templateInEdit, setTemplateInEdit, resetTemplateInEdit, onAddTemplate }} />
+                <ThemeSelect onSelect={onSelectTheme} selectedTheme={selectedTheme} />
+                <Button onClick={refresh} size="large" ><RefreshIcon /></Button>
+                <ProductTemplatesPreview {...{selectedTheme, refresh}} onEditTemplate={setTemplateInEdit} />
             </SimpleShowLayout>
         </Show>
     );

@@ -23,6 +23,7 @@ export const typeDefs = gql`
             dynamicTextOptions: [String]): Product!
         deleteProduct(id: ID!): Product!
         addTemplate(id: ID!, template: String!, templateId: ID): Product!
+        deleteTemplate(id: ID!, productId: ID): String!
     }
     type Template {
         id: ID!

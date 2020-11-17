@@ -12,7 +12,10 @@ const startServer = async () => {
 	const app = express();
 	createFilesRoutes(app);
 	server.applyMiddleware({ app });
-
+	mongoose.set('useNewUrlParser', true);
+	mongoose.set('useFindAndModify', false);
+	mongoose.set('useCreateIndex', true);
+	mongoose.set('useUnifiedTopology', true);
 	await mongoose.connect('mongodb://localhost:27017/brand-it', {useNewUrlParser: true, useUnifiedTopology: true});
 
 	app.listen({ port: 4000 }, () => {

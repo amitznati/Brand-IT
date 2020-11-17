@@ -1,15 +1,32 @@
 import * as React from "react";
-import { Query, Loading, Error } from 'react-admin';
-import {Grid} from "@material-ui/core";
+import {useQuery, Loading, Error, useNotify, useMutation} from 'react-admin';
+import {Grid, Button, CardActions, Card, CardContent, CardActionArea} from "@material-ui/core";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
 import {TemplatePreviewForPreview} from 'template-editor';
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
+
+const DeleteTemplateButton = (props) => {
+    const {product, template: {id}, refresh} = props;
+    const notify = useNotify();
+    const [approve] = useMutation({
+        type: 'deleteTemplate',
+        resource: 'Product',
+        payload: { id, productId: product.id}
+    }, {
+        onSuccess: () => {
+            notify('Template Deleted', 'info', {}, true);
+            refresh();
+        }
+    });
+    return (
+        <Button onClick={approve} style={{ color: 'red' }} size="small">
+            <DeleteForeverIcon />
+        </Button>
+    );
+};
 
 const TemplatesGrid = props => {
-    const {product, selectedTheme, onEditTemplate} = props;
+    const {product, selectedTheme, onEditTemplate, refresh} = props;
     const {templates} = product;
     if (!templates || !templates.length) {
         return <div />;
@@ -35,8 +52,9 @@ const TemplatesGrid = props => {
                                     onEditTemplate(template);
                                     window.scrollTo(0, 0);
                                 }}>
-                                    Edit
+                                    <EditIcon />
                                 </Button>
+                                <DeleteTemplateButton {...{product, template, refresh}} />
                             </CardActions>
                         </Card>
                     </Grid>
@@ -48,20 +66,32 @@ const TemplatesGrid = props => {
 
 
 const ProductTemplatesPreview = (props) => {
-    const { record, selectedTheme, onEditTemplate } = props;
-    return (
-        <Query type='getProductsWithTemplates' resource='Product' payload={{ids: [record.id]}}>
-            {({data, loading, error}) => {
-                if (loading) {
-                    return <Loading/>;
-                }
-                if (error) {
-                    return <Error/>;
-                }
-                return <TemplatesGrid product={data[0]} selectedTheme={selectedTheme} onEditTemplate={onEditTemplate} />;
-            }}
-        </Query>
-    );
+    const { record, selectedTheme, onEditTemplate, refresh } = props;
+    const [product, setProduct] = React.useState();
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(null);
+    useQuery({
+        type: 'getProductsWithTemplates',
+        resource: 'Product',
+        payload: {ids: [record.id]}
+    }, {
+        onSuccess: ({data}) => {
+            setProduct(data[0]);
+            setLoading(false);
+            setError(null);
+        },
+        onFailure: (err) => {
+            setError(err);
+            setLoading(false);
+        }
+    });
+    if (loading) {
+        return <Loading/>;
+    }
+    if (error) {
+        return <Error error={error} />;
+    }
+    return <TemplatesGrid {...{product, selectedTheme, onEditTemplate, refresh}} />;
 };
 
 export default ProductTemplatesPreview;

@@ -83,6 +83,17 @@ export const resolvers = {
 				});
 			}
 			return Product.findById(id);
+		},
+		deleteTemplate: async (_, {id, productId}) => {
+			const template = await Template.findById(id);
+			if (template) {
+				await template.delete();
+				if (productId) {
+					await Product.findOneAndUpdate({_id: productId}, {$pull: {templates: id}});
+				}
+				return 'deleted';
+			}
+			return 'Template did not found!';
 		}
 	}
 };

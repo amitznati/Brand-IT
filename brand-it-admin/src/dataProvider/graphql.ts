@@ -68,6 +68,13 @@ const customBuildQuery = (
                     return {data: data.getProductsWithTemplates};
                 },
 			};
+        } else if (type === 'deleteTemplate') {
+            return {
+				query: gql`mutation deleteTemplate($id: ID!, $productId: ID) {
+                    deleteTemplate(id: $id, productId: $productId)
+                }`,
+                variables: params
+            }
         }
 
         return buildQuery(type, resource, params);
