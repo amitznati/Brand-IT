@@ -66,7 +66,6 @@ export const ProductShow = ({hasShow, ...rest}) => {
     const [templateInEdit, setTemplateInEdit] = React.useState({
         template: initialTemplate,
     });
-    const [isRefreshRequired, setIsRefreshRequired] = React.useState(true);
     const resetTemplateInEdit = () => {
         setTemplateInEdit({
             template: initialTemplate,

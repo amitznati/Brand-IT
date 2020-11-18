@@ -31,13 +31,17 @@ const TemplatesGrid = props => {
     if (!templates || !templates.length) {
         return <div />;
     }
+    const onEdit = (template) => {
+        onEditTemplate(template);
+        window.scrollTo(0, 0);
+    }
     return (
         <Grid container spacing={2}>
             {templates.map((template) => {
                 return (
                     <Grid key={template.id} item xs={3}>
                         <Card>
-                            <CardActionArea>
+                            <CardActionArea onClick={() => onEdit(template)}>
                                 <CardContent>
                                     <TemplatePreviewForPreview
                                         selectedTheme={selectedTheme}
@@ -49,8 +53,7 @@ const TemplatesGrid = props => {
                             </CardActionArea>
                             <CardActions>
                                 <Button size="small" color="primary" onClick={() => {
-                                    onEditTemplate(template);
-                                    window.scrollTo(0, 0);
+                                    onEdit(template);
                                 }}>
                                     <EditIcon />
                                 </Button>

@@ -8,6 +8,7 @@ import {
 } from 'react-admin';
 import 'template-editor/dist/index.css';
 import EditTemplateField from "../commonComponents/EditTemplateField";
+import DynamicOptionsSelect from '../commonComponents/DynamicOptionsSelect';
 
 const logo = {
 	name: 'Logo',
@@ -18,25 +19,27 @@ const logo = {
 	},
 	templateFrame: {
 		height: 10,width: 10, x: 0, y: 0
-	}
+	},
+	dynamicTextOptions: ['Brand Name', 'Slogan']
 };
 
-export const LogoEdit = (props) => (
-	<Edit {...props}>
-		<SimpleForm >
+const LogoForm = (props) => {
+	return (
+		<SimpleForm {...props}>
 			<TextInput source="name" validate={[required()]}/>
 			<EditTemplateField product={logo} source="template" />
 		</SimpleForm>
+	)
+}
+
+export const LogoEdit = (props) => (
+	<Edit {...props}>
+		<LogoForm />
 	</Edit>
 );
 
-export const LogoCreate = (props) => {
-	return (
-		<Create {...props} >
-			<SimpleForm >
-				<TextInput source="name" validate={[required()]}/>
-				<EditTemplateField product={logo} source="template" />
-			</SimpleForm>
-		</Create>
-	);
-}
+export const LogoCreate = (props) => (
+	<Create {...props} >
+		<LogoForm />
+	</Create>
+);

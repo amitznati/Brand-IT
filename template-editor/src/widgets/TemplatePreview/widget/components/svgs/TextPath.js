@@ -14,7 +14,7 @@ const getPathDef = (id, pathData) => {
 
 const TextPath = (props) => {
   const ref = React.createRef();
-  const { layout, index, previewOnly } = props;
+  const { layout, index, previewOnly, logoIndex } = props;
   const {
     fontFamily,
     fontSize,
@@ -28,7 +28,13 @@ const TextPath = (props) => {
   const layoutFill = fill.fill;
   const shapes = [];
 
-  const layoutProperties = getGlobalLayoutProperties(layout);
+  const layoutProperties = getGlobalLayoutProperties({
+    layout,
+    index,
+    previewOnly,
+    ref,
+    logoIndex
+  });
 
   const textProperties = {
     fontFamily,
@@ -42,17 +48,14 @@ const TextPath = (props) => {
   shapes.push(getPathDef(`Path-${index}`, pathData));
 
   shapes.push(
-    <text
-      className={previewOnly ? '' : 'drag-svg'}
-      name={index}
-      key={`textPath_${index}`}
-      id={`textPath_${index}`}
-      ref={ref}
-      data-layout-index={index}
-      {...layoutProperties}
-      {...textProperties}
-    >
-      <textPath data-layout-index={index} href={`#Path-${index}`}>{text}</textPath>
+    <text {...layoutProperties} {...textProperties}>
+      <textPath
+        data-layout-index={index}
+        data-logo-index={logoIndex}
+        href={`#Path-${index}`}
+      >
+        {text}
+      </textPath>
     </text>
   );
 

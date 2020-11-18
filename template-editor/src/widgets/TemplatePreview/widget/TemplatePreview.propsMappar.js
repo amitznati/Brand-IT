@@ -47,6 +47,10 @@ export const mapComponentProps = (props) => {
       templateFilters,
       templateGradients
     },
+    logoProps: {
+      h: getPX(product.templateFrame.height),
+      w: getPX(product.templateFrame.width)
+    },
     SVGRootProps: {
       onEditLayoutEnd,
       selectedLayoutIndex,
@@ -115,6 +119,9 @@ const replaceDynamicThemeValues = (template, selectedTheme) => {
       p.fill.gradientId = `${p.fill.gradientId}-${selectedTheme.id}`;
       p.fill.fill = `url(#${p.fill.gradientId})`;
     }
+    if (layout.type === 'logo') {
+      replaceDynamicThemeValues(p.template, selectedTheme);
+    }
     return layout;
   });
   template.templateGradients = templateGradients.map((gradient) => {
@@ -137,6 +144,8 @@ const replaceDynamicTextValues = (template, dynamicTextValues) => {
     const p = layout.properties;
     if (p.dynamicOptionValue) {
       p.text = dynamicTextValues[p.dynamicOptionValue];
+    } else if (layout.type === 'logo') {
+      replaceDynamicTextValues(p.template, dynamicTextValues);
     }
     return layout;
   });

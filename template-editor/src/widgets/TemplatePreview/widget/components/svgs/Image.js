@@ -4,21 +4,19 @@ import { getGlobalLayoutProperties } from './SVGUtils';
 
 const Image = (props) => {
   const ref = React.createRef();
-  const { layout, index, previewOnly } = props;
+  const { layout, index, previewOnly, logoIndex } = props;
   const { src } = layout.properties;
-  const layoutProperties = getGlobalLayoutProperties(layout);
+  const layoutProperties = getGlobalLayoutProperties({
+    layout,
+    index,
+    previewOnly,
+    ref,
+    logoIndex
+  });
 
   return (
-    <g
-      className={previewOnly ? '' : 'drag-svg'}
-      name={index}
-      key={`image_${index}`}
-      id={`image_${index}`}
-      ref={ref}
-      data-layout-index={index}
-      {...layoutProperties}
-    >
-      <image data-layout-index={index} href={src} />
+    <g {...layoutProperties}>
+      <image data-layout-index={index} data-logo-index={logoIndex} href={src} />
     </g>
   );
 };

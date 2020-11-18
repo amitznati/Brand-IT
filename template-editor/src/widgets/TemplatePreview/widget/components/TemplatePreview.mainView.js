@@ -1,10 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Text, TextPath, Image, RootSVG } from './svgs';
+import { Text, TextPath, Image, RootSVG, Defs, Shape, CustomSVG } from './svgs';
+import Logo from './svgs/Logo';
 import PathBuilder from './TemplatePreview.pathBuilder';
-import Defs from './svgs/Defs';
-import Shape from './svgs/Shape';
-import CustomSVG from './svgs/CustomSVG';
 
 const styles = (theme) => ({
   templateRoot: {
@@ -47,12 +45,18 @@ class TemplatePreviewMainView extends React.Component {
     return CustomSVG({ layout, index, previewOnly });
   }
 
+  renderLogo(layout, index, previewOnly) {
+    const { logoProps } = this.props;
+    return Logo({ layout, index, previewOnly, logoProps });
+  }
+
   renderLayout = {
     text: this.renderText.bind(this),
     textPath: this.renderTextPath.bind(this),
     image: this.renderImage.bind(this),
     shape: this.renderShape.bind(this),
-    customSVG: this.renderCustomSVG.bind(this)
+    customSVG: this.renderCustomSVG.bind(this),
+    logo: this.renderLogo.bind(this)
   };
 
   render() {

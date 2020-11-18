@@ -53,7 +53,7 @@ const getDefaultColorProps = () => {
   };
 };
 
-const layoutsTemplate = (type, payload, product) => {
+const layoutsTemplate = (type, payload, product, selectedLogo) => {
   const x1 = 0;
   const y1 = product.templateFrame.height / 2;
   const defaultProperties = getDefaultProperties({ x: x1, y: y1 });
@@ -109,6 +109,14 @@ const layoutsTemplate = (type, payload, product) => {
         }
       };
     }
+    case 'logo':
+      return {
+        type: 'logo',
+        properties: {
+          template: JSON.parse(JSON.stringify(selectedLogo.template)),
+          ...defaultProperties
+        }
+      };
     default:
       return '';
   }
@@ -178,8 +186,7 @@ export default class EditTemplateMainViewApi extends BaseApi {
 
   onSortEnd = ({ oldIndex, newIndex }) => {
     const template = this.getTemplateSelector();
-    const newLayouts = arrayMove(template.layouts, oldIndex, newIndex);
-    template.layouts = newLayouts;
+    template.layouts = arrayMove(template.layouts, oldIndex, newIndex);
     this.updateTemplate(template);
   };
 
@@ -191,13 +198,20 @@ export default class EditTemplateMainViewApi extends BaseApi {
     }
     const product = this.getProductSelector();
     const template = this.getTemplateSelector();
+    const logo = this.getSelectedLogoSelector();
     const newLayout = JSON.parse(
-      JSON.stringify(layoutsTemplate(type, value, product))
+      JSON.stringify(layoutsTemplate(type, value, product, logo))
     );
     template.layouts.push(newLayout);
     this.toggleAddLayoutDialog(false);
-    this.onLayoutClick(template.layouts.length - 1);
     this.updateTemplate(template);
+    const toId = setTimeout(
+      () => {
+        this.onLayoutClick(template.layouts.length - 1);
+        clearTimeout(toId);
+      },
+      newLayout.type === 'logo' ? 300 : 10
+    );
   };
 
   onUpdateLayout = (layout) => {
@@ -303,5 +317,9 @@ export default class EditTemplateMainViewApi extends BaseApi {
 
   getSelectedThemeSelector = () => {
     return selectors.getSelectedThemeSelector(this.store.getState());
+  };
+
+  getSelectedLogoSelector = () => {
+    return selectors.getSelectedLogoSelector(this.store.getState());
   };
 }

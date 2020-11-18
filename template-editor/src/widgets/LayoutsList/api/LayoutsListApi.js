@@ -20,7 +20,7 @@ export default class LayoutsListApi extends BaseApi {
         newLayout,
         templateW
       );
-    } else if (['image', 'customSVG'].includes(layout.type)) {
+    } else if (['image', 'customSVG', 'logo'].includes(layout.type)) {
       this.handleImageAlignment(
         alignment,
         value,

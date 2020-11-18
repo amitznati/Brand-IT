@@ -30,7 +30,7 @@ export default function SelectBrand({selectedCategory}) {
         {
             onSuccess: ({ data }) => {
                 const dynOptions: Array<string> = [];
-                const dynValues = {};
+                const dynValues = {'Brand Name': 'Brand Name', Slogan: 'some slogan for logo'};
                 let maxTemplatesSize = 0;
                 data.forEach(product => {
                     if (product.categories.includes(selectedCategory)) {

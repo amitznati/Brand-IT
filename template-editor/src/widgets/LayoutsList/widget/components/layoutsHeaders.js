@@ -83,8 +83,10 @@ TextLayoutHeader.propTypes = {
   layout: PropTypes.object.isRequired
 };
 
+export const LogoHeader = () => <div>Logo</div>;
 export default {
   ImageLayoutHeader,
+  LogoHeader,
   TextLayoutHeader: withStyles(styles)(TextLayoutHeader),
   CustomSVGHeader: withStyles(styles)(CustomSVGHeader)
 };

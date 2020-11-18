@@ -34,7 +34,10 @@ class DesignCanvas extends React.Component {
     const { selectedLayoutIndex } = this.props;
     let node;
     React.Children.map(this.props.children, (element) => {
-      if (element.props['data-layout-index'] === selectedLayoutIndex) {
+      if (
+        !element.props['data-logo-index'] &&
+        element.props['data-layout-index'] === selectedLayoutIndex
+      ) {
         node = element.ref.current;
       }
     });
@@ -110,9 +113,13 @@ class DesignCanvas extends React.Component {
     if (e.target.classList.contains('sjx-drag')) return;
     // this.currentLayout && this.currentLayout.disable();
     // this.currentLayout = subjx(e.target).drag(svgOptions(this.methods))[0];
-    this.props.onLayoutClick(
-      Number(e.target.getAttribute('data-layout-index'))
-    );
+    const layoutIndex = Number(e.target.getAttribute('data-layout-index'));
+    const logoIndex = e.target.getAttribute('data-logo-index');
+    if (logoIndex || logoIndex === 0 || logoIndex === '0') {
+      this.props.onLayoutClick(Number(logoIndex));
+    } else {
+      this.props.onLayoutClick(layoutIndex);
+    }
   };
 
   componentDidMount() {

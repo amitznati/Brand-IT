@@ -2,8 +2,6 @@ import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import {
   Dialog,
-  Paper,
-  Grid,
   DialogTitle,
   DialogActions,
   DialogContent,
@@ -39,7 +37,6 @@ class AddLayoutDialogMainView extends React.Component {
     const {
       open,
       onClose,
-      logos,
       dynamicTextOptions,
       dynamicImageOptions,
       selectedTheme
@@ -76,22 +73,8 @@ class AddLayoutDialogMainView extends React.Component {
           </AppBar>
         </DialogTitle>
         <DialogContent>
-          {value === 0 && logos && (
-            <Grid container>
-              {logos.map((l, i) => {
-                return (
-                  <Grid item md={3} key={i}>
-                    <Paper style={{ textAlign: 'center', margin: '8px' }}>
-                      <img
-                        src={l}
-                        style={{ height: '200px' }}
-                        alt={'logo ' + i}
-                      />
-                    </Paper>
-                  </Grid>
-                );
-              })}
-            </Grid>
+          {value === 0 && (
+            <Button onClick={() => onClose({ type: 'logo' })}>Add Logo</Button>
           )}
           {value === 1 && (
             <ImageTab

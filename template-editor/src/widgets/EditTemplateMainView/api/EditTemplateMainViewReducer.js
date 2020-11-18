@@ -1,5 +1,5 @@
 import { ActionTypes } from './EditTemplateMainViewApi';
-import defaultTheme from '../DefualtTheme';
+import { defaultTheme, defaultLogo } from '../defaults';
 
 const initialState = {
   template: { templateGradients: [], templateFilters: [], layouts: [] },
@@ -12,6 +12,7 @@ const initialState = {
   dynamicImageOptions: [],
   uploadedFonts: [],
   selectedTheme: defaultTheme,
+  selectedLogo: defaultLogo,
   product: {
     id: 1,
     name: '',

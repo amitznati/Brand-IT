@@ -4,25 +4,25 @@ import { getGlobalLayoutProperties } from './SVGUtils';
 
 const CustomSVG = (props) => {
   const ref = React.createRef();
-  const { layout, index, previewOnly } = props;
+  const { layout, index, previewOnly, logoIndex } = props;
 
   const { fill, src } = layout.properties;
   const createMarkup = () => {
     return { __html: src };
   };
-  const layoutProperties = getGlobalLayoutProperties(layout);
+  const layoutProperties = getGlobalLayoutProperties({
+    layout,
+    index,
+    previewOnly,
+    ref,
+    logoIndex
+  });
 
   return (
     <g
       {...layoutProperties}
       dangerouslySetInnerHTML={createMarkup()}
-      className={previewOnly ? '' : 'drag-svg'}
-      name={index}
-      key={`customSVG_${index}`}
-      id={`customSVG_${index}`}
-      ref={ref}
       fill={fill.fill}
-      data-layout-index={index}
     />
   );
 };

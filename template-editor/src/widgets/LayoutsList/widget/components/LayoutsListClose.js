@@ -4,7 +4,8 @@ import { Grid } from '@material-ui/core';
 import {
   CustomSVGHeader,
   ImageLayoutHeader,
-  TextLayoutHeader
+  TextLayoutHeader,
+  LogoHeader
 } from './layoutsHeaders';
 import { CoreExpandableSortablePaper, CoreSortableList } from './../../../core';
 
@@ -35,6 +36,8 @@ function LayoutsListClose({
         return <TextLayoutHeader key={i} layout={l} />;
       case 'customSVG':
         return <CustomSVGHeader key={i} layout={l} />;
+      case 'logo':
+        return <LogoHeader key={i} />;
       default:
         return '';
     }

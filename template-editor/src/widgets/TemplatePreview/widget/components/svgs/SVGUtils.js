@@ -1,6 +1,12 @@
 import { getPX } from '../../../../../sdk/utils';
 
-export const getGlobalLayoutProperties = (layout) => {
+export const getGlobalLayoutProperties = ({
+  layout,
+  index,
+  previewOnly,
+  ref,
+  logoIndex
+}) => {
   const {
     x,
     y,
@@ -15,14 +21,25 @@ export const getGlobalLayoutProperties = (layout) => {
     },
     filters
   } = layout.properties;
+  const isForLogo = logoIndex || logoIndex === 0 || logoIndex === '0';
+  const isDraggable = !previewOnly && !isForLogo;
   const layoutProperties = {
     x: getPX(x),
     y: getPX(y),
-    transform: `matrix(${scaleX} ${skewX} ${skewY} ${scaleY} ${translateX} ${translateY})`
+    transform: `matrix(${scaleX} ${skewX} ${skewY} ${scaleY} ${translateX} ${translateY})`,
+    className: isDraggable ? 'drag-svg' : '',
+    name: index,
+    key: `${layout.type}_${index}`,
+    id: `${layout.type}_${index}`,
+    ref,
+    'data-layout-index': index,
+    'data-logo-index': logoIndex,
+    style: { overflow: 'hidden' }
   };
 
   if (filters.length) {
     layoutProperties.style = {
+      ...layoutProperties.style,
       filter: filters.map((f) => `url(#${f})`).join(' ')
     };
   }

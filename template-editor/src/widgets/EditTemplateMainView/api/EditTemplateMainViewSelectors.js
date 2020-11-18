@@ -75,6 +75,13 @@ export const getSelectedThemeSelector = createSelector(
   }
 );
 
+export const getSelectedLogoSelector = createSelector(
+  sliceSelector,
+  (slice) => {
+    return slice.selectedLogo;
+  }
+);
+
 export default {
   getTemplateSelector,
   getSelectedLayoutSelector,
@@ -87,5 +94,6 @@ export default {
   templateFiltersSelector,
   getDynamicImageOptionsSelector,
   getUploadedFontsSelector,
-  getSelectedThemeSelector
+  getSelectedThemeSelector,
+  getSelectedLogoSelector
 };

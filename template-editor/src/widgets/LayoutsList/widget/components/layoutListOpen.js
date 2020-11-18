@@ -81,6 +81,7 @@ function LayoutListOpen(props) {
       allFields.filters
     ],
     image: [allFields.position, allFields.filters],
+    logo: [allFields.position, allFields.filters],
     customSVG: [
       allFields.customSVG,
       allFields.position,

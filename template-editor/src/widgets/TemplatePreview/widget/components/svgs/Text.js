@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import { getGlobalLayoutProperties } from './SVGUtils';
 
 const Text = (props) => {
-  const textRef = React.createRef();
-  const { layout, index, previewOnly } = props;
+  const ref = React.createRef();
+  const { layout, index, previewOnly, logoIndex } = props;
   const { fontFamily, fontSize, fontWeight, text, fill } = layout.properties;
   const layoutFill = fill.fill;
-  const layoutProperties = getGlobalLayoutProperties(layout);
+  const layoutProperties = getGlobalLayoutProperties({
+    layout,
+    index,
+    previewOnly,
+    ref,
+    logoIndex
+  });
   const textProperties = {
     fontFamily,
     fontSize,
@@ -16,16 +22,14 @@ const Text = (props) => {
   };
 
   return (
-    <g
-      className={previewOnly ? '' : 'drag-svg'}
-      name={index}
-      key={`text_${index}`}
-      id={`text_${index}`}
-      ref={textRef}
-      data-layout-index={index}
-      {...layoutProperties}
-    >
-      <text data-layout-index={index} {...textProperties}>{text}</text>
+    <g {...layoutProperties}>
+      <text
+        data-layout-index={index}
+        data-logo-index={logoIndex}
+        {...textProperties}
+      >
+        {text}
+      </text>
     </g>
   );
 };

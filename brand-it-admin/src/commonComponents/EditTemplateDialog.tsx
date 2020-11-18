@@ -11,6 +11,8 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import {useGetList} from "react-admin";
+import {defaultLogo, defaultTheme} from './defaults';
+
 const dynamicImageOptions = [
     '@theme-image-bg',
     '@theme-image-frame',
@@ -25,14 +27,14 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
         { page: 1, perPage: 100 },
         { field: 'name', order: 'ASC' }
     );
-    const { data: themes, ids: themesIds, loading: themesLoading } = useGetList(
-        'Theme',
-        { page: 1, perPage: 100 },
-        { field: 'name', order: 'ASC' }
-    );
-    if (loading || themesLoading) return <span>Loading...</span>;
+    // const { data: themes, ids: themesIds, loading: themesLoading } = useGetList(
+    //     'Theme',
+    //     { page: 1, perPage: 100 },
+    //     { field: 'name', order: 'ASC' }
+    // );
+    if (loading) return <span>Loading...</span>;
     const uploadedFonts = ids.map((id) => data[id]);
-    const selectedTheme = themesIds.length && themes[themesIds[1]];
+    // const selectedTheme = themesIds.length && themes[themesIds[1]];
     return (
         <Dialog
             onClose={onClose}
@@ -63,7 +65,8 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
                     product,
                     uploadedFonts,
                     template,
-                    selectedTheme
+                    selectedTheme: defaultTheme,
+                    selectedLogo: defaultLogo
                 }} />
             </DialogContent>
         </Dialog>
