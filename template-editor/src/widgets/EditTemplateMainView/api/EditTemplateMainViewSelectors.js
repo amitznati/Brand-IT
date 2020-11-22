@@ -30,6 +30,13 @@ export const getUploadedFontsSelector = createSelector(
     return slice.uploadedFonts;
   }
 );
+
+export const getUploadedImagesSelector = createSelector(
+  sliceSelector,
+  (slice) => {
+    return slice.uploadedImages;
+  }
+);
 export const getDynamicImageOptionsSelector = createSelector(
   sliceSelector,
   (slice) => {
@@ -95,5 +102,6 @@ export default {
   getDynamicImageOptionsSelector,
   getUploadedFontsSelector,
   getSelectedThemeSelector,
-  getSelectedLogoSelector
+  getSelectedLogoSelector,
+  getUploadedImagesSelector
 };

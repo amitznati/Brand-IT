@@ -11,6 +11,7 @@ const initialState = {
   templateGradients: [],
   dynamicImageOptions: [],
   uploadedFonts: [],
+  uploadedImages: [],
   selectedTheme: defaultTheme,
   selectedLogo: defaultLogo,
   product: {

@@ -10,6 +10,7 @@ const mapStateToProps = (state, props) => {
     selectedTheme: EditTemplateMainViewApi.getSelectedThemeSelector(),
     dynamicTextOptions: product.dynamicTextOptions,
     dynamicImageOptions: EditTemplateMainViewApi.getDynamicImageOptionsSelector(),
+    uploadedImages: EditTemplateMainViewApi.getUploadedImagesSelector(),
     ...props
   };
 };

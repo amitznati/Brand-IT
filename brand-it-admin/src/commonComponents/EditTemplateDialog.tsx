@@ -27,14 +27,14 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
         { page: 1, perPage: 100 },
         { field: 'name', order: 'ASC' }
     );
-    // const { data: themes, ids: themesIds, loading: themesLoading } = useGetList(
-    //     'Theme',
-    //     { page: 1, perPage: 100 },
-    //     { field: 'name', order: 'ASC' }
-    // );
-    if (loading) return <span>Loading...</span>;
+    const { data: uploadedImagesData, ids: uploadedImagesIds, loading: uploadedImagesLoading } = useGetList(
+        'UploadedImage',
+        { page: 1, perPage: 100 },
+        { field: 'name', order: 'ASC' }
+    );
+    if (loading || uploadedImagesLoading) return <span>Loading...</span>;
     const uploadedFonts = ids.map((id) => data[id]);
-    // const selectedTheme = themesIds.length && themes[themesIds[1]];
+    const uploadedImages = uploadedImagesIds.map((id) => uploadedImagesData[id]);
     return (
         <Dialog
             onClose={onClose}
@@ -64,6 +64,7 @@ const EditTemplateDialog = ({onClose, open, onSaveTemplate, product, template}) 
                     dynamicImageOptions,
                     product,
                     uploadedFonts,
+                    uploadedImages,
                     template,
                     selectedTheme: defaultTheme,
                     selectedLogo: defaultLogo

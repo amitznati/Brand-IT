@@ -2,9 +2,9 @@ import * as React from "react";
 import { Pagination, Title, useListContext, ListBase } from 'react-admin';
 import ListActions from '../commonComponents/ListActions';
 import {Grid} from "@material-ui/core";
-import UploadedImageCard from "./UploadedImageCard";
+import {UploadedImageCard} from 'template-editor';
 
-const ThemeListView = () => {
+const UploadedImagesListView = () => {
 	const { defaultTitle, ids, data } = useListContext();
 	if (!data) {
 		return <div>Loading...</div>;
@@ -17,8 +17,8 @@ const ThemeListView = () => {
 
 			<Grid container>
 				{tileData.map((tile) =>
-					<Grid xs={12} sm={6} md={3} key={tile.id}>
-						<UploadedImageCard uploadedImage={tile} />
+					<Grid item xs={12} sm={6} md={3} key={tile.id}>
+						<UploadedImageCard uploadedImage={tile} actionHref={`#/UploadedImage/${tile.id}`} />
 					</Grid>
 				)}
 			</Grid>
@@ -34,7 +34,7 @@ const ThemeList = props => {
 			sort={{ field: 'name', order: 'ASC' }}
 			{...props}
 		>
-			<ThemeListView />
+			<UploadedImagesListView />
 		</ListBase>
 	);
 };

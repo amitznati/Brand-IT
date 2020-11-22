@@ -21,6 +21,7 @@ const TemplatePreviewForPreview = (props) => (
 );
 export { default as FontSelect } from './widgets/core/CoreFornSelect';
 export { default as CoreSlider } from './widgets/core/CoreSlider';
+export { default as UploadedImageCard } from './widgets/core/UploadedImageCard';
 
 export {
   TemplateEditor,

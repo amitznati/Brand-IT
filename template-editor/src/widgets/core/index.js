@@ -16,3 +16,4 @@ export { default as CoreConfirmationDialog } from './CoreConfirmationDialog';
 export { default as CoreNestedSpeedActions } from './CoreNestedSpeedActions';
 export { default as CoreFontProvider } from './CoreFontProvider';
 export { default as RadioButtonsGroup } from './RadioButtonsGroup';
+export { default as UploadedImageCard } from './UploadedImageCard';

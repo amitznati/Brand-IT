@@ -39,7 +39,8 @@ class AddLayoutDialogMainView extends React.Component {
       onClose,
       dynamicTextOptions,
       dynamicImageOptions,
-      selectedTheme
+      selectedTheme,
+      uploadedImages
     } = this.props;
     const { value } = this.state;
     return (
@@ -78,9 +79,12 @@ class AddLayoutDialogMainView extends React.Component {
           )}
           {value === 1 && (
             <ImageTab
-              dynamicImageOptions={dynamicImageOptions}
               onSelect={onClose}
-              selectedTheme={selectedTheme}
+              {...{
+                uploadedImages,
+                selectedTheme,
+                dynamicImageOptions
+              }}
             />
           )}
           {value === 2 && (
