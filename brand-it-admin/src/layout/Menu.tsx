@@ -10,7 +10,7 @@ import business from '../business';
 import SubMenu from './SubMenu';
 import { AppState } from '../types';
 
-type MenuName = 'menuCatalog' | 'menuSimulator' | 'menuCustomers' | 'menuAssets';
+type MenuName = 'menuCatalog' | 'menuSimulator' | 'menuAssets';
 
 interface Props {
     dense: boolean;
@@ -24,10 +24,8 @@ const assetsItems = ['Font', 'UploadedImage'];
 const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
     const [state, setState] = useState({
         menuCatalog: true,
-        menuSales: false,
-        menuCustomers: false,
-        menuAssets: false,
-        menuSimulator: false
+        menuAssets: true,
+        menuSimulator: true
     });
     const translate = useTranslate();
     const isXSmall = useMediaQuery((theme: Theme) =>
