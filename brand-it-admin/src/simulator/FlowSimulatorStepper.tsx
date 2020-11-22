@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SelectCategory from "./SelectCategory";
 import SelectBrand from "./SelectBrand";
+import LogoSelect from "./LogoSelect";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -38,15 +39,17 @@ export default function FlowSimulatorStepper() {
     const [skipped, setSkipped] = React.useState(new Set<number>());
     const steps = ['Select Category', 'Select Logo', 'Choose your brand'];
     const [selectedCategory, setSelectedCategory] = React.useState('');
+    const [selectedLogo, setSelectedLogo] = React.useState();
+
 
     const getStepContent = (step: number) => {
         switch (step) {
             case 0:
                 return <SelectCategory onSelectCategory={setSelectedCategory} selectedCategory={selectedCategory}/>;
             case 1:
-                return 'What is an ad group anyways?';
+                return <LogoSelect onSelect={setSelectedLogo} selectedLogo={selectedLogo} /> ;
             case 2:
-                return <SelectBrand selectedCategory={selectedCategory} />;
+                return <SelectBrand selectedCategory={selectedCategory} selectedLogo={selectedLogo} />;
             default:
                 return 'Unknown step';
         }

@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 export const ImageLayoutHeader = (props) => {
   const {
     layout: {
-      properties: { src, isThemeImage, imageName }
+      properties: { src, themeImage }
     }
   } = props;
   const classes = useStyles();
@@ -25,12 +25,12 @@ export const ImageLayoutHeader = (props) => {
     <Grid container alignItems='center'>
       <Grid item xs={12} className={classes.imageRow}>
         <Avatar alt='Remy Sharp' src={src} />
-        {isThemeImage && (
+        {themeImage && (
           <Chip
             className={classes.themeImageChip}
             variant='outlined'
             color='primary'
-            label={imageName}
+            label={themeImage}
           />
         )}
       </Grid>

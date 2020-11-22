@@ -20,6 +20,7 @@ const TemplatePreviewForPreview = (props) => (
   <TemplatePreviewComponent previewOnly {...props} />
 );
 export { default as FontSelect } from './widgets/core/CoreFornSelect';
+export { default as CoreSlider } from './widgets/core/CoreSlider';
 
 export {
   TemplateEditor,

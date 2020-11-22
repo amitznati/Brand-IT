@@ -9,7 +9,7 @@ import {
 import 'template-editor/dist/index.css';
 import EditTemplateField from "../commonComponents/EditTemplateField";
 
-const logo = {
+export const logoProduct = {
 	name: 'Logo',
 	image: '',
 	size: {
@@ -19,14 +19,14 @@ const logo = {
 	templateFrame: {
 		height: 10,width: 10, x: 0, y: 0
 	},
-	dynamicTextOptions: ['Brand Name', 'Slogan']
+	dynamicTextOptions: ['Logo - Brand Name', 'Logo - Slogan']
 };
 
 const LogoForm = (props) => {
 	return (
 		<SimpleForm {...props}>
 			<TextInput source="name" validate={[required()]}/>
-			<EditTemplateField product={logo} source="template" />
+			<EditTemplateField product={logoProduct} source="template" />
 		</SimpleForm>
 	)
 }

@@ -11,7 +11,7 @@ const DynamicTextOptionsFields = ({dynamicTextOptions, dynamicTextValues, setDyn
     return (
         <Grid container>
             <Grid className={classes.section} item xs={12}><Typography component="h6">Logo Text values</Typography></Grid>
-            {['Brand Name', 'Slogan'].map((textOption) => {
+            {['Logo - Brand Name', 'Logo - Slogan'].map((textOption) => {
                 return (
                     <Grid key={textOption} item md={2} sm={4} xs={6}>
                         <TextField

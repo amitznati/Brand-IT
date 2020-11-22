@@ -9,7 +9,7 @@ export default {
       {
         type: 'text',
         properties: {
-          text: 'Brand Name',
+          text: 'Logo - Brand Name',
           dynamicOptionValue: 'Brand Name',
           x: 0,
           y: 0,

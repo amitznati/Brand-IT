@@ -19,8 +19,16 @@ export const mapComponentProps = (props) => {
     isNodeRefreshRequire,
     setIsNodeRefreshRequire,
     dynamicTextValues = [],
-    isActiveTextValues = false
+    isActiveTextValues = false,
+    selectedLogo
   } = props;
+  if (template.layouts.length && selectedLogo) {
+    template.layouts.forEach((layout) => {
+      if (layout.type === 'logo') {
+        layout.properties.template = selectedLogo.template;
+      }
+    });
+  }
   if (isThemeActive && selectedTheme) {
     replaceDynamicThemeValues(template, selectedTheme);
   }
@@ -102,7 +110,7 @@ const getAllFonts = (template) => {
   return { googleFonts, uploadedFonts };
 };
 
-const replaceDynamicThemeValues = (template, selectedTheme) => {
+const replaceDynamicThemeValues = (template, selectedTheme, selectedLogo) => {
   const { layouts = [], templateGradients = [] } = template;
   template.layouts = layouts.map((layout) => {
     const p = layout.properties;
@@ -117,7 +125,9 @@ const replaceDynamicThemeValues = (template, selectedTheme) => {
       p.src = selectedTheme.images[p.themeImage.split('-').pop()];
     }
     if (p.fill && p.fill.gradientId) {
-      p.fill.gradientId = `${p.fill.gradientId}-${selectedTheme.id}`;
+      if (!p.fill.gradientId.includes(selectedTheme.id)) {
+        p.fill.gradientId = `${p.fill.gradientId}-${selectedTheme.id}`;
+      }
       p.fill.fill = `url(#${p.fill.gradientId})`;
     }
     if (layout.type === 'logo') {
@@ -126,7 +136,9 @@ const replaceDynamicThemeValues = (template, selectedTheme) => {
     return layout;
   });
   template.templateGradients = templateGradients.map((gradient) => {
-    gradient.id = `${gradient.id}-${selectedTheme.id}`;
+    if (!gradient.id.includes(selectedTheme.id)) {
+      gradient.id = `${gradient.id}-${selectedTheme.id}`;
+    }
     gradient.gradientData.palette = gradient.gradientData.palette.map(
       (stop) => {
         if (stop.themeColor) {

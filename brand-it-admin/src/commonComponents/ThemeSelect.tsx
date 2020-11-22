@@ -107,6 +107,7 @@ export default function ThemeSelect({onSelect, selectedTheme}) {
                     customFontFamilies={uploadedFonts}
                 />
             )}
+            Select Theme
             {themes.map((theme) => {
                 const selectedThemeStyle = {margin: '1rem'};
                 if (selectedTheme && selectedTheme.id === theme.id) {
