@@ -17,6 +17,7 @@ import product from './product';
 import theme from './theme';
 import logo from './logo';
 import font from './font';
+import uploadedImage from './uploadedImage';
 
 import './utils';
 
@@ -75,6 +76,7 @@ const App = () => {
             <Resource name="Theme" {...theme} />
             <Resource name="Logo" {...logo} />
             <Resource name="Font" {...font} />
+            <Resource name="UploadedImage" {...uploadedImage} />
         </Admin>
     );
 

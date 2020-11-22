@@ -19,7 +19,7 @@ interface Props {
 }
 
 const catalogItems = ['Business', 'Category', 'Product', 'Logo', 'Theme'];
-const assetsItems = ['Font'];
+const assetsItems = ['Font', 'UploadedImage'];
 
 const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
     const [state, setState] = useState({

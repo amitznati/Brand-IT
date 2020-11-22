@@ -4,7 +4,8 @@ import {
 	Product,
 	Theme,
 	Logo,
-	Font
+	Font,
+	UploadedImage
 } from './models'
 
 export const resolvers = {
@@ -15,7 +16,8 @@ export const resolvers = {
 		...Product.resolvers.Query,
 		...Theme.resolvers.Query,
 		...Logo.resolvers.Query,
-		...Font.resolvers.Query
+		...Font.resolvers.Query,
+		...UploadedImage.resolvers.Query
 	},
 	Mutation: {
 		helloMutation: () => 'helloMutation',
@@ -24,6 +26,7 @@ export const resolvers = {
 		...Product.resolvers.Mutation,
 		...Theme.resolvers.Mutation,
 		...Logo.resolvers.Mutation,
-		...Font.resolvers.Mutation
+		...Font.resolvers.Mutation,
+		...UploadedImage.resolvers.Mutation
 	}
 };

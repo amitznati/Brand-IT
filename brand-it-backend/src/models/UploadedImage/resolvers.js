@@ -1,0 +1,42 @@
+import UploadedImage from './UploadedImage';
+import {isUploadedImageExist, saveFile} from '../../fileManager';
+
+export const resolvers = {
+	Query: {
+		allUploadedImages: () => UploadedImage.find(),
+		_allUploadedImagesMeta: () => {return {count: UploadedImage.find().estimatedDocumentCount()}},
+		UploadedImage: (_, {id}) => UploadedImage.findById(id)
+	},
+	Mutation: {
+		createUploadedImage: async (_, {name, UploadedImageFile}) => {
+			console.log('data: ', {name, UploadedImageFile});
+			console.log('UploadedImage: ', UploadedImage);
+			const uploadedImage = await UploadedImage.create({name});
+			uploadedImage.url = await saveFile(`images/uploaded-images`, uploadedImage.id, UploadedImageFile);
+			await uploadedImage.save();
+			return uploadedImage;
+		},
+		updateUploadedImage: async (_, {id, name, UploadedImageFile}) => {
+			const uploadedImage = await UploadedImage.findById(id);
+			if (uploadedImage) {
+				uploadedImage.name = name;
+				if (UploadedImageFile) {
+					uploadedImage.url = await saveFile(`images/uploaded-images`, uploadedImage.id, UploadedImageFile);
+				}
+				await uploadedImage.save();
+				return uploadedImage;
+			} else {
+				throw ('UploadedImage not found');
+			}
+		},
+		deleteUploadedImage: async (_, {id}) => {
+			const uploadedImage = await UploadedImage.findById(id);
+			if (uploadedImage) {
+				await uploadedImage.delete();
+				return uploadedImage;
+			} else {
+				throw 'uploadedImage not exist';
+			}
+		}
+	}
+};

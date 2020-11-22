@@ -59,7 +59,7 @@ const ProductPreview = ({imageSrc, sizeState}) => {
     );
 };
 
-const ProductImage = (props) => {
+export const ProductImage = (props) => {
     const {imageSrc} = props;
     if (imageSrc) {
         return <img src={imageSrc} alt="product" height={300} />

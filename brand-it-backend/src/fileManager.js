@@ -57,3 +57,10 @@ export async function isFontExist(fontName) {
 		:
 		false;
 }
+
+export async function isUploadedImageExist(imageName) {
+	return existsSync(`${__dirname}/resources/images/uploaded-images/${imageName}`) ?
+		`http://localhost:4000/resources/images/uploaded-images/${imageName}`
+		:
+		false;
+}

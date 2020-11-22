@@ -4,4 +4,5 @@ import * as Product from './Product';
 import * as Theme from './Theme';
 import * as Logo from './Logo';
 import * as Font from './Font';
-export {Business, Category, Product, Theme, Logo, Font}
+import * as UploadedImage from './UploadedImage';
+export {Business, Category, Product, Theme, Logo, Font, UploadedImage}
