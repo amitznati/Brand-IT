@@ -110,7 +110,8 @@ const replaceDynamicThemeValues = (template, selectedTheme) => {
       p.fill.fill = selectedTheme.palette[p.themeColor];
     }
     if (p.themeFontFamily) {
-      p.fontFamily = `${p.themeFontFamily}${selectedTheme.id}`;
+      p.fontFamily = selectedTheme.fontFamilies[p.themeFontFamily].fontFamily;
+      p.fontUrl = selectedTheme.fontFamilies[p.themeFontFamily].fontUrl;
     }
     if (p.themeImage) {
       p.src = selectedTheme.images[p.themeImage.split('-').pop()];

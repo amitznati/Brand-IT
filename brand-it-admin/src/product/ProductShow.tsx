@@ -75,19 +75,12 @@ export const ProductShow = ({hasShow, ...rest}) => {
         resetTemplateInEdit();
         refresh();
     }
-    const onSelectTheme = (theme) => {
-      if (theme.id === selectedTheme?.id) {
-          setSelectedTheme(null);
-      } else {
-          setSelectedTheme(theme);
-      }
-    };
     return (
         <Show {...rest} title={<ProductTitle/>}>
             <SimpleShowLayout>
                 <TextField source="name"/>
                 <EditTemplateForProduct {...{templateInEdit, setTemplateInEdit, resetTemplateInEdit, onAddTemplate }} />
-                <ThemeSelect onSelect={onSelectTheme} selectedTheme={selectedTheme} />
+                <ThemeSelect onSelect={setSelectedTheme} selectedTheme={selectedTheme} />
                 <Button onClick={refresh} size="large" ><RefreshIcon /></Button>
                 <ProductTemplatesPreview {...{selectedTheme, refresh}} onEditTemplate={setTemplateInEdit} />
             </SimpleShowLayout>

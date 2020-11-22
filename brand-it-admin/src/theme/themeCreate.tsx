@@ -7,9 +7,10 @@ import {
     TabbedForm,
     TextInput,
     required,
-    FileField,
-    FileInput
+    useInput, useGetList
 } from 'react-admin';
+import {FontSelect} from 'template-editor';
+import { Grid, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {ColorInput} from "../commonComponents/ColorInput";
 
@@ -44,6 +45,80 @@ const paletteFields = [
     {label: 'Tertiary', source: 'palette.tertiary'},
 ];
 
+const ThemeFontField = (props) => {
+    const { data, ids, loading } = useGetList(
+        'Font',
+        { page: 1, perPage: 100 },
+        { field: 'name', order: 'ASC' }
+    );
+    const inputProps = useInput(props);
+    const {
+        input: { onChange }
+    } = inputProps;
+
+    const [font, setFont] = React.useState({
+        fontFamily: 'Raleway',
+        fontProvider: 'google',
+        fontUrl: ''
+    });
+    const [loadingState, setLoadingState] = React.useState({
+        status: '',
+        selectedFontFamily: font.fontFamily,
+        selectedFontStyle: 'normal',
+        selectedFontWeight: 400
+    });
+    const onFontFamilyChange = font => {
+        setFont(font);
+        onChange(font);
+    };
+    const onFontProviderChange = v => {
+        if (ids.length) {
+            const isGoogle = v === 0;
+            onFontFamilyChange({
+                fontFamily: isGoogle ? 'Raleway' : data[ids[0]].name,
+                fontProvider: isGoogle ? 'google' : 'uploaded',
+                fontUrl: isGoogle ? '' : data[ids[0]].url
+            });
+        }
+    }
+    React.useEffect(() => onChange(font), [font, onChange]);
+    if (loading) return <div>Loading...</div>;
+    return (
+        <Grid container>
+            {props.label}
+            <Grid item xs={12}>
+                <FontSelect
+                    {...{
+                        fontProvider: font.fontProvider,
+                        fontWeight: 400,
+                        fontStyle: 'normal',
+                        fontFamily: font.fontFamily,
+                        uploadedFonts: ids.map(id => data[id]),
+                        onFontProviderChange,
+                        onFontFamilyChange,
+                        setLoadingState
+                    }}
+                />
+            </Grid>
+            <Grid item>
+                {loadingState.status === 'loading' && (
+                    <CircularProgress style={{ margin: '1rem' }}/>
+                )}
+                {loadingState.status === 'inactive' && (
+                    <div style={{ color: 'red' }}>
+                        {`Failed To Load: ${loadingState.selectedFontFamily} ${loadingState.selectedFontWeight} ${loadingState.selectedFontStyle}`}
+                    </div>
+                )}
+                {loadingState.status === 'active' && (
+                    <div style={{ color: 'green' }}>
+                        {`Load: ${loadingState.selectedFontFamily} ${loadingState.selectedFontWeight} ${loadingState.selectedFontStyle}`}
+                    </div>
+                )}
+            </Grid>
+        </Grid>
+    );
+};
+
 const ThemeCreate = props => {
     const classes = useStyles();
     const validationRequired = required();
@@ -62,9 +137,7 @@ const ThemeCreate = props => {
                 </FormTab>
                 <FormTab label="Font Families" contentClassName={classes.sizeTab}>
                     {fontFamiliesFields.map((field) => (
-                        <FileInput key={field.source} source={field.source} label={field.label} accept=".woff2">
-                            <FileField source="files" title={field.label} />
-                        </FileInput>)
+                        <ThemeFontField source={field.source} label={field.label} key={field.source} />)
                     )}
                 </FormTab>
                 <FormTab label="Palette" contentClassName={classes.sizeTab}>

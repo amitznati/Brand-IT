@@ -1,13 +1,12 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import { useListContext } from 'react-admin';
-import {Grid, Card, CardContent, withWidth, GridList as MuiGridList, GridListTile } from "@material-ui/core";
-import FontProvider from "../commonComponents/FontProvider";
+import {Grid, Card, CardContent, withWidth} from "@material-ui/core";
+import {FontLoader} from 'template-editor';
+import {getFontDataFromTheme} from "../commonComponents/ThemeSelect";
+import LoadingGridList from "../commonComponents/LoadingList";
 
 const useStyles = makeStyles(theme => ({
-    gridList: {
-        margin: 0,
-    },
     card: {
         margin: '1rem'
     },
@@ -19,17 +18,6 @@ const useStyles = makeStyles(theme => ({
     tileBar: {
         background:
             'linear-gradient(to top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.4) 70%,rgba(0,0,0,0) 100%)',
-    },
-    placeholder: {
-        backgroundColor: theme.palette.grey[300],
-        height: '100%',
-    },
-    price: {
-        display: 'inline',
-        fontSize: '1em',
-    },
-    link: {
-        color: '#fff',
     },
     image: {
         maxHeight: '4rem',
@@ -53,38 +41,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const getColsForWidth = (width) => {
-    if (width === 'xs') return 2;
-    if (width === 'sm') return 3;
-    if (width === 'md') return 4;
-    if (width === 'lg') return 5;
-    return 6;
-};
-
-const times = (nbChildren, fn) =>
-    Array.from({ length: nbChildren }, (_, key) => fn(key));
-
-const LoadingGridList = ({
-                             width,
-                             nbItems = 20,
-                         }) => {
-    const classes = useStyles();
-    return (
-        <MuiGridList
-            cellHeight={180}
-            cols={getColsForWidth(width)}
-            className={classes.gridList}
-        >
-            {' '}
-            {times(nbItems, key => (
-                <GridListTile key={key}>
-                    <div className={classes.placeholder} />
-                </GridListTile>
-            ))}
-        </MuiGridList>
-    );
-};
-
 const imagesFields = [
     {label: 'Background', src: 'bg'},
     {label: 'Frame', src: 'frame'},
@@ -103,59 +59,59 @@ const fontFields = [
 const LoadedGridList = () => {
     const { ids, data, /* basePath */ } = useListContext();
     const classes = useStyles();
-
     if (!ids || !data) return null;
-    const fontFamilies: Array<{fontFamily: string, src: string}> = [];
-    ids.forEach((id) => {
-        fontFields.forEach((fontType) => {
-            data[id].fontFamilies[fontType.type] && fontFamilies.push(
-                {
-                    fontFamily: `${fontType.type}${id}`,
-                    src:`url(${data[id].fontFamilies[fontType.type]}) format("woff2")`
-                });
-        });
-    });
+    const themes = ids.map(id => data[id]);
+    const {fontProvider, googleFonts, uploadedFonts} = getFontDataFromTheme(themes);
     return (
         <Grid container>
-            <FontProvider fontFamilies={fontFamilies}>
-                {ids.map((id) => {
-                    const item = data[id];
-                    return (
-                        <Grid key={id} item sm={12} md={6}>
-                            <Card className={classes.card}>
-                                <CardContent>
-                                    <span style={{fontFamily: `primary${id}`}} className={classes.title}>{item.name}</span>
-                                    <div>
-                                        <p>Images</p>
-                                        {imagesFields.map((field) => {
-                                            return (
-                                                <span key={field.src} className={classes.imageWrap}>
-                                                <span>{field.label}</span>
-                                                <img src={item.images[field.src]} alt={field.label} className={classes.image} />
-                                            </span>)
-                                        })}
-                                    </div>
-                                    <div>
-                                        <p>Palette</p>
-                                        <div style={{backgroundColor: item.palette.primary}} className={classes.paletteColor} >Primary</div>
-                                        <div style={{backgroundColor: item.palette.secondary}} className={classes.paletteColor} >Secondary</div>
-                                        <div style={{backgroundColor: item.palette.tertiary}} className={classes.paletteColor} >Tertiary</div>
-                                    </div>
-                                    <div>
-                                        <p>Fonts</p>
-                                        {fontFields.map((font) => {
-                                            return (
-                                                <div key={font.type} style={{fontFamily: `${font.type}${id}`}} className={classes.fontField}>
-                                                    {item.fontFamilies[font.type] ? font.text : `No ${font.type} font`}
-                                                </div>)
-                                        })}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                    );
-                })}
-            </FontProvider>
+            {fontProvider.length && (
+                <FontLoader
+                    fontProvider={fontProvider}
+                    fontFamilies={googleFonts}
+                    customFontFamilies={uploadedFonts}
+                />
+            )}
+            {themes.map((theme) => {
+                const item = theme;
+                return (
+                    <Grid key={item.id} item sm={12} md={6}>
+                        <Card className={classes.card}>
+                            <CardContent>
+                                <span style={{fontFamily: item.fontFamilies.primary.fontFamily}} className={classes.title}>{item.name}</span>
+                                <div>
+                                    <p>Images</p>
+                                    {imagesFields.map((field) => {
+                                        return (
+                                            <span key={field.src} className={classes.imageWrap}>
+                                            <span>{field.label}</span>
+                                            <img src={item.images[field.src]} alt={field.label} className={classes.image} />
+                                        </span>)
+                                    })}
+                                </div>
+                                <div>
+                                    <p>Palette</p>
+                                    <div style={{backgroundColor: item.palette.primary}} className={classes.paletteColor} >Primary</div>
+                                    <div style={{backgroundColor: item.palette.secondary}} className={classes.paletteColor} >Secondary</div>
+                                    <div style={{backgroundColor: item.palette.tertiary}} className={classes.paletteColor} >Tertiary</div>
+                                </div>
+                                <div>
+                                    <p>Fonts</p>
+                                    {fontFields.map((font) => {
+                                        return (
+                                            <div
+                                                key={font.type}
+                                                style={{fontFamily: item.fontFamilies[font.type].fontFamily}}
+                                                className={classes.fontField}
+                                            >
+                                                {font.text}
+                                            </div>)
+                                    })}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                );
+            })}
         </Grid>
     );
 };

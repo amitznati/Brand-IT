@@ -1,15 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, CircularProgress, Chip, Tabs, Tab } from '@material-ui/core';
-import WebFont from 'webfontloader';
+import { Grid, CircularProgress, Chip } from '@material-ui/core';
 
-import {
-  CoreNumber,
-  CoreSelect,
-  CoreText,
-  CoreFontSelector
-} from '../../../core';
+import { CoreNumber, CoreSelect, CoreText } from '../../../core';
 import CoreThemeVariantSelect from '../../../core/CoreThemeVariantSelect';
+import CoreFontSelect, { uploadFont } from '../../../core/CoreFornSelect';
 
 const useStyles = makeStyles((theme) => ({
   progress: {
@@ -60,7 +55,7 @@ const FontProperties = (props) => {
   const onSelectThemeFontFamily = (fontVariant) => {
     onPropertyChange('themeFontFamily', fontVariant);
   };
-  const onFontProviderChange = (e, v) => {
+  const onFontProviderChange = (v) => {
     if (uploadedFonts.length) {
       onPropertiesChange([
         { name: 'fontProvider', value: v === 0 ? 'google' : 'uploaded' },
@@ -75,93 +70,40 @@ const FontProperties = (props) => {
       ]);
     }
   };
+  const onFontFamilyChange = (font) => {
+    onPropertiesChange([
+      { name: 'fontFamily', value: font.fontFamily },
+      { name: 'fontProvider', value: font.fontProvider },
+      { name: 'fontUrl', value: font.fontUrl }
+    ]);
+  };
+
   const onFontPropertyChange = (name, value) => {
-    let fontLoaderOptions;
-    let successLoadCallback = () => onPropertyChange(name, value);
-    const selectedFontFamily = name === 'fontFamily' ? value : fontFamily;
+    const successLoadCallback = () => onPropertyChange(name, value);
     const selectedFontWeight = name === 'fontWeight' ? value : fontWeight;
     const selectedFontStyle = name === 'fontStyle' ? value : fontStyle;
-    if (isGoogleFontProvider) {
-      fontLoaderOptions = {
-        google: {
-          families: [
-            `${selectedFontFamily}:${selectedFontWeight}${selectedFontStyle}`
-          ]
-        }
-      };
+    if (!isGoogleFontProvider) {
+      successLoadCallback();
     } else {
-      if (name !== 'fontFamily') {
-        onPropertyChange(name, value);
-        return;
-      }
-      const url = uploadedFonts.find((f) => f.name === selectedFontFamily).url;
-      const markup = [
-        '@font-face {\n',
-        "\tfont-family: '",
-        selectedFontFamily,
-        "';\n",
-        "\tsrc: url('",
-        url,
-        "');\n",
-        '}\n'
-      ].join('');
-      if (!document.getElementById(`uploaded-font-${selectedFontFamily}`)) {
-        const style = document.createElement('style');
-        style.setAttribute('type', 'text/css');
-        style.innerHTML = markup;
-        document.getElementsByTagName('head')[0].appendChild(style);
-      }
-      fontLoaderOptions = {
-        custom: {
-          families: [selectedFontFamily],
-          urls: [url]
-        }
-      };
-      successLoadCallback = () => {
-        onPropertyChange(name, value);
-        onPropertyChange('fontUrl', url);
-      };
+      uploadFont({
+        selectedFontFamily: fontFamily,
+        selectedFontWeight,
+        selectedFontStyle,
+        successLoadCallback,
+        uploadedFonts,
+        setLoadingState,
+        isGoogleFontProvider
+      });
     }
-
-    WebFont.load({
-      ...fontLoaderOptions,
-      fontactive: () => {
-        setLoadingState({
-          status: 'active',
-          selectedFontFamily,
-          selectedFontStyle,
-          selectedFontWeight
-        });
-        successLoadCallback();
-      },
-      fontinactive: (e) => {
-        setLoadingState({
-          status: 'inactive',
-          selectedFontFamily,
-          selectedFontStyle,
-          selectedFontWeight
-        });
-      },
-      fontloading: () => {
-        setLoadingState({
-          status: 'loading',
-          selectedFontFamily,
-          selectedFontStyle,
-          selectedFontWeight
-        });
-      }
-    });
   };
 
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       <Grid item xs={12}>
         <CoreText
           label='Text'
           value={text}
-          handleChange={(v) =>
-            props.onPropertyChange && props.onPropertyChange('text', v)
-          }
+          handleChange={(v) => onPropertyChange('text', v)}
         />
         {dynamicOptionValue && (
           <Chip variant='outlined' color='primary' label={dynamicOptionValue} />
@@ -173,36 +115,23 @@ const FontProperties = (props) => {
           value={dynamicOptionValue}
           options={[{ id: 'none', name: 'None' }].concat(dynamicOptions)}
           onChange={(v) =>
-            onFontPropertyChange('dynamicOptionValue', v === 'none' ? '' : v)
+            onPropertyChange('dynamicOptionValue', v === 'none' ? '' : v)
           }
         />
       </Grid>
       <Grid item xs={12}>
-        <Tabs
-          value={isGoogleFontProvider ? 0 : 1}
-          onChange={onFontProviderChange}
-        >
-          <Tab label='Google' />
-          <Tab label='Uploaded' />
-        </Tabs>
-        {isGoogleFontProvider && (
-          <CoreFontSelector
-            {...{ fontWeight, fontStyle, fontFamily }}
-            handleChange={(v) => onFontPropertyChange('fontFamily', v)}
-          />
-        )}
-        {!isGoogleFontProvider && uploadedFonts.length && (
-          <CoreFontSelector
-            {...{
-              fontWeight,
-              fontStyle,
-              fontFamily,
-              uploadedFonts,
-              isGoogleFontProvider
-            }}
-            handleChange={(v) => onFontPropertyChange('fontFamily', v)}
-          />
-        )}
+        <CoreFontSelect
+          {...{
+            fontProvider,
+            fontWeight,
+            fontStyle,
+            fontFamily,
+            uploadedFonts,
+            onFontProviderChange,
+            onFontFamilyChange,
+            setLoadingState
+          }}
+        />
       </Grid>
       <Grid item xs={12}>
         <CoreThemeVariantSelect

@@ -4,9 +4,21 @@ const Theme = mongoose.model('Theme',
 	{
 		name: String,
 		fontFamilies: {
-			primary: String,
-			secondary: String,
-			tertiary: String
+			primary: {
+				fontFamily: String,
+				fontProvider: String,
+				fontUrl: String
+			},
+			secondary: {
+				fontFamily: String,
+				fontProvider: String,
+				fontUrl: String
+			},
+			tertiary: {
+				fontFamily: String,
+				fontProvider: String,
+				fontUrl: String
+			}
 		},
 		palette: {
 			primary: String,

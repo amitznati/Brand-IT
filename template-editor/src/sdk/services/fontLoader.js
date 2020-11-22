@@ -18,7 +18,7 @@ const checkLoadedFonts = (family, fonts) => {
 		const classification = style.charAt(3) || 'n';
 		const styleToCheck = classification + weight;
 		if (fonts && (!(familyName + ' ' + styleToCheck in fonts) || (familyName + ' ' + styleToCheck in fonts && fonts[(familyName + ' ' + styleToCheck)].subset))) {
-			stylesToLoad.push(styles[index]);
+		  stylesToLoad.push(styles[index]);
 		}
 	});
 	const fontQuery = (createFontQuery(familyName, stylesToLoad));
@@ -53,20 +53,19 @@ const loadFontStylesheet = (fontFamilies) => {
 
 export default class FontLoader extends React.Component {
 	componentDidMount() {
-		const { fonts, fontProvider, fontFamilies } = this.props;
+		const { fonts, fontProvider, fontFamilies, customFontFamilies } = this.props;
 		const stylesToLoad = [];
-    if (fontProvider === 'custom') {
-      this.loadUploadedFonts(fontFamilies);
-    } else if (fontFamilies) {
+    if (customFontFamilies.length && fontProvider.includes('custom')) {
+      this.loadUploadedFonts(customFontFamilies);
+    }
+    if (fontFamilies.length && fontProvider.includes('google')) {
 			fontFamilies.forEach((family) => {
 				const inactiveFonts = checkLoadedFonts(family, fonts);
-				if (inactiveFonts) stylesToLoad.push(inactiveFonts);
+				if (inactiveFonts && !stylesToLoad.includes(inactiveFonts)) stylesToLoad.push(inactiveFonts);
 			});
 			if (stylesToLoad && stylesToLoad.length > 0) {
-				this.loadFonts(fontProvider, stylesToLoad);
+				this.loadFonts('google', stylesToLoad);
 			}
-		} else {
-			this.loadFonts(fontProvider);
 		}
 	}
 
@@ -147,14 +146,20 @@ export default class FontLoader extends React.Component {
 }
 
 FontLoader.propTypes = {
-	fontProvider: PropTypes.oneOf([
+	fontProvider: PropTypes.arrayOf(
+	  PropTypes.oneOf([
 		'google',
 		'typekit',
 		'fontdeck',
 		'monotype',
 		'custom',
-	]).isRequired,
+	])).isRequired,
 	fontFamilies: PropTypes.array.isRequired,
+  customFontFamilies: PropTypes.arrayOf(
+    PropTypes.shape({
+    fontFamily: PropTypes.string,
+    fontUrl: PropTypes.string
+  })),
 
 	text: PropTypes.string,
 	typekitId: PropTypes.string,

@@ -8,7 +8,6 @@ import {
 } from 'react-admin';
 import 'template-editor/dist/index.css';
 import EditTemplateField from "../commonComponents/EditTemplateField";
-import DynamicOptionsSelect from '../commonComponents/DynamicOptionsSelect';
 
 const logo = {
 	name: 'Logo',

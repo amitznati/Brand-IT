@@ -9,6 +9,7 @@ export const typeDefs = gql`
     extend type Mutation {
         createTheme(name: String!, palette: PaletteInput!, fontFamilies: FontFamiliesInput!, images: imagesInput!): Theme!
         updateTheme(id: ID!, name: String!): Theme!
+        deleteTheme(id: ID!): String!
     }
 	type Palette {
         primary: String!
@@ -16,9 +17,14 @@ export const typeDefs = gql`
         tertiary: String!
 	}
 	type FontFamilies {
-        primary: String!
-        secondary: String
-        tertiary: String
+        primary: FontData!
+        secondary: FontData
+        tertiary: FontData
+    }
+    type FontData {
+        fontFamily: String!
+        fontProvider: String
+        fontUrl: String
     }
     type Theme {
         id: ID!
@@ -41,9 +47,14 @@ export const typeDefs = gql`
         tertiary: String
     }
     input FontFamiliesInput {
-        primary: Upload!
-        secondary: Upload
-        tertiary: Upload
+        primary: FontDataInput!
+        secondary: FontDataInput
+        tertiary: FontDataInput
+    }
+    input FontDataInput {
+        fontFamily: String!
+        fontProvider: String
+        fontUrl: String
     }
     input imagesInput {
         bg: Upload!

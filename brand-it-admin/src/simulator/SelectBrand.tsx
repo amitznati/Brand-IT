@@ -53,29 +53,6 @@ export default function SelectBrand({selectedCategory}) {
             }
         }
     );
-    // React.useEffect(() => {
-    //     const dynOptions: Array<string> = [];
-    //     const dynValues = {};
-    //     let maxTemplatesSize = 0;
-    //     data.forEach(product => {
-    //         if (product.categories.includes(selectedCategory)) {
-    //             maxTemplatesSize = Math.max(maxTemplatesSize, product.templates.length);
-    //             if (product.dynamicTextOptions &&
-    //                 product.dynamicTextOptions.length) {
-    //                 product.dynamicTextOptions.forEach(textOption => {
-    //                     if (!dynOptions.includes(textOption)) {
-    //                         dynOptions.push(textOption);
-    //                         dynValues[textOption] = textOption;
-    //                     }
-    //                 });
-    //             }
-    //         }
-    //     });
-    //     setDynamicTextOptions(dynOptions);
-    //     setDynamicTextValues(dynValues);
-    //     setProducts(data);
-    //     setMaxTemplatesLength(maxTemplatesSize);
-    // }, [loading]);
     if (loading) return <Loading />;
     const renderProducts = () => {
         const kits: Array<Array<{product: any, template: any}>> = [];
