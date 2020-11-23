@@ -42,6 +42,23 @@ export default function ImageTab({
     setThemeImage(themeImage);
   };
 
+  const AddButton = () => (
+    <div>
+      <Button
+        color='primary'
+        disabled={!imageSrc}
+        onClick={() =>
+          onSelect({
+            type: 'image',
+            value: { src: imageSrc, themeImage }
+          })
+        }
+      >
+        ADD
+      </Button>
+    </div>
+  );
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -92,6 +109,7 @@ export default function ImageTab({
             handleChange={handleFromUrlChange}
             value={imageName}
           />
+          <AddButton />
         </Grid>
       )}
       {selectedTab === 2 && (
@@ -103,24 +121,11 @@ export default function ImageTab({
             name='dynamicImage'
             options={dynamicOptions}
           />
+          <AddButton />
         </Grid>
       )}
       <Grid item xs={9}>
         {imageSrc && <img src={imageSrc} alt='input file' />}
-      </Grid>
-      <Grid item xs={12}>
-        <Button
-          color='primary'
-          disabled={!imageSrc}
-          onClick={() =>
-            onSelect({
-              type: 'image',
-              value: { src: imageSrc, themeImage }
-            })
-          }
-        >
-          ADD
-        </Button>
       </Grid>
     </Grid>
   );

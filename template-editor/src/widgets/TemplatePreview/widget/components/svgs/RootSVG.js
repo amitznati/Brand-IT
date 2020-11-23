@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import subjx from './subjx/js';
 import './subjx/style/subjx.css';
-import { getCM } from './../../../../../sdk/utils';
+import { getCM } from '../../../../../sdk/utils';
 
-const svgOptions = (methods, scale) => {
+const svgOptions = (methods, scale, proportions) => {
   const options = {
     container: '#svg-container',
     // restrict: '#svg-container',
-    // proportions: true,
+    proportions,
     // rotationPoint: true,
     themeColor: 'purple',
     // each: {
@@ -30,6 +30,8 @@ const svgOptions = (methods, scale) => {
 };
 
 class DesignCanvas extends React.Component {
+  shiftPress = false;
+
   getActiveNode = () => {
     const { selectedLayoutIndex } = this.props;
     let node;
@@ -49,7 +51,10 @@ class DesignCanvas extends React.Component {
     this.currentLayout && this.currentLayout.disable();
     const node = this.getActiveNode();
     this.currentLayout =
-      node && subjx(node).drag(svgOptions(this.methods, this.props.scale))[0];
+      node &&
+      subjx(node).drag(
+        svgOptions(this.methods, this.props.scale, this.shiftPress)
+      )[0];
     setIsNodeRefreshRequire(false);
   };
 
@@ -122,10 +127,36 @@ class DesignCanvas extends React.Component {
     }
   };
 
-  componentDidMount() {
-    if (!this.props.previewOnly) {
+  handleShiftPress = (event) => {
+    if (
+      (event.code === 'ShiftLeft' || event.code === 'ShiftRight') &&
+      !this.shiftPress
+    ) {
+      this.shiftPress = true;
       this.refreshNode();
     }
+  };
+
+  handleShiftUp = (event) => {
+    if (
+      (event.code === 'ShiftLeft' || event.code === 'ShiftRight') &&
+      this.shiftPress
+    ) {
+      this.shiftPress = false;
+      this.refreshNode();
+    }
+  };
+
+  componentDidMount() {
+    if (this.props.previewOnly) return;
+    window.addEventListener('keydown', this.handleShiftPress);
+    window.addEventListener('keyup', this.handleShiftUp);
+    this.refreshNode();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleShiftPress);
+    window.removeEventListener('keyup', this.handleShiftPress);
   }
 
   componentDidUpdate(prevProps) {

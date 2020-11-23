@@ -39,7 +39,7 @@ const TemplatesGrid = props => {
         <Grid container spacing={2}>
             {templates.map((template) => {
                 return (
-                    <Grid key={template.id} item xs={3}>
+                    <Grid key={template.id} item xs={12} sm={6} md={3}>
                         <Card>
                             <CardActionArea onClick={() => onEdit(template)}>
                                 <CardContent>
