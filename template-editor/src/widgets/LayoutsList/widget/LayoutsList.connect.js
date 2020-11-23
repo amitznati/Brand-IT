@@ -32,7 +32,8 @@ const mapDispatchToProps = () => ({
   onSortEnd: editTemplateMainViewApi.onSortEnd,
   setIgnoreLayout: editTemplateMainViewApi.setIgnoreLayout,
   onDuplicateLayout: editTemplateMainViewApi.onDuplicateLayout,
-  onAlignmentClick: layoutListApi.onAlignmentClick
+  onAlignmentClick: layoutListApi.onAlignmentClick,
+  onFullSizeClick: layoutListApi.onFullSizeClick
 });
 
 export default connect(

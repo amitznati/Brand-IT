@@ -20,12 +20,17 @@ const useStyles = makeStyles({
   },
   verticalIcon: {
     transform: 'rotate(90deg)'
+  },
+  fullAlignmentItem: {
+    display: 'flex',
+    justifyContent: 'center'
   }
 });
 const PositionProperties = ({
   layout,
   onPropertyChange: onPropChange,
-  onAlignmentClick
+  onAlignmentClick,
+  onFullSizeClick
 }) => {
   const { x, y, transform, alignment } = layout.properties;
   const classes = useStyles();
@@ -128,6 +133,23 @@ const PositionProperties = ({
           })}
         </ButtonGroup>
       </Grid>
+      {layout.type === 'image' && (
+        <Grid item xs={12}>
+          <Grid container>
+            {['width', 'height'].map((dir) => (
+              <Grid key={dir} item xs={6} className={classes.fullAlignmentItem}>
+                <Button
+                  variant='outlined'
+                  color='primary'
+                  onClick={() => onFullSizeClick(dir)}
+                >
+                  Full {dir}
+                </Button>
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+      )}
     </Grid>
   );
 };

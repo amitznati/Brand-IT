@@ -208,4 +208,29 @@ export default class LayoutsListApi extends BaseApi {
       };
     }
   }
+
+  onFullSizeClick = (dir) => {
+    const editTemplateMainViewApi = this.apis.EditTemplateMainViewApi;
+    const {
+      selectedLayout: layout
+    } = editTemplateMainViewApi.getSelectedLayoutSelector();
+    const newLayout = { ...layout };
+    if (dir === 'height') {
+      newLayout.properties.transform.translateY = 0;
+      newLayout.properties.fullSizeProperties = {
+        ...newLayout.properties.fullSizeProperties,
+        height: '100%',
+        preserveAspectRatio: 'none'
+      };
+    } else if (dir === 'width') {
+      newLayout.properties.transform.translateX = 0;
+      newLayout.properties.fullSizeProperties = {
+        ...newLayout.properties.fullSizeProperties,
+        width: '100%',
+        preserveAspectRatio: 'none'
+      };
+    }
+    editTemplateMainViewApi.onUpdateLayout(newLayout);
+    this.apis.TemplatePreviewApi.setIsNodeRefreshRequire(true);
+  };
 }

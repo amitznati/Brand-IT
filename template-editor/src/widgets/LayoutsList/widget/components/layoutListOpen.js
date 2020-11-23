@@ -54,7 +54,8 @@ function LayoutListOpen(props) {
     isSVGPathBuilderOpen,
     dynamicTextOptions,
     uploadedFonts,
-    onAlignmentClick
+    onAlignmentClick,
+    onFullSizeClick
   } = props;
 
   const allFields = {
@@ -157,7 +158,7 @@ function LayoutListOpen(props) {
       case 'positionProperties': {
         return (
           <PositionProperties
-            {...{ layout, onPropertyChange, onAlignmentClick }}
+            {...{ layout, onPropertyChange, onAlignmentClick, onFullSizeClick }}
           />
         );
       }

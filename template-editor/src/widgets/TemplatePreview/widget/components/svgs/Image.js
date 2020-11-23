@@ -5,7 +5,7 @@ import { getGlobalLayoutProperties } from './SVGUtils';
 const Image = (props) => {
   const ref = React.createRef();
   const { layout, index, previewOnly, logoIndex } = props;
-  const { src } = layout.properties;
+  const { src, fullSizeProperties } = layout.properties;
   const layoutProperties = getGlobalLayoutProperties({
     layout,
     index,
@@ -16,7 +16,12 @@ const Image = (props) => {
 
   return (
     <g {...layoutProperties}>
-      <image data-layout-index={index} data-logo-index={logoIndex} href={src} />
+      <image
+        {...fullSizeProperties}
+        data-layout-index={index}
+        data-logo-index={logoIndex}
+        href={src}
+      />
     </g>
   );
 };
