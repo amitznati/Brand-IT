@@ -93,6 +93,7 @@ export const typeDefs = gql`
         q: String
         id: ID
         categories: [ID]
+        category: ID
     }
     input ProductsWithTemplatesInput {
         categories: [ID]

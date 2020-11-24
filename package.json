@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:be": "cd brand-it-backend && npm start",
     "build:be": "cd brand-it-backend && npm run build && cd ..",
+    "be:watch": "cd brand-it-backend && npm run watch",
     "start:admin": "cd brand-it-admin && npm start",
     "build:admin": "cd brand-it-admin && npm run build && cd ..",
     "build:te": "cd template-editor && npm run build && cd ..",
@@ -16,8 +17,9 @@
     "install:be": "cd brand-it-backend && npm install && cd ..",
     "install:admin": "cd brand-it-admin && npm install && cd ..",
     "install:all": "npm run install:be && npm run install:te && npm run install:admin",
-    "start:all": "npm-run-all --parallel start:be start:te start:admin",
-    "start": "npm run build:be & npm run build:te && npm run start:all"
+    "start:all": "npm-run-all --parallel start:be start:admin",
+    "start": "npm run build:be && npm run build:te && npm run start:all",
+    "start:dev": "npm-run-all --parallel be:watch start:be start:te start:admin"
   },
   "repository": {
     "type": "git",
