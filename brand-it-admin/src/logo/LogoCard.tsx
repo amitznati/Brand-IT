@@ -42,11 +42,8 @@ export default function LogoCard({icon}) {
     };
     return (
         <Card className={classes.root}>
-            <CardActionArea href={`#/Icon/${icon.id}`}>
+            <CardActionArea href={`#/Logo/${icon.id}`}>
                 <CardContent>
-                    {/*<div className={classes.imageWrap}>*/}
-                    {/*    <img src={icon.imageUrl} alt="" className={classes.image}/>*/}
-                    {/*</div>*/}
                     <Typography gutterBottom variant="h5" component="h2">
                         {icon.name}
                     </Typography>
