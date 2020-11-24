@@ -1,0 +1,35 @@
+{
+  "name": "brand-it",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:be": "cd brand-it-backend && npm start",
+    "build:be": "cd brand-it-backend && npm run build && cd ..",
+    "start:admin": "cd brand-it-admin && npm start",
+    "build:admin": "cd brand-it-admin && npm run build && cd ..",
+    "build:te": "cd template-editor && npm run build && cd ..",
+    "start:te": "cd template-editor && npm start",
+    "build:all": "npm run build:be && npm run build:te",
+    "install:te": "cd template-editor && npm install && cd ..",
+    "install:be": "cd brand-it-backend && npm install && cd ..",
+    "install:admin": "cd brand-it-admin && npm install && cd ..",
+    "install:all": "npm run install:be && npm run install:te && npm run install:admin",
+    "start:all": "npm-run-all --parallel start:be start:te start:admin",
+    "start": "npm run build:be & npm run build:te && npm run start:all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amitznati/Brand-IT.git"
+  },
+  "author": "Amit Znati",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amitznati/Brand-IT/issues"
+  },
+  "homepage": "https://github.com/amitznati/Brand-IT#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
