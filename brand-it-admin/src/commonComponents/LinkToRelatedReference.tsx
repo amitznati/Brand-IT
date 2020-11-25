@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import { useTranslate } from 'react-admin';
 import { stringify } from 'query-string';
 
-import products from '../product';
-
 const useStyles = makeStyles({
     icon: { paddingRight: '0.5em' },
     link: {
@@ -15,8 +13,8 @@ const useStyles = makeStyles({
     },
 });
 
-const LinkToRelatedProducts = (props) => {
-    const { record } = props;
+const LinkToRelatedReference = (props) => {
+    const { record, pathname, filterFunc, icon: Icon, label } = props;
     const translate = useTranslate();
     const classes = useStyles();
     return record ? (
@@ -25,17 +23,17 @@ const LinkToRelatedProducts = (props) => {
             color="primary"
             component={Link}
             to={{
-                pathname: '/Product',
+                pathname,
                 search: stringify({
-                    filter: JSON.stringify({ categories: [record.id] }),
+                    filter: JSON.stringify(filterFunc(record)),
                 }),
             }}
             className={classes.link}
         >
-            <products.icon className={classes.icon} />
-            {translate('resources.category.fields.products')}
+            <Icon className={classes.icon} />
+            {label}
         </Button>
     ) : null;
 };
 
-export default LinkToRelatedProducts;
+export default LinkToRelatedReference;

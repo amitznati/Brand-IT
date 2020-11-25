@@ -6,7 +6,8 @@ import {
 	TextField, Filter, SearchInput
 } from 'react-admin';
 import ListActions from '../commonComponents/ListActions';
-import LinkToRelatedProducts from "./LinkToRelatedProducts";
+import product from '../product';
+import LinkToRelatedReference from "../commonComponents/LinkToRelatedReference";
 
 export const CategoryFilter = props => (
 	<Filter {...props}>
@@ -19,7 +20,12 @@ const CategoryList = (props) => (
 			<TextField source="name" />
 			<TextField label="Business" source="business.name" />
 			<EditButton />
-			<LinkToRelatedProducts />
+			<LinkToRelatedReference
+				pathname="/Product"
+				filterFunc={(record) => ({categories: [record.id] })}
+				icon={product.icon}
+				label="Products"
+			/>
 		</Datagrid>
 	</List>
 );
