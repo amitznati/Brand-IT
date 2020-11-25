@@ -1,11 +1,13 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate';
 const Schema = mongoose.Schema;
-const Business = mongoose.model('Business',
-	{
-		name: String,
-		categories: [{
-			type: Schema.Types.ObjectId,
-			ref: 'Category'
-		}]
-	});
+const businessSchema = new Schema({
+	name: String,
+	categories: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Category'
+	}]
+});
+businessSchema.plugin(mongoosePaginate);
+const Business = mongoose.model('Business', businessSchema);
 export default Business;

@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
-const UploadedImage = mongoose.model('UploadedImage',
-	{
-		name: String,
-		url: String
-	});
+import mongoosePaginate from 'mongoose-paginate';
+const Schema = mongoose.Schema;
+const uploadedImageSchema = new Schema({
+	name: String,
+	url: String
+});
+uploadedImageSchema.plugin(mongoosePaginate);
+const UploadedImage = mongoose.model('UploadedImage', uploadedImageSchema);
 export default UploadedImage;

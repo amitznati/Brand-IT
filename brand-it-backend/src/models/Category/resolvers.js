@@ -1,10 +1,11 @@
 import Category from './Category';
 import Business from '../Business/Business';
+import {allModels, allModelsMeta} from '../modelsHelper';
 
 export const resolvers = {
 	Query: {
-		allCategories: () => Category.find().populate('business'),
-		_allCategoriesMeta: () => {return {count: Category.find().estimatedDocumentCount()}},
+		allCategories: (_, input) => allModels(Category, input, 'business'),
+		_allCategoriesMeta: (_, input) => allModelsMeta(Category, input),
 		Category: (_, {id}) => Category.findById(id).populate('business')
 	},
 	Mutation: {

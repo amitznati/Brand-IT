@@ -1,10 +1,11 @@
 import Font from './Font';
 import {isFontExist, saveFile} from '../../fileManager';
+import {allModels, allModelsMeta} from '../modelsHelper';
 
 export const resolvers = {
 	Query: {
-		allFonts: () => Font.find(),
-		_allFontsMeta: () => {return {count: Font.find().estimatedDocumentCount()}},
+		allFonts: (_, input) => allModels(Font, input),
+		_allFontsMeta: (_, input) => allModelsMeta(Font, input),
 		Font: (_, {id}) => Font.findById(id)
 	},
 	Mutation: {

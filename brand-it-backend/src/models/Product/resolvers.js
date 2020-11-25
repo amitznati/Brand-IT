@@ -2,6 +2,7 @@ import Product from './Product';
 import Category from '../Category/Category';
 import {saveFile} from '../../fileManager';
 import Template from '../Template/Template';
+import {allModels, allModelsMeta} from '../modelsHelper';
 
 async function updateProductImageAndCategories(rest, image, product) {
 	const categoriesIds = rest.categories;
@@ -21,8 +22,8 @@ async function updateProductImageAndCategories(rest, image, product) {
 
 export const resolvers = {
 	Query: {
-		allProducts: () => Product.find(),
-		_allProductsMeta: () => {return {count: Product.find().estimatedDocumentCount()}},
+		allProducts: (_, input) => allModels(Product, input),
+		_allProductsMeta: (_, input) => allModelsMeta(Product, input),
 		Product: (_, {id}) => Product.findById(id),
 		getProductWithTemplates: (_, {productId}) => Product.findById(productId).populate('templates'),
 		getProductsWithTemplates: (_, {params}) => {

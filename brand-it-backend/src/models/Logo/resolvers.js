@@ -1,9 +1,10 @@
 import Logo from './Logo';
+import {allModels, allModelsMeta} from '../modelsHelper';
 
 export const resolvers = {
 	Query: {
-		allLogos: () => Logo.find(),
-		_allLogosMeta: () => {return {count: Logo.find().estimatedDocumentCount()}},
+		allLogos: (_, input) => allModels(Logo, input),
+		_allLogosMeta: (_, input) => allModelsMeta(Logo, input),
 		Logo: (_, {id}) => Logo.findById(id)
 	},
 	Mutation: {

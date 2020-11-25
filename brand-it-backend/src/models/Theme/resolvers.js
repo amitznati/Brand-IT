@@ -1,10 +1,11 @@
 import Theme from './Theme';
-import {isFontExist, saveFile} from '../../fileManager';
+import {saveFile} from '../../fileManager';
+import {allModels, allModelsMeta} from '../modelsHelper';
 
 export const resolvers = {
 	Query: {
-		allThemes: () => Theme.find(),
-		_allThemesMeta: () => {return {count: Theme.find().estimatedDocumentCount()}},
+		allThemes: (_, input) => allModels(Theme, input),
+		_allThemesMeta: (_, input) => allModelsMeta(Theme, input),
 		Theme: (_, {id}) => Theme.findById(id)
 	},
 	Mutation: {
@@ -18,17 +19,6 @@ export const resolvers = {
 						theme.images[imageName] = await saveFile(`themes/${theme.id}`, imageName, images[imageName]);
 					}
 				}));
-				// await Promise.all(['primary', 'secondary', 'tertiary'].map(async (fontType) => {
-				// 	if (fontFamilies[fontType]) {
-				// 		const {filename} = await fontFamilies[fontType].rawFile;
-				// 		const fontPath = await isFontExist(filename);
-				// 		if (fontPath) {
-				// 			theme.fontFamilies[fontType] = fontPath;
-				// 		} else {
-				// 			theme.fontFamilies[fontType] = await saveFile('fonts', undefined, fontFamilies[fontType]);
-				// 		}
-				// 	}
-				// }));
 				await theme.save();
 				return theme;
 			} catch (error) {

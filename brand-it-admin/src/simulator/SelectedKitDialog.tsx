@@ -46,8 +46,8 @@ export default function SelectedKitDialog({open, onClose, kit, selectedTheme, dy
                 <CoreSlider
                     label='Scale'
                     value={scale}
-                    max={30}
-                    step={0.001}
+                    max={3}
+                    step={0.01}
                     handleSliderChange={(v) =>
                         setScale(Number(Number(v).toFixed(2)))
                     }

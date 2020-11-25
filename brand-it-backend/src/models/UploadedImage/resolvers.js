@@ -1,10 +1,11 @@
 import UploadedImage from './UploadedImage';
 import {isUploadedImageExist, saveFile} from '../../fileManager';
+import {allModels, allModelsMeta} from '../modelsHelper';
 
 export const resolvers = {
 	Query: {
-		allUploadedImages: () => UploadedImage.find(),
-		_allUploadedImagesMeta: () => {return {count: UploadedImage.find().estimatedDocumentCount()}},
+		allUploadedImages: (_, input) => allModels(UploadedImage, input),
+		_allUploadedImagesMeta: (_, input) => allModelsMeta(UploadedImage, input),
 		UploadedImage: (_, {id}) => UploadedImage.findById(id)
 	},
 	Mutation: {

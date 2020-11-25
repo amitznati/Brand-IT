@@ -1,9 +1,10 @@
 import Business from './Business';
+import {allModels, allModelsMeta} from '../modelsHelper';
 
 export const resolvers = {
 	Query: {
-		allBusinesses: () => Business.find().populate('categories'),
-		_allBusinessesMeta: () => {return {count: Business.find().estimatedDocumentCount()}},
+		allBusinesses: (_, input) => allModels(Business, input, 'categories'),
+		_allBusinessesMeta: (_, input) => allModelsMeta(Business, input),
 		Business: (_, {id}) => Business.findById(id).populate('categories')
 	},
 	Mutation: {
