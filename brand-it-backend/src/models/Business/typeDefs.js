@@ -9,6 +9,7 @@ export const typeDefs = gql`
     extend type Mutation {
         createBusiness(name: String!): Business!
         updateBusiness(id: ID!, name: String!): Business!
+        deleteBusiness(id: ID!): Business
     }
     type Business {
         id: ID!

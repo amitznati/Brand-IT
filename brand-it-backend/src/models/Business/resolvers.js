@@ -1,5 +1,7 @@
 import Business from './Business';
 import {allModels, allModelsMeta} from '../modelsHelper';
+import Category from '../Category/Category';
+import Product from '../Product/Product';
 
 export const resolvers = {
 	Query: {
@@ -19,6 +21,23 @@ export const resolvers = {
 				return business;
 			} else {
 				throw ('business not found');
+			}
+		},
+		deleteBusiness: async (_, {id}) => {
+			const business = await Business.findById(id);
+			if (business) {
+				await Category.deleteMany({
+					_id: {$in: business.categories}
+				});
+				await Product.updateMany(
+					{},
+					{$pull: {categories: {$in: business.categories}}},
+					{multi: true}
+				);
+				await business.delete();
+				return business;
+			} else {
+				throw 'Business not found'
 			}
 		}
 	}

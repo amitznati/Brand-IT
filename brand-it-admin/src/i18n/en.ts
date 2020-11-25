@@ -43,6 +43,7 @@ const customEnglishMessages: TranslationMessages = {
             name: 'Category |||| Categories',
             fields: {
                 name: 'Name',
+                products: 'Products'
             },
             filters: {
 

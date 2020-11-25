@@ -1,4 +1,4 @@
-import BusinessIcon from '@material-ui/icons/Collections';
+import BusinessIcon from '@material-ui/icons/Business';
 import BusinessList from './list';
 import {BusinessCreate, BusinessEdit} from './editCreate'
 

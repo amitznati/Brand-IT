@@ -1,4 +1,4 @@
-import ProductIcon from '@material-ui/icons/Collections';
+import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import ProductList from './ProductList';
 import {ProductCreate, ProductEdit} from './ProductCreate';
 import {ProductShow} from './ProductShow';
@@ -8,5 +8,5 @@ export default {
     create: ProductCreate,
     edit: ProductEdit,
     show: ProductShow,
-    icon: ProductIcon,
+    icon: BubbleChartIcon,
 };

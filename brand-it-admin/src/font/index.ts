@@ -1,4 +1,4 @@
-import BusinessIcon from '@material-ui/icons/Collections';
+import FontDownloadIcon from '@material-ui/icons/FontDownload';
 import BusinessList from './list';
 import {FontCreate, FontEdit} from './editCreate'
 
@@ -6,5 +6,5 @@ export default {
     list: BusinessList,
     create: FontCreate,
     edit: FontEdit,
-    icon: BusinessIcon
+    icon: FontDownloadIcon
 }

@@ -12,7 +12,7 @@ const ThemeListView = () => {
 			<ListActions/>
 
 			<GridList/>
-			<Pagination rowsPerPageOptions={[10, 20, 40]}/>
+			<Pagination rowsPerPageOptions={[2, 4, 10]}/>
 		</>
 	);
 }

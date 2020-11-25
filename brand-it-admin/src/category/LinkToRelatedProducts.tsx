@@ -1,0 +1,41 @@
+import * as React from 'react';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import { useTranslate } from 'react-admin';
+import { stringify } from 'query-string';
+
+import products from '../product';
+
+const useStyles = makeStyles({
+    icon: { paddingRight: '0.5em' },
+    link: {
+        display: 'inline-flex',
+        alignItems: 'center',
+    },
+});
+
+const LinkToRelatedProducts = (props) => {
+    const { record } = props;
+    const translate = useTranslate();
+    const classes = useStyles();
+    return record ? (
+        <Button
+            size="small"
+            color="primary"
+            component={Link}
+            to={{
+                pathname: '/Product',
+                search: stringify({
+                    filter: JSON.stringify({ categories: [record.id] }),
+                }),
+            }}
+            className={classes.link}
+        >
+            <products.icon className={classes.icon} />
+            {translate('resources.category.fields.products')}
+        </Button>
+    ) : null;
+};
+
+export default LinkToRelatedProducts;

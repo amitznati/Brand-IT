@@ -14,8 +14,8 @@ export const allModels = async (model, input, populate) => {
 };
 
 export const allModelsMeta = async (model, input) => {
-	// const allModels = await model.paginate({}, {limit: input.perPage, page: input.page + 1});
+	const allModels = await model.paginate({}, {limit: input.perPage, page: input.page + 1});
 	return {
-		count: 20
+		count: allModels.total
 	};
 };

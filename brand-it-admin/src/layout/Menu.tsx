@@ -3,9 +3,16 @@ import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { useMediaQuery, Theme } from '@material-ui/core';
+import TelegramIcon from '@material-ui/icons/Telegram';
 import { useTranslate, DashboardMenuItem, MenuItemLink } from 'react-admin';
 
 import business from '../business';
+import category from '../category';
+import product from '../product';
+import logo from '../logo';
+import theme from '../theme';
+import font from '../font';
+import uploadedImage from '../uploadedImage';
 
 import SubMenu from './SubMenu';
 import { AppState } from '../types';
@@ -18,8 +25,17 @@ interface Props {
     onMenuClick: () => void;
 }
 
-const catalogItems = ['Business', 'Category', 'Product', 'Logo', 'Theme'];
-const assetsItems = ['Font', 'UploadedImage'];
+const catalogItems = [
+    {name: 'Business', icon: business.icon},
+    {name: 'Category', icon: category.icon},
+    {name: 'Product', icon: product.icon},
+    {name: 'Logo', icon: logo.icon},
+    {name: 'Theme', icon: theme.icon}
+];
+const assetsItems = [
+    {name: 'Font', icon: font.icon},
+    {name: 'UploadedImage', icon: uploadedImage.icon}
+];
 
 const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
     const [state, setState] = useState({
@@ -52,11 +68,11 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
             >
                 {catalogItems.map((menuItem) => (
                     <MenuItemLink
-                        key={menuItem}
-                        to={`/${menuItem}`}
-                        primaryText={menuItem}
+                        key={menuItem.name}
+                        to={`/${menuItem.name}`}
+                        primaryText={menuItem.name}
                         onClick={onMenuClick}
-                        leftIcon={<business.icon />}
+                        leftIcon={<menuItem.icon />}
                         sidebarIsOpen={open}
                         dense={dense}
                     />
@@ -72,11 +88,11 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
             >
                 {assetsItems.map((menuItem) => (
                     <MenuItemLink
-                        key={menuItem}
-                        to={`/${menuItem}`}
-                        primaryText={menuItem}
+                        key={menuItem.name}
+                        to={`/${menuItem.name}`}
+                        primaryText={menuItem.name}
                         onClick={onMenuClick}
-                        leftIcon={<business.icon />}
+                        leftIcon={<menuItem.icon />}
                         sidebarIsOpen={open}
                         dense={dense}
                     />
@@ -94,7 +110,7 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
                         to="/simulator"
                         primaryText="Simulator"
                         onClick={onMenuClick}
-                        leftIcon={<business.icon />}
+                        leftIcon={<TelegramIcon />}
                         sidebarIsOpen={open}
                         dense={dense}
                     />

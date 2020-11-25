@@ -1,4 +1,4 @@
-import LogoLogo from '@material-ui/icons/Collections';
+import LogoLogo from '@material-ui/icons/Polymer';
 import list from './list';
 import {LogoCreate, LogoEdit} from './editCreate'
 
