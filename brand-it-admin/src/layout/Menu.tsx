@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { useMediaQuery, Theme } from '@material-ui/core';
 import TelegramIcon from '@material-ui/icons/Telegram';
+import WallpaperIcon from '@material-ui/icons/Wallpaper';
 import { useTranslate, DashboardMenuItem, MenuItemLink } from 'react-admin';
 
 import business from '../business';
@@ -63,7 +64,7 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
                 isOpen={state.menuCatalog}
                 sidebarIsOpen={open}
                 name="pos.menu.catalog"
-                icon={<business.icon />}
+                icon={<category.icon />}
                 dense={dense}
             >
                 {catalogItems.map((menuItem) => (
@@ -83,7 +84,7 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
                 isOpen={state.menuAssets}
                 sidebarIsOpen={open}
                 name="Assets"
-                icon={<business.icon />}
+                icon={<WallpaperIcon />}
                 dense={dense}
             >
                 {assetsItems.map((menuItem) => (
@@ -103,7 +104,7 @@ const Menu: FC<Props> = ({ onMenuClick, dense, logout }) => {
                 isOpen={state.menuSimulator}
                 sidebarIsOpen={open}
                 name="Simulator"
-                icon={<business.icon />}
+                icon={<TelegramIcon />}
                 dense={dense}
             >
                     <MenuItemLink

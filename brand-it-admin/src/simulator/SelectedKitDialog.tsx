@@ -11,18 +11,8 @@ import {TemplatePreviewForPreview, CoreSlider} from 'template-editor';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        form: {
-            display: 'flex',
-            flexDirection: 'column',
-            margin: 'auto',
-            width: 'fit-content',
-        },
-        formControl: {
-            marginTop: theme.spacing(2),
-            minWidth: 120,
-        },
-        formControlLabel: {
-            marginTop: theme.spacing(1),
+        gridContainer: {
+            alignItems: 'center'
         },
     }),
 );
@@ -52,7 +42,7 @@ export default function SelectedKitDialog({open, onClose, kit, selectedTheme, dy
                         setScale(Number(Number(v).toFixed(2)))
                     }
                 />
-                <Grid container alignItems="center">
+                <Grid container className={classes.gridContainer}>
                     {kit.map(({product, template}) => {
                         return (
                             <Grid item xs={6} key={[product.id, template.id].join('-')}>

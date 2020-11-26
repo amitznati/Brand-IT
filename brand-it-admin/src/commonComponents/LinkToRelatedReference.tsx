@@ -2,7 +2,6 @@ import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { useTranslate } from 'react-admin';
 import { stringify } from 'query-string';
 
 const useStyles = makeStyles({
@@ -15,7 +14,6 @@ const useStyles = makeStyles({
 
 const LinkToRelatedReference = (props) => {
     const { record, pathname, filterFunc, icon: Icon, label } = props;
-    const translate = useTranslate();
     const classes = useStyles();
     return record ? (
         <Button

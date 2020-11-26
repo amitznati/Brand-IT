@@ -19,13 +19,13 @@ const CategoryList = (props) => (
 		<Datagrid>
 			<TextField source="name" />
 			<TextField label="Business" source="business.name" />
-			<EditButton />
 			<LinkToRelatedReference
 				pathname="/Product"
 				filterFunc={(record) => ({categories: [record.id] })}
 				icon={product.icon}
 				label="Products"
 			/>
+			<EditButton />
 		</Datagrid>
 	</List>
 );

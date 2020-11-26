@@ -2,10 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Button,
-  Typography,
-  Icon,
-  IconButton,
-  Toolbar,
   Grid
 } from '@material-ui/core';
 import TemplatePreview from '../../../TemplatePreview/widget/TemplatePreview.connect';
@@ -74,12 +70,6 @@ class EditTemplateMainViewMainView extends React.Component {
   constructor(props) {
     super(props);
     this.templatePreviewRef = React.createRef();
-    this.saveTemplate = this.saveTemplate.bind(this);
-  }
-
-  saveTemplate() {
-    const { template, onSaveTemplate } = this.props;
-    onSaveTemplate && onSaveTemplate(template);
   }
 
   render() {
@@ -104,17 +94,6 @@ class EditTemplateMainViewMainView extends React.Component {
           logos={logos}
         />
         <Grid container>
-          <Grid item xs={12}>
-            <Toolbar>
-              <Typography variant='h6' noWrap>
-                SVG Template Editor
-              </Typography>
-              <div className={classes.grow} />
-              <IconButton color='inherit' onClick={this.saveTemplate}>
-                <Icon>save</Icon>
-              </IconButton>
-            </Toolbar>
-          </Grid>
           <Grid item xs={12} sm={12} md={3}>
             <div className={classes.drawerPaper}>
               <Button

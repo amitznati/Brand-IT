@@ -13,7 +13,7 @@ const LoadedGridList = () => {
             {ids.map((id) => {
                 const product = data[id];
                 return (
-                    <Grid item sm={6} md={3} key={id}>
+                    <Grid item xs={12} sm={12} md={6} lg={3} key={id}>
                         <ProductCard product={product} />
                     </Grid>
                 )
