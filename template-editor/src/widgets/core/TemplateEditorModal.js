@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import EditTemplateMainViewComponent from '../EditTemplateMainView/widget/EditTemplateMainView.connect';
 import { getInstance } from '../../sdk';
+import withRoot from '../../withRoot';
 const useStyles = makeStyles({
   grow: {
     flexGrow: 1
@@ -72,4 +73,7 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = () => ({});
-export default connect(mapStateToProps, mapDispatchToProps)(EditTemplateDialog);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRoot(EditTemplateDialog));
