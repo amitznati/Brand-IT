@@ -40,6 +40,7 @@ export const mapComponentProps = (props) => {
     templateFilters = [],
     templateGradients = []
   } = template;
+  const allFonts = getAllFonts(template);
   return {
     layouts: layouts.concat(editLayouts),
     productH: getPX(product.size.height, scale),
@@ -50,7 +51,7 @@ export const mapComponentProps = (props) => {
     templateY: getPX(product.templateFrame.y, scale),
     product,
     previewOnly,
-    allFonts: getAllFonts(template),
+    allFonts,
     DefsProps: {
       templateFilters,
       templateGradients
@@ -58,6 +59,9 @@ export const mapComponentProps = (props) => {
     logoProps: {
       h: getPX(product.templateFrame.height),
       w: getPX(product.templateFrame.width)
+    },
+    SVGStylesProps: {
+      allFonts
     },
     SVGRootProps: {
       onEditLayoutEnd,
@@ -82,10 +86,9 @@ export const mapComponentProps = (props) => {
   };
 };
 
-const getAllFonts = (template) => {
+export const getAllFonts = (template) => {
   const { layouts = [] } = template;
-  const uploadedFonts = [];
-  const googleFonts = [];
+  const allFonts = [];
   layouts.forEach((l) => {
     const {
       fontFamily,
@@ -94,20 +97,32 @@ const getAllFonts = (template) => {
       fontProvider,
       fontUrl
     } = l.properties;
+    // @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,300&display=swap');
+    // @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
     if (l.type === 'text' || l.type === 'textPath') {
+      const italic = fontStyle === 'italic';
+      let url;
       if (fontProvider === 'google') {
-        googleFonts.push(
-          `${fontFamily}:${fontWeight || 300}${fontStyle || 'normal'}`
-        );
-      } else if (fontProvider === 'uploaded') {
-        uploadedFonts.push({
+        url = `https://fonts.googleapis.com/css2?family=${fontFamily}:${
+          italic ? 'ital,' : ''
+        }wght@${italic ? '1,' : ''}${fontWeight}&display=swap`;
+      } else {
+        url = fontUrl;
+      }
+      if (
+        !allFonts.find(
+          (font) => font.fontFamily === fontFamily && font.fontUrl === url
+        )
+      ) {
+        allFonts.push({
+          fontUrl: url,
           fontFamily,
-          fontUrl
+          fontProvider
         });
       }
     }
   });
-  return { googleFonts, uploadedFonts };
+  return allFonts;
 };
 
 const replaceDynamicThemeValues = (template, selectedTheme, selectedLogo) => {
@@ -118,8 +133,12 @@ const replaceDynamicThemeValues = (template, selectedTheme, selectedLogo) => {
       p.fill.fill = selectedTheme.palette[p.themeColor];
     }
     if (p.themeFontFamily) {
-      p.fontFamily = selectedTheme.fontFamilies[p.themeFontFamily].fontFamily;
-      p.fontUrl = selectedTheme.fontFamilies[p.themeFontFamily].fontUrl;
+      const { fontFamily, fontUrl, fontProvider } = selectedTheme.fontFamilies[
+        p.themeFontFamily
+      ];
+      p.fontFamily = fontFamily;
+      p.fontUrl = fontUrl;
+      p.fontProvider = fontProvider;
     }
     if (p.themeImage) {
       p.src = selectedTheme.images[p.themeImage.split('-').pop()];

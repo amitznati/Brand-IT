@@ -18,17 +18,17 @@ const theme = createMuiTheme({
       main: green[500],
       dark: green[700]
     }
-  },
-  typography: {
-    useNextVariants: true
   }
+  // typography: {
+  //   useNextVariants: true
+  // }
 });
 
 function withRoot(Component) {
   function WithRoot(props) {
+    // return <Component {...props} />;
     return (
       <MuiThemeProvider theme={theme}>
-        <CssBaseline />
         <Component {...props} />
       </MuiThemeProvider>
     );

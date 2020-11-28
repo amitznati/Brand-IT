@@ -4,7 +4,7 @@ import { Grid, CircularProgress, Chip } from '@material-ui/core';
 
 import { CoreNumber, CoreSelect, CoreText } from '../../../core';
 import CoreThemeVariantSelect from '../../../core/CoreThemeVariantSelect';
-import CoreFontSelect, { uploadFont } from '../../../core/CoreFornSelect';
+import CoreFontSelect, { uploadFont } from '../../../core/CoreFontSelect';
 
 const useStyles = makeStyles((theme) => ({
   progress: {

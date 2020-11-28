@@ -4,20 +4,13 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import { Icon } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   speedDial: {
     position: 'absolute',
-    '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
-      transform: 'translate(0, 50%)',
-      bottom: '50%',
-      right: theme.spacing(4)
-    },
-    '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
-      top: theme.spacing(2),
-      left: theme.spacing(2)
-    }
+    right: '3rem',
+    top: 0
   }
-}));
+});
 
 export default function CoreSpeedActions({ actions }) {
   const classes = useStyles();
@@ -26,6 +19,7 @@ export default function CoreSpeedActions({ actions }) {
   return (
     <SpeedDial
       ariaLabel='SpeedDial example'
+      tooltipTitle='more...'
       className={classes.speedDial}
       FabProps={{ color: 'secondary', size: 'small' }}
       icon={<Icon>more_vert</Icon>}
@@ -40,6 +34,7 @@ export default function CoreSpeedActions({ actions }) {
     >
       {actions.map((action) => (
         <SpeedDialAction
+          title={action.name}
           key={action.name}
           icon={<Icon>{action.icon}</Icon>}
           tooltipTitle={action.name}

@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Text, TextPath, Image, RootSVG, Defs, Shape, CustomSVG } from './svgs';
 import Logo from './svgs/Logo';
 import PathBuilder from './TemplatePreview.pathBuilder';
+import SVGStyles from './svgs/SVGStyles';
 
 const styles = (theme) => ({
   templateRoot: {
@@ -66,7 +67,8 @@ class TemplatePreviewMainView extends React.Component {
       PathBuilderProps,
       SVGRootProps,
       DefsProps,
-      previewOnly
+      previewOnly,
+      SVGStylesProps
     } = this.props;
     const {
       layouts,
@@ -114,6 +116,7 @@ class TemplatePreviewMainView extends React.Component {
         >
           <RootSVG {...SVGRootProps}>
             <Defs {...DefsProps} />
+            <SVGStyles {...SVGStylesProps} />
             {renderedLayouts}
           </RootSVG>
           {!previewOnly && SVGRootProps.isSVGPathBuilderOpen && (

@@ -217,6 +217,7 @@ export default class LayoutsListApi extends BaseApi {
     const newLayout = { ...layout };
     if (dir === 'height') {
       newLayout.properties.transform.translateY = 0;
+      newLayout.properties.transform.scaleY = 1;
       newLayout.properties.fullSizeProperties = {
         ...newLayout.properties.fullSizeProperties,
         height: '100%',
@@ -224,6 +225,7 @@ export default class LayoutsListApi extends BaseApi {
       };
     } else if (dir === 'width') {
       newLayout.properties.transform.translateX = 0;
+      newLayout.properties.transform.scaleX = 1;
       newLayout.properties.fullSizeProperties = {
         ...newLayout.properties.fullSizeProperties,
         width: '100%',
