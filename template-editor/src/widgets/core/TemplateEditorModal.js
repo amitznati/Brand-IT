@@ -25,9 +25,19 @@ const EditTemplateDialog = ({
   open,
   onSaveTemplate,
   initialData,
-  template
+  template,
+  resetState
 }) => {
   const classes = useStyles();
+  const onCloseModal = React.useCallback(() => {
+    resetState();
+    onClose();
+  }, []);
+  const onSave = () => {
+    const returnedTemplate = JSON.parse(JSON.stringify(template));
+    onSaveTemplate(returnedTemplate);
+    resetState();
+  };
   return (
     <Dialog
       onClose={onClose}
@@ -39,17 +49,18 @@ const EditTemplateDialog = ({
       <DialogTitle id='Edit-Template-Dialog'>
         <AppBar position='static'>
           <Toolbar>
-            <IconButton color='inherit' onClick={onClose} aria-label='Close'>
+            <IconButton
+              color='inherit'
+              onClick={onCloseModal}
+              aria-label='Close'
+            >
               <CloseIcon />
             </IconButton>
             <Typography variant='h6' color='inherit'>
               SVG Edit Template
             </Typography>
             <div className={classes.grow} />
-            <IconButton
-              color='inherit'
-              onClick={() => onSaveTemplate(template)}
-            >
+            <IconButton color='inherit' onClick={onSave}>
               <Icon>save</Icon>
             </IconButton>
           </Toolbar>
@@ -72,7 +83,9 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = () => ({
+  resetState: editTemplateMainViewApi.resetState
+});
 export default connect(
   mapStateToProps,
   mapDispatchToProps

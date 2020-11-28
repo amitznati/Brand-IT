@@ -19,7 +19,8 @@ export const ActionTypes = {
   SET_ALL_FONTS_LOADED: 'SET_ALL_FONTS_LOADED',
   UPDATE_TEMPLATE_GRADIENTS: 'UPDATE_TEMPLATE_GRADIENTS',
   UPDATE_TEMPLATE_FILTERS: 'UPDATE_TEMPLATE_FILTERS',
-  SET_INITIAL_DATA: 'SET_INITIAL_DATA'
+  SET_INITIAL_DATA: 'SET_INITIAL_DATA',
+  RESET_STATE: 'RESET_STATE'
 };
 const getDefaultProperties = (axis) => {
   return {
@@ -263,6 +264,12 @@ export default class EditTemplateMainViewApi extends BaseApi {
     this.dispatchStoreAction({
       type: ActionTypes.UPDATE_SCALE,
       payload: scale
+    });
+  };
+
+  resetState = () => {
+    this.dispatchStoreAction({
+      type: ActionTypes.RESET_STATE
     });
   };
 

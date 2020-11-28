@@ -19,7 +19,6 @@ export default function CoreSpeedActions({ actions }) {
   return (
     <SpeedDial
       ariaLabel='SpeedDial example'
-      tooltipTitle='more...'
       className={classes.speedDial}
       FabProps={{ color: 'secondary', size: 'small' }}
       icon={<Icon>more_vert</Icon>}

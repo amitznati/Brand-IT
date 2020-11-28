@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function SVGStyles({ allFonts }) {
-  console.log(allFonts);
   return allFonts.map(({ fontFamily, fontUrl, fontProvider }) => {
     const key = `${fontFamily}-${fontUrl}`;
     if (fontProvider === 'google') {

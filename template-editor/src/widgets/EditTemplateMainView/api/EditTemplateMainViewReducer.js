@@ -77,6 +77,9 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.SET_ALL_FONTS_LOADED:
       newState = { ...state, allFontsLoaded: true };
       break;
+    case ActionTypes.RESET_STATE:
+      newState = initialState;
+      break;
     default:
       return newState;
   }
