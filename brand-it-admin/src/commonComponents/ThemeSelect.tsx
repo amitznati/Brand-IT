@@ -134,31 +134,37 @@ export default function ThemeSelect({onSelect, selectedTheme}) {
                                 backgroundImage: `url(${theme.images.bg})`,
                             }}
                         >
-                            {isSelected && <CheckCircleIcon fontSize="large" color="primary" height={50} className={classes.checkCircleIcon} />}
+                            {isSelected && (
+                                <CheckCircleIcon
+                                    fontSize="large"
+                                    color="primary"
+                                    className={classes.checkCircleIcon}
+                                />
+                            )}
                             <div>
                                 {theme.fontFamilies.primary &&
-                                <div
-                                    className={classes.themeName}
-                                    style={{fontFamily: theme.fontFamilies.primary.fontFamily}}>
-                                    {theme.name}
-                                    <div className={classes.primaryFont}>
-                                        primary font: {theme.fontFamilies.primary.fontFamily}
+                                    <div
+                                        className={classes.themeName}
+                                        style={{fontFamily: theme.fontFamilies.primary.fontFamily}}>
+                                        {theme.name}
+                                        <div className={classes.primaryFont}>
+                                            primary font: {theme.fontFamilies.primary.fontFamily}
+                                        </div>
                                     </div>
-                                </div>
                                 }
                                 {theme.fontFamilies.secondary &&
-                                <div
-                                    className={classes.secondaryFont}
-                                    style={{fontFamily: theme.fontFamilies.secondary.fontFamily}}>
-                                    secondary font: {theme.fontFamilies.secondary.fontFamily}
-                                </div>
+                                    <div
+                                        className={classes.secondaryFont}
+                                        style={{fontFamily: theme.fontFamilies.secondary.fontFamily}}>
+                                        secondary font: {theme.fontFamilies.secondary.fontFamily}
+                                    </div>
                                 }
                                 {theme.fontFamilies.tertiary &&
-                                <div
-                                    className={classes.tertiaryFont}
-                                    style={{fontFamily: theme.fontFamilies.tertiary.fontFamily}}>
-                                    tertiary font: {theme.fontFamilies.tertiary.fontFamily}
-                                </div>
+                                    <div
+                                        className={classes.tertiaryFont}
+                                        style={{fontFamily: theme.fontFamilies.tertiary.fontFamily}}>
+                                        tertiary font: {theme.fontFamilies.tertiary.fontFamily}
+                                    </div>
                                 }
                             </div>
                             <div className={classes.colorsWrap}>
