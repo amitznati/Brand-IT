@@ -1,5 +1,6 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import {Card, CardActionArea} from "@material-ui/core";
 import {useGetList} from 'react-admin';
 import {FontLoader} from 'template-editor';
@@ -50,6 +51,10 @@ const useStyles = makeStyles({
         color: '#fff',
         borderRadius: '50%',
         fontSize: 10
+    },
+    checkCircleIcon: {
+        position: 'absolute',
+        right: '1rem'
     }
 });
 
@@ -110,7 +115,8 @@ export default function ThemeSelect({onSelect, selectedTheme}) {
             Select Theme
             {themes.map((theme) => {
                 const selectedThemeStyle = {margin: '1rem'};
-                if (selectedTheme && selectedTheme.id === theme.id) {
+                const isSelected = selectedTheme && selectedTheme.id === theme.id;
+                if (isSelected) {
                     selectedThemeStyle.margin = '0';
                 }
                 return (
@@ -128,6 +134,7 @@ export default function ThemeSelect({onSelect, selectedTheme}) {
                                 backgroundImage: `url(${theme.images.bg})`,
                             }}
                         >
+                            {isSelected && <CheckCircleIcon fontSize="large" color="primary" height={50} className={classes.checkCircleIcon} />}
                             <div>
                                 {theme.fontFamilies.primary &&
                                 <div
