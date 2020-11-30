@@ -8,6 +8,7 @@ const customEnglishMessages: TranslationMessages = {
     Simulator: 'Simulator',
     'Template Saved': 'Template Saved',
     'Template Deleted': 'Template Deleted',
+    'Element Deleted': 'Element Deleted',
     pos: {
         search: 'Search',
         configuration: 'Configuration',

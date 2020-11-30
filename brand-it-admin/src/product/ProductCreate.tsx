@@ -16,6 +16,8 @@ import {BoundedNumberField} from "../commonComponents/BoundedNumberField";
 import {TemplatePreviewForProduct} from 'template-editor';
 import {propertyByString} from "../utils";
 import DynamicOptionsSelect from "../commonComponents/DynamicOptionsSelect";
+import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
+import CustomImageField from "../commonComponents/CustomImageField";
 
 const styles = {
     width: { width: '7em' },
@@ -23,7 +25,8 @@ const styles = {
     widthFormGroup: { display: 'inline-block' },
     heightFormGroup: { display: 'inline-block'},
     sizeInput: { margin: '1rem', width: '10rem' },
-    sizeTab: {'& .ra-input': {display: 'inline-flex', margin: '1rem'}, '& .ra-input-undefined': {display: 'block'}}
+    sizeTab: {'& .ra-input': {display: 'inline-flex', margin: '1rem'}, '& .ra-input-undefined': {display: 'block'}},
+    toolBar: {display: 'flex', justifyContent: 'space-between'}
 };
 
 const useStyles = makeStyles(styles);
@@ -59,14 +62,6 @@ const ProductPreview = ({imageSrc, sizeState}) => {
     );
 };
 
-export const ProductImage = (props) => {
-    const {imageSrc} = props;
-    if (imageSrc) {
-        return <img src={imageSrc} alt="product" height={300} />
-    }
-    return null;
-};
-
 export const ProductTitle = (props) => {
     const {record} = props;
     return record ? <span>Product #{record.name}</span> : null;
@@ -74,7 +69,7 @@ export const ProductTitle = (props) => {
 
 const ProductForm = props => {
     const classes = useStyles();
-    const {record = {}} = props;
+    const {record} = props;
     const initialSizeState = {};
     sizeFields.forEach((sf) => {
         initialSizeState[sf.source] = propertyByString(record, sf.source);
@@ -84,27 +79,15 @@ const ProductForm = props => {
     const onSizeChange = React.useCallback((v,name) => {
         setSizeState({...sizeState, [name]: v});
     }, [sizeState]);
-    const onImageChanged = (files) => {
-        const reader = new FileReader();
-        reader.addEventListener('loadend', function () {
-            const fileContent = reader.result;
-            setImageSrc(fileContent);
-        });
-        reader.readAsDataURL(files[0]);
-
-    };
 
     return (
-        <TabbedForm {...props}>
+        <TabbedForm {...props} toolbar={<CustomFormToolbar />}>
             <FormTab label="Details">
                 <TextInput source="name" validate={required()}/>
                 <ReferenceArrayInput fullWidth source="categories" reference="Category">
                     <SelectArrayInput optionText="name"/>
                 </ReferenceArrayInput>
-                <ImageInput options={{onDropAccepted: onImageChanged}} source="image" accept="image/*">
-                    <ImageField source="files" title="title"/>
-                </ImageInput>
-                {!imageSrc && <ProductImage imageSrc={record.imageUrl} />}
+                <CustomImageField source='image' imageFieldName='imageUrl' onImageChange={setImageSrc} />
                 <DynamicOptionsSelect
                     label="Dynamic Text Options"
                     placeholder="option name"

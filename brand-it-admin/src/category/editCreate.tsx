@@ -1,6 +1,7 @@
 import * as React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Create, Edit, SimpleForm, TextInput, ReferenceInput, SelectInput, required, TopToolbar, ListButton, ShowButton } from 'react-admin';
+import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
 
 
 const useStyles = makeStyles({
@@ -35,7 +36,7 @@ const Fields = () => {
 }
 export const CategoryCreate = (props) => (
 	<Create {...props} actions={<CatEditActions />}>
-		<SimpleForm>
+		<SimpleForm toolbar={<CustomFormToolbar />}>
 			<Fields />
 		</SimpleForm>
 	</Create>

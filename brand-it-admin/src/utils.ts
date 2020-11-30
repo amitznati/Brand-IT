@@ -1,4 +1,4 @@
-export const propertyByString = (o: Object, s: String) => {
+export const propertyByString = (o, s) => {
     s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
     s = s.replace(/^\./, '');           // strip a leading dot
     const a = s.split('.');

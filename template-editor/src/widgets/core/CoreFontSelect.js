@@ -1,8 +1,14 @@
 import React from 'react';
-import { Grid, Tab, Tabs, Paper } from '@material-ui/core';
+import { Grid, Tab, Tabs, Paper, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { CoreFontSelector } from './index';
 import WebFont from 'webfontloader';
 
+const useStyles = makeStyles({
+  root: {
+    padding: '1rem'
+  }
+});
 export const uploadFont = ({
   selectedFontFamily,
   selectedFontWeight,
@@ -100,6 +106,8 @@ const CoreFontSelect = ({
   setLoadingState
 }) => {
   const isGoogleFontProvider = fontProvider === 'google';
+  const [testText, setTestText] = React.useState('');
+  const classes = useStyles();
   const onSelectFont = (font) => {
     uploadFont({
       selectedFontFamily: font,
@@ -112,7 +120,7 @@ const CoreFontSelect = ({
     });
   };
   return (
-    <Paper>
+    <Paper className={classes.root}>
       <div>Font Family</div>
       <Grid container>
         <Grid item xs={12}>
@@ -141,6 +149,18 @@ const CoreFontSelect = ({
               handleChange={onSelectFont}
             />
           )}
+        </Grid>
+        <Grid item xs={12}>
+          <div>
+            <TextField
+              placeholder='type some text for test'
+              value={testText}
+              onChange={(e) => setTestText(e.target.value)}
+            />
+          </div>
+          <div>
+            <span style={{ fontFamily, fontSize: '2rem' }}>{testText}</span>
+          </div>
         </Grid>
       </Grid>
     </Paper>

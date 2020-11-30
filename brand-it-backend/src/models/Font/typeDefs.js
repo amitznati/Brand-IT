@@ -9,6 +9,7 @@ export const typeDefs = gql`
     extend type Mutation {
         createFont(name: String!, fontFile: Upload!): Font!
         updateFont(id: ID!, name: String!, fontFile: Upload!): Font!
+        deleteFont(id: ID!): Font!
     }
     type Font {
         id: ID!

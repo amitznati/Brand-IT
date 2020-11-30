@@ -1,7 +1,7 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import { useListContext } from 'react-admin';
-import {Grid, Card, CardContent, withWidth} from "@material-ui/core";
+import {Grid, Card, CardContent, withWidth, CardActionArea} from "@material-ui/core";
 import {FontLoader} from 'template-editor';
 import {getFontDataFromTheme} from "../commonComponents/ThemeSelect";
 import LoadingGridList from "../commonComponents/LoadingList";
@@ -76,38 +76,40 @@ const LoadedGridList = () => {
                 return (
                     <Grid key={item.id} item sm={12} md={6}>
                         <Card className={classes.card}>
-                            <CardContent>
-                                <span style={{fontFamily: item.fontFamilies.primary.fontFamily}} className={classes.title}>{item.name}</span>
-                                <div>
-                                    <p>Images</p>
-                                    {imagesFields.map((field) => {
-                                        return (
-                                            <span key={field.src} className={classes.imageWrap}>
-                                            <span>{field.label}</span>
-                                            <img src={item.images[field.src]} alt={field.label} className={classes.image} />
-                                        </span>)
-                                    })}
-                                </div>
-                                <div>
-                                    <p>Palette</p>
-                                    <div style={{backgroundColor: item.palette.primary}} className={classes.paletteColor} >Primary</div>
-                                    <div style={{backgroundColor: item.palette.secondary}} className={classes.paletteColor} >Secondary</div>
-                                    <div style={{backgroundColor: item.palette.tertiary}} className={classes.paletteColor} >Tertiary</div>
-                                </div>
-                                <div>
-                                    <p>Fonts</p>
-                                    {fontFields.map((font) => {
-                                        return (
-                                            <div
-                                                key={font.type}
-                                                style={{fontFamily: item.fontFamilies[font.type].fontFamily}}
-                                                className={classes.fontField}
-                                            >
-                                                {font.text}
-                                            </div>)
-                                    })}
-                                </div>
-                            </CardContent>
+                            <CardActionArea href={`#/Theme/${item.id}/edit`}>
+                                <CardContent>
+                                    <span style={{fontFamily: item.fontFamilies.primary.fontFamily}} className={classes.title}>{item.name}</span>
+                                    <div>
+                                        <p>Images</p>
+                                        {imagesFields.map((field) => {
+                                            return (
+                                                <span key={field.src} className={classes.imageWrap}>
+                                                <span>{field.label}</span>
+                                                <img src={item.images[field.src]} alt={field.label} className={classes.image} />
+                                            </span>)
+                                        })}
+                                    </div>
+                                    <div>
+                                        <p>Palette</p>
+                                        <div style={{backgroundColor: item.palette.primary}} className={classes.paletteColor} >Primary</div>
+                                        <div style={{backgroundColor: item.palette.secondary}} className={classes.paletteColor} >Secondary</div>
+                                        <div style={{backgroundColor: item.palette.tertiary}} className={classes.paletteColor} >Tertiary</div>
+                                    </div>
+                                    <div>
+                                        <p>Fonts</p>
+                                        {fontFields.map((font) => {
+                                            return (
+                                                <div
+                                                    key={font.type}
+                                                    style={{fontFamily: item.fontFamilies[font.type].fontFamily}}
+                                                    className={classes.fontField}
+                                                >
+                                                    {font.text}
+                                                </div>)
+                                        })}
+                                    </div>
+                                </CardContent>
+                            </CardActionArea>
                         </Card>
                     </Grid>
                 );

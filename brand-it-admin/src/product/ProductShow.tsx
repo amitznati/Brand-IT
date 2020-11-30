@@ -15,6 +15,7 @@ import {ProductTitle} from "./ProductCreate";
 import EditTemplateField from "../commonComponents/EditTemplateField";
 import ProductTemplatesPreview from "./ProductTemplatesPreview";
 import ThemeSelect from "../commonComponents/ThemeSelect";
+import DeleteButtonWithConfirmation from "../commonComponents/DeleteButtonWithConfirmation";
 
 const initialTemplate = JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] });
 
@@ -46,7 +47,7 @@ const PostCreateToolbar = ({template, resetTemplateInEdit, onAddTemplate, ...pro
         <Button
             label="Cancel"
             onClick={resetTemplateInEdit}
-            disabled={template.template === initialTemplate} />;
+            disabled={template.template === initialTemplate} />
     </Toolbar>
 );
 const EditTemplateForProduct = ({templateInEdit, setTemplateInEdit, resetTemplateInEdit, onAddTemplate, ...props}) => {

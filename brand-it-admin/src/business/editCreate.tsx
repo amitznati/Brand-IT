@@ -11,6 +11,7 @@ import {
 } from 'react-admin';
 
 import CategoryRefField from '../category/CategoryRefField';
+import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
 
 const BusinessTitle = (props) => {
 	const { record } = props;
@@ -24,7 +25,7 @@ const BusinessTitle = (props) => {
 
 export const BusinessEdit = (props) => (
 	<Edit title={<BusinessTitle />} {...props}>
-		<SimpleForm>
+		<SimpleForm toolbar={<CustomFormToolbar />}>
 			<TextInput source="name" validate={[required()]} />
 			<ReferenceManyField
 				reference="Category"

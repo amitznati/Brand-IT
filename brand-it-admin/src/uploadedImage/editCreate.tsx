@@ -4,9 +4,10 @@ import {
 	Create,
 	SimpleForm,
 	TextInput,
-	required, ImageField, ImageInput
+	required
 } from 'react-admin';
-import {ProductImage} from "../product/ProductCreate";
+import CustomImageField from "../commonComponents/CustomImageField";
+import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
 
 const FontTitle = (props) => {
 	const { record } = props;
@@ -18,24 +19,10 @@ const FontTitle = (props) => {
 };
 
 const UploadedImageForm = (props) => {
-	const {record} = props;
-	const [imageSrc, setImageSrc] = React.useState<string | ArrayBuffer | null>(null);
-	const onImageChanged = (files) => {
-		const reader = new FileReader();
-		reader.addEventListener('loadend', function () {
-			const fileContent = reader.result;
-			setImageSrc(fileContent);
-		});
-		reader.readAsDataURL(files[0]);
-
-	};
 	return (
-		<SimpleForm {...props}>
+		<SimpleForm toolbar={<CustomFormToolbar />} {...props}>
 			<TextInput source="name" validate={[required()]}/>
-			<ImageInput options={{onDropAccepted: onImageChanged}} source="UploadedImageFile" label="Image File" accept="image/*" validate={[required()]}>
-				<ImageField source="files" title="Image File"/>
-			</ImageInput>
-			{!imageSrc && record && <ProductImage imageSrc={record.url} />}
+			<CustomImageField source="UploadedImageFile" validate={[required()]} imageFieldName="url" label="Image File" />
 		</SimpleForm>
 	);
 }

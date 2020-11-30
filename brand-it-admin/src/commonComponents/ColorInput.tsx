@@ -4,6 +4,7 @@ import { useInput, useTranslate } from 'react-admin';
 import {makeStyles} from "@material-ui/core/styles";
 import { SketchPicker } from 'react-color';
 import TextField from "@material-ui/core/TextField";
+import {propertyByString} from "../utils";
 const useStyles = makeStyles({
     root: { width: '25rem', display: 'inline-flex', minHeight: '20rem' },
     errorText: {
@@ -16,7 +17,8 @@ const useStyles = makeStyles({
 });
 export const ColorInput = props => {
     const translate = useTranslate();
-    const [value, setValue] = React.useState(props.record?.name);
+    const {record, source} = props;
+    const [value, setValue] = React.useState(propertyByString(record, source));
     const classes = useStyles();
     const inputProps = useInput(props);
     const {
@@ -27,9 +29,9 @@ export const ColorInput = props => {
     const onValueChange = color => {
         const v = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`
         setValue(v);
-        console.log(color);
         onChange && onChange(v);
     };
+    React.useEffect(() => onChange(value), [value, onChange]);
     return (
         <FormControl className={classes.root}>
             <p className={classes.inputLabel}>

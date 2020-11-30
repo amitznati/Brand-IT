@@ -17,6 +17,14 @@ export const resolvers = {
 			await font.save();
 			return font;
 		},
+		deleteFont: async (_, {id}) => {
+			const font = await Font.findById(id);
+			if (!font) {
+				throw 'Font Not Found!'
+			}
+			await font.delete();
+			return font;
+		},
 		updateFont: async (_, {id, name}) => {
 			const Font = await Font.findById(id);
 			if (Font) {

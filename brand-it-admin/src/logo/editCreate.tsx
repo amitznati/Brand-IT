@@ -8,6 +8,7 @@ import {
 } from 'react-admin';
 import 'template-editor/dist/index.css';
 import EditTemplateField from "../commonComponents/EditTemplateField";
+import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
 
 export const logoProduct = {
 	name: 'Logo',
@@ -24,7 +25,7 @@ export const logoProduct = {
 
 const LogoForm = (props) => {
 	return (
-		<SimpleForm {...props}>
+		<SimpleForm {...props} toolbar={<CustomFormToolbar />}>
 			<TextInput source="name" validate={[required()]}/>
 			<EditTemplateField product={logoProduct} source="template" />
 		</SimpleForm>
