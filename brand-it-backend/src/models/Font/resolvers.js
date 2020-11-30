@@ -1,5 +1,5 @@
 import Font from './Font';
-import {isFontExist, saveFile} from '../../fileManager';
+import {deleteFile, isFontExist, saveFile} from '../../fileManager';
 import {allModels, allModelsMeta} from '../modelsHelper';
 
 export const resolvers = {
@@ -22,6 +22,7 @@ export const resolvers = {
 			if (!font) {
 				throw 'Font Not Found!'
 			}
+			await deleteFile(font.url);
 			await font.delete();
 			return font;
 		},

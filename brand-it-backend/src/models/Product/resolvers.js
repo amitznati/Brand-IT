@@ -1,6 +1,6 @@
 import Product from './Product';
 import Category from '../Category/Category';
-import {saveFile} from '../../fileManager';
+import {deleteFile, saveFile} from '../../fileManager';
 import Template from '../Template/Template';
 import {allModels, allModelsMeta} from '../modelsHelper';
 
@@ -69,6 +69,7 @@ export const resolvers = {
 					{$pull: {products: id}},
 					{multi: true}
 				);
+				product.imageUrl && await deleteFile(product.imageUrl);
 				await product.delete();
 				return product;
 			} else {

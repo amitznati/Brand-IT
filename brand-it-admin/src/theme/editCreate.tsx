@@ -27,12 +27,12 @@ export const styles = {
 
 const useStyles = makeStyles(styles);
 const imagesFields = [
-    {label: 'Background', source: 'bg'},
-    {label: 'Frame', source: 'frame'},
-    {label: 'Side Left', source: 'sideL'},
-    {label: 'Side Right', source: 'sideR'},
-    {label: 'Side Bottom', source: 'sideB'},
-    {label: 'Side Top', source: 'sideT'},
+    {label: 'Background', source: 'images.bg'},
+    {label: 'Frame', source: 'images.frame'},
+    {label: 'Side Left', source: 'images.sideL'},
+    {label: 'Side Right', source: 'images.sideR'},
+    {label: 'Side Bottom', source: 'images.sideB'},
+    {label: 'Side Top', source: 'images.sideT'},
 ];
 
 const fontFamiliesFields = [
@@ -127,7 +127,7 @@ const ImageGrid = props => (
     <Grid container spacing={2}>
         {imagesFields.map((field) =>
             <Grid key={field.source} item xs={4}>
-                <CustomImageField {...props} source={field.source} imageFieldName={`images.${field.source}`} />
+                <CustomImageField {...props} source={field.source} />
             </Grid>
         )}
     </Grid>
@@ -151,7 +151,7 @@ const ThemeForm = (props) => {
             <FormTab label="Details">
                 <TextInput source="name" validate={validationRequired} />
             </FormTab>
-            <FormTab label="Images" source="images" >
+            <FormTab label="Images" >
                 <ImageGrid />
             </FormTab>
             <FormTab label="Font Families" contentClassName={classes.sizeTab}>

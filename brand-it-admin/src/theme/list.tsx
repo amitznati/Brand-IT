@@ -20,7 +20,7 @@ const ThemeListView = () => {
 const ThemeList = props => {
 	return (
 		<ListBase
-			perPage={20}
+			perPage={4}
 			sort={{ field: 'name', order: 'ASC' }}
 			{...props}
 		>

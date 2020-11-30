@@ -1,6 +1,17 @@
 import Theme from './Theme';
-import {saveFile} from '../../fileManager';
+import {deleteTheme, saveFile} from '../../fileManager';
 import {allModels, allModelsMeta} from '../modelsHelper';
+
+const updateThemeImages = async (images, theme) => {
+	await Promise.all(['bg', 'frame', 'sideL', 'sideR', 'sideB', 'sideT'].map(async (imageName) => {
+		if (images[imageName]) {
+			console.log('saving image: ', images[imageName]);
+			theme.images[imageName] = await saveFile(`themes/${theme.id}`, imageName, images[imageName]);
+		}
+	}));
+	await theme.save();
+	return theme;
+};
 
 export const resolvers = {
 	Query: {
@@ -11,31 +22,26 @@ export const resolvers = {
 	Mutation: {
 		createTheme: async (_, {images, ...rest}) => {
 			try {
-				// const {name, images, fontFamilies, palette} = input;
 				const theme = await Theme.create({images: {}, ...rest });
-				await Promise.all(['bg', 'frame', 'sideL', 'sideR', 'sideB', 'sideT'].map(async (imageName) => {
-					if (images[imageName]) {
-						console.log('saving image: ', images[imageName]);
-						theme.images[imageName] = await saveFile(`themes/${theme.id}`, imageName, images[imageName]);
-					}
-				}));
-				await theme.save();
-				return theme;
+				return await updateThemeImages(images, theme);
 			} catch (error) {
 				console.log('error: ', error);
 				throw error;
 			}
 		},
 		deleteTheme: async (_, {id}) => {
-			await Theme.findByIdAndDelete(id);
-			return 'Theme Deleted';
-		},
-		updateTheme: async (_, {id, name}) => {
 			const theme = await Theme.findById(id);
+			if (!theme) {
+				throw 'theme Not Found!'
+			}
+			await theme.delete();
+			await deleteTheme(theme.id);
+			return theme;
+		},
+		updateTheme: async (_, {id, images, ...rest}) => {
+			const theme = await Theme.findByIdAndUpdate(id, rest);
 			if (theme) {
-				theme.name = name;
-				await theme.save();
-				return theme;
+				return await updateThemeImages(images, theme);
 			} else {
 				throw ('theme not found');
 			}

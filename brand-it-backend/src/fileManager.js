@@ -1,7 +1,8 @@
 import express from 'express';
-import {createWriteStream, existsSync} from 'fs';
+import {createWriteStream, existsSync, unlinkSync} from 'fs';
 import path from 'path';
-
+import rimraf from 'rimraf';
+import shell from 'shelljs';
 
 
 export function createFilesRoutes(app) {
@@ -40,7 +41,6 @@ export async function saveFile(filePath, name, file) {
 	const dir = path.join(__dirname, `/resources/${filePath}`)
 	if (!existsSync(dir)){
 		console.log('creating dir: ', dir);
-		const shell = require('shelljs');
 		shell.mkdir('-p', dir);
 	}
 	await new Promise(res => {
@@ -63,4 +63,18 @@ export async function isUploadedImageExist(imageName) {
 		`http://localhost:4000/resources/images/uploaded-images/${imageName}`
 		:
 		false;
+}
+
+export async function deleteTheme(id) {
+	return rimraf.sync(`${__dirname}/resources/themes/${id}`);
+}
+
+export async function deleteFile(pathUrl) {
+	const realPath = pathUrl.replace('http://localhost:4000', __dirname);
+	try {
+		await unlinkSync(realPath);
+		console.log('file removed: ', realPath);
+	} catch(err) {
+		console.error(err);
+	}
 }
