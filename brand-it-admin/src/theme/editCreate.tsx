@@ -22,7 +22,7 @@ export const styles = {
     widthFormGroup: { display: 'inline-block' },
     heightFormGroup: { display: 'inline-block'},
     sizeInput: { margin: '1rem', width: '10rem' },
-    sizeTab: {'& .ra-input': {display: 'inline-flex', margin: '1rem'}, '& .ra-input-undefined': {display: 'block'}}
+    sizeTab: {'& .ra-input': {display: 'inline-flex', margin: '1rem', width: '30%'}, '& .ra-input-undefined': {display: 'block'}}
 };
 
 const useStyles = makeStyles(styles);
@@ -123,6 +123,26 @@ const ThemeFontField = (props) => {
     );
 };
 
+const ImageGrid = props => (
+    <Grid container spacing={2}>
+        {imagesFields.map((field) =>
+            <Grid key={field.source} item xs={4}>
+                <CustomImageField {...props} source={field.source} imageFieldName={`images.${field.source}`} />
+            </Grid>
+        )}
+    </Grid>
+);
+
+const ColorsGrid = props => (
+    <Grid container spacing={2}>
+        {paletteFields.map((field) =>
+            <Grid key={field.source} item xs={4}>
+                <ColorInput {...props} validate={[required()]} key={field.source} source={field.source} label={field.label} />
+            </Grid>
+        )}
+    </Grid>
+);
+
 const ThemeForm = (props) => {
     const classes = useStyles();
     const validationRequired = required();
@@ -131,20 +151,16 @@ const ThemeForm = (props) => {
             <FormTab label="Details">
                 <TextInput source="name" validate={validationRequired} />
             </FormTab>
-            <FormTab label="Images" source="images" contentClassName={classes.sizeTab}>
-                {imagesFields.map((field) =>
-                    <CustomImageField key={field.source} source={field.source} imageFieldName={`images.${field.source}`}/>
-                )}
+            <FormTab label="Images" source="images" >
+                <ImageGrid />
             </FormTab>
             <FormTab label="Font Families" contentClassName={classes.sizeTab}>
                 {fontFamiliesFields.map((field) =>
                     <ThemeFontField source={field.source} label={field.label} key={field.source} />
                 )}
             </FormTab>
-            <FormTab label="Palette" contentClassName={classes.sizeTab}>
-                {paletteFields.map((field) =>
-                    <ColorInput validate={validationRequired} key={field.source} source={field.source} label={field.label} />
-                )}
+            <FormTab label="Palette">
+                <ColorsGrid />
             </FormTab>
         </TabbedForm>
     );

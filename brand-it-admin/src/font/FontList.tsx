@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useListContext, DeleteButton } from 'react-admin';
+import { useListContext } from 'react-admin';
 import FontProvider from "../commonComponents/FontProvider";
 import {Grid, TextField} from "@material-ui/core";
 import DeleteButtonWithConfirmation from "../commonComponents/DeleteButtonWithConfirmation";

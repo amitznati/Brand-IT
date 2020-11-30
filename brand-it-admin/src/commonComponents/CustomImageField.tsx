@@ -1,12 +1,12 @@
 import React, {Fragment} from 'react';
-import {ImageField, ImageInput, useInput} from "react-admin";
+import {ImageField, ImageInput} from "react-admin";
 import {propertyByString} from "../utils";
 
 
 export const CustomImage = (props) => {
     const {imageSrc} = props;
     if (imageSrc) {
-        return <img src={imageSrc} alt="product" height={300} />
+        return <img src={imageSrc} alt="product" style={{maxHeight: 300, maxWidth: '100%'}} />
     }
     return null;
 };

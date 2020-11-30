@@ -2,8 +2,6 @@ import React from 'react';
 import {
     Create,
     FormTab,
-    ImageInput,
-    ImageField,
     TabbedForm,
     TextInput,
     required,

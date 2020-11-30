@@ -15,7 +15,6 @@ import {ProductTitle} from "./ProductCreate";
 import EditTemplateField from "../commonComponents/EditTemplateField";
 import ProductTemplatesPreview from "./ProductTemplatesPreview";
 import ThemeSelect from "../commonComponents/ThemeSelect";
-import DeleteButtonWithConfirmation from "../commonComponents/DeleteButtonWithConfirmation";
 
 const initialTemplate = JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] });
 
