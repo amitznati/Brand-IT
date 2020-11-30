@@ -76,7 +76,7 @@ const LoadedGridList = () => {
                 return (
                     <Grid key={item.id} item sm={12} md={6}>
                         <Card className={classes.card}>
-                            <CardActionArea href={`#/Theme/${item.id}/edit`}>
+                            <CardActionArea href={`#/Theme/${item.id}`}>
                                 <CardContent>
                                     <span style={{fontFamily: item.fontFamilies.primary.fontFamily}} className={classes.title}>{item.name}</span>
                                     <div>
