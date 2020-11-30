@@ -17,8 +17,7 @@ const BusinessTitle = (props) => {
 	const { record } = props;
 	return record ? (
 		<span>
-            resources.categories.name &quot;
-			{record.name}&quot;
+            Business - {record.name}  #  {record.id}
         </span>
 	) : null;
 };
@@ -36,20 +35,6 @@ export const BusinessEdit = (props) => (
 			>
 				<Datagrid>
 					<CategoryRefField source="Business" />
-					{/*<NumberField*/}
-					{/*	source="price"*/}
-					{/*	options={{ style: 'currency', currency: 'USD' }}*/}
-					{/*/>*/}
-					{/*<NumberField*/}
-					{/*	source="width"*/}
-					{/*	options={{ minimumFractionDigits: 2 }}*/}
-					{/*/>*/}
-					{/*<NumberField*/}
-					{/*	source="height"*/}
-					{/*	options={{ minimumFractionDigits: 2 }}*/}
-					{/*/>*/}
-					{/*<NumberField source="stock" />*/}
-					{/*<NumberField source="sales" />*/}
 					<EditButton />
 				</Datagrid>
 			</ReferenceManyField>

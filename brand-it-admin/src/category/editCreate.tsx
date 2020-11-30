@@ -41,9 +41,9 @@ export const CategoryCreate = (props) => (
 		</SimpleForm>
 	</Create>
 );
-
+const EditTitle = (props) => <span>Category - {props.record.name}  #  {props.record.id}</span>;
 export const CategoryEdit = (props) => (
-	<Edit {...props} actions={<CatEditActions />}>
+	<Edit {...props} title={<EditTitle />} actions={<CatEditActions />}>
 		<SimpleForm>
 			<TextInput disabled label="Id" source="id" />
 			<Fields />
