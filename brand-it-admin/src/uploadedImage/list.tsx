@@ -2,7 +2,7 @@ import * as React from "react";
 import { Pagination, Title, useListContext, ListBase } from 'react-admin';
 import ListActions from '../commonComponents/ListActions';
 import {Grid} from "@material-ui/core";
-import UploadedImageCard from '../commonComponents/UploadedImageCard';
+import {UploadedImageCard} from 'template-editor';
 
 const UploadedImagesListView = () => {
 	const { defaultTitle, ids, data } = useListContext();
