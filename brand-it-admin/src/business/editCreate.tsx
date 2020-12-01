@@ -12,18 +12,10 @@ import {
 
 import CategoryRefField from '../category/CategoryRefField';
 import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
-
-const BusinessTitle = (props) => {
-	const { record } = props;
-	return record ? (
-		<span>
-            Business - {record.name}  #  {record.id}
-        </span>
-	) : null;
-};
+import CustomEditTitle from "../commonComponents/CustomEditTitle";
 
 export const BusinessEdit = (props) => (
-	<Edit title={<BusinessTitle />} {...props}>
+	<Edit title={<CustomEditTitle resource='Business'/>} {...props}>
 		<SimpleForm toolbar={<CustomFormToolbar />}>
 			<TextInput source="name" validate={[required()]} />
 			<ReferenceManyField

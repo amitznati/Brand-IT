@@ -10,7 +10,6 @@ import {
     IntrospectionSchema,
     IntrospectionType,
 } from 'graphql';
-import {filterObject} from "../utils";
 
 type IntrospectionResource = IntrospectionType & {
     [key: string]: IntrospectionField;
@@ -30,18 +29,7 @@ const customBuildQuery = (
 
     return (type, resource, params) => {
         console.log({type, resource, params});
-        if (type === 'UPDATE' && resource === 'Theme') {
-            const images = filterObject(params.data.images, im => typeof im === 'string');
-            const newParams = {
-                ...params,
-                data: {
-                    ...params.data,
-                    images
-                }
-            };
-            console.log({newParams});
-            return buildQuery(type, resource, newParams);
-        } else if (type === 'addTemplate') {
+        if (type === 'addTemplate') {
             return {
                 query: gql`mutation addTemplate($id: ID!, $template: String!, $templateId: ID) {
                     addTemplate(id: $id, template: $template, templateId: $templateId) {

@@ -8,15 +8,7 @@ import {
 } from 'react-admin';
 import CustomImageField from "../commonComponents/CustomImageField";
 import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
-
-const FontTitle = (props) => {
-	const { record } = props;
-	return record ? (
-		<span>
-			Uploaded Images: {record.name}
-        </span>
-	) : null;
-};
+import CustomEditTitle from "../commonComponents/CustomEditTitle";
 
 const UploadedImageForm = (props) => {
 	return (
@@ -28,7 +20,7 @@ const UploadedImageForm = (props) => {
 }
 
 export const UploadedImageEdit = (props) => (
-	<Edit title={<FontTitle />} {...props}>
+	<Edit title={<CustomEditTitle resource='Uploaded Image' />} {...props}>
 		<UploadedImageForm />
 	</Edit>
 );

@@ -7,15 +7,7 @@ import {
 	required, FileField, FileInput
 } from 'react-admin';
 import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
-
-const FontTitle = (props) => {
-	const { record } = props;
-	return record ? (
-		<span>
-			{record.name}
-        </span>
-	) : null;
-};
+import CustomEditTitle from "../commonComponents/CustomEditTitle";
 
 const FontForm = (props) => (
 	<SimpleForm {...props} toolbar={<CustomFormToolbar />}>
@@ -27,7 +19,7 @@ const FontForm = (props) => (
 );
 
 export const FontEdit = (props) => (
-	<Edit title={<FontTitle />} {...props}>
+	<Edit title={<CustomEditTitle resource='Font' />} {...props}>
 		<FontForm />
 	</Edit>
 );

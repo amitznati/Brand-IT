@@ -23,10 +23,10 @@ export const ColorInput = props => {
     const inputProps = useInput(props);
     const {
         input: { name, onChange },
-        meta: { touched, error },
+        meta: { error },
         isRequired
     } = inputProps;
-    const onValueChange = color => {
+    const onColorValueChange = color => {
         const v = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`
         setValue(v);
         onChange && onChange(v);
@@ -39,18 +39,16 @@ export const ColorInput = props => {
             </p>
             <TextField
                 name={name}
-                onChange={onValueChange}
                 error={!!(error)}
-                helperText={error}
+                helperText={error && translate(error)}
                 required={isRequired}
-                value={value}
+                value={value || ''}
             />
             <div style={{height: '5rem', width: '5rem', borderRadius: '50%', backgroundColor: value}} >&nbsp;</div>
             <SketchPicker
                 color={ value }
-                onChangeComplete={ onValueChange }
+                onChangeComplete={ onColorValueChange }
             />
-            {error && !touched && <span className={classes.errorText}>{translate(error)}</span>}
         </FormControl>
 
     );

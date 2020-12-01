@@ -29,7 +29,7 @@ const CustomImageField = (props) => {
             <ImageInput options={{onDropAccepted: onImageChanged}} source={source} accept="image/*" {...rest}>
                 <ImageField source="files" title="title"/>
             </ImageInput>
-            {!imageSrc && <CustomImage imageSrc={propertyByString(record, imageFieldName || source)} />}
+            {!imageSrc && <CustomImage imageSrc={propertyByString(record, imageFieldName)} />}
         </Fragment>
     );
 };

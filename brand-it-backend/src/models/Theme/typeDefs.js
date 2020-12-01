@@ -7,8 +7,8 @@ export const typeDefs = gql`
         _allThemesMeta(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: ThemeFilter): ListMetadata
     }
     extend type Mutation {
-        createTheme(name: String!, palette: PaletteInput!, fontFamilies: FontFamiliesInput!, images: imagesInput): Theme!
-        updateTheme(id: ID!, name: String!, palette: PaletteInput!, fontFamilies: FontFamiliesInput!, images: imagesInput): Theme!
+        createTheme(name: String!, palette: PaletteInput!, fontFamilies: FontFamiliesInput!, imagesInput: imagesInput): Theme!
+        updateTheme(id: ID!, name: String!, palette: PaletteInput!, fontFamilies: FontFamiliesInput!, imagesInput: imagesInput): Theme!
         deleteTheme(id: ID!): Theme!
     }
 	type Palette {
@@ -34,17 +34,17 @@ export const typeDefs = gql`
         images: imagesForProduct!
     }
     type imagesForProduct {
-        bg: String!
-        frame: String!
-        sideL: String!
-        sideR: String!
-        sideB: String!
-        sideT: String!
+        bg: String
+        frame: String
+        sideL: String
+        sideR: String
+        sideB: String
+        sideT: String
     }
     input PaletteInput {
         primary: String!
         secondary: String!
-        tertiary: String
+        tertiary: String!
     }
     input FontFamiliesInput {
         primary: FontDataInput!

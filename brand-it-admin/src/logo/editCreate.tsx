@@ -9,6 +9,7 @@ import {
 import 'template-editor/dist/index.css';
 import EditTemplateField from "../commonComponents/EditTemplateField";
 import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
+import CustomEditTitle from "../commonComponents/CustomEditTitle";
 
 export const logoProduct = {
 	name: 'Logo',
@@ -33,7 +34,7 @@ const LogoForm = (props) => {
 }
 
 export const LogoEdit = (props) => (
-	<Edit {...props}>
+	<Edit title={<CustomEditTitle resource='Logo' />} {...props}>
 		<LogoForm />
 	</Edit>
 );

@@ -2,6 +2,7 @@ import * as React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Create, Edit, SimpleForm, TextInput, ReferenceInput, SelectInput, required, TopToolbar, ListButton, ShowButton } from 'react-admin';
 import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
+import CustomEditTitle from "../commonComponents/CustomEditTitle";
 
 
 const useStyles = makeStyles({
@@ -41,9 +42,9 @@ export const CategoryCreate = (props) => (
 		</SimpleForm>
 	</Create>
 );
-const EditTitle = (props) => <span>Category - {props.record.name}  #  {props.record.id}</span>;
+
 export const CategoryEdit = (props) => (
-	<Edit {...props} title={<EditTitle />} actions={<CatEditActions />}>
+	<Edit {...props} title={<CustomEditTitle resource='Category' />} actions={<CatEditActions />}>
 		<SimpleForm>
 			<TextInput disabled label="Id" source="id" />
 			<Fields />

@@ -20,10 +20,10 @@ export const resolvers = {
 		Theme: (_, {id}) => Theme.findById(id)
 	},
 	Mutation: {
-		createTheme: async (_, {images, ...rest}) => {
+		createTheme: async (_, {imagesInput, ...rest}) => {
 			try {
 				const theme = await Theme.create({images: {}, ...rest });
-				return await updateThemeImages(images, theme);
+				return await updateThemeImages(imagesInput, theme);
 			} catch (error) {
 				console.log('error: ', error);
 				throw error;
@@ -38,10 +38,10 @@ export const resolvers = {
 			await deleteTheme(theme.id);
 			return theme;
 		},
-		updateTheme: async (_, {id, images, ...rest}) => {
+		updateTheme: async (_, {id, imagesInput, ...rest}) => {
 			const theme = await Theme.findByIdAndUpdate(id, rest);
 			if (theme) {
-				return await updateThemeImages(images, theme);
+				return await updateThemeImages(imagesInput, theme);
 			} else {
 				throw ('theme not found');
 			}

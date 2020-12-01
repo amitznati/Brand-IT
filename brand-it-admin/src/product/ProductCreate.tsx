@@ -16,6 +16,7 @@ import {propertyByString} from "../utils";
 import DynamicOptionsSelect from "../commonComponents/DynamicOptionsSelect";
 import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
 import CustomImageField from "../commonComponents/CustomImageField";
+import CustomEditTitle from "../commonComponents/CustomEditTitle";
 
 const styles = {
     width: { width: '7em' },
@@ -58,11 +59,6 @@ const ProductPreview = ({imageSrc, sizeState}) => {
             <TemplatePreviewForProduct product={product} />
         </div>
     );
-};
-
-export const ProductTitle = (props) => {
-    const {record} = props;
-    return record ? <span>Product #{record.name}</span> : null;
 };
 
 const ProductForm = props => {
@@ -125,7 +121,7 @@ export const ProductCreate = props => {
 };
 export const ProductEdit = props => {
     return (
-        <Edit {...props} title={<ProductTitle />}>
+        <Edit {...props} title={<CustomEditTitle resource='Product' />}>
             <ProductForm />
         </Edit>
     );

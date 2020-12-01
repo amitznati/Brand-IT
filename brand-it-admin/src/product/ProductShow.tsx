@@ -11,10 +11,10 @@ import {
     useNotify,
     useRefresh
 } from 'react-admin';
-import {ProductTitle} from "./ProductCreate";
 import EditTemplateField from "../commonComponents/EditTemplateField";
 import ProductTemplatesPreview from "./ProductTemplatesPreview";
 import ThemeSelect from "../commonComponents/ThemeSelect";
+import CustomEditTitle from "../commonComponents/CustomEditTitle";
 
 const initialTemplate = JSON.stringify({ templateGradients: [], templateFilters: [], layouts: [] });
 
@@ -76,7 +76,7 @@ export const ProductShow = ({hasShow, ...rest}) => {
         refresh();
     }
     return (
-        <Show {...rest} title={<ProductTitle/>}>
+        <Show {...rest} title={<CustomEditTitle resource='Product' />}>
             <SimpleShowLayout>
                 <TextField source="name"/>
                 <EditTemplateForProduct {...{templateInEdit, setTemplateInEdit, resetTemplateInEdit, onAddTemplate }} />

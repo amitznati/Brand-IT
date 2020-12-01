@@ -15,6 +15,7 @@ import {ColorInput} from "../commonComponents/ColorInput";
 import CustomImageField from "../commonComponents/CustomImageField";
 import {propertyByString} from "../utils";
 import CustomFormToolbar from "../commonComponents/CustomFormToolbar";
+import CustomEditTitle from "../commonComponents/CustomEditTitle";
 
 export const styles = {
     width: { width: '7em' },
@@ -27,12 +28,12 @@ export const styles = {
 
 const useStyles = makeStyles(styles);
 const imagesFields = [
-    {label: 'Background', source: 'images.bg'},
-    {label: 'Frame', source: 'images.frame'},
-    {label: 'Side Left', source: 'images.sideL'},
-    {label: 'Side Right', source: 'images.sideR'},
-    {label: 'Side Bottom', source: 'images.sideB'},
-    {label: 'Side Top', source: 'images.sideT'},
+    {label: 'Background', source: 'imagesInput.bg', imageFieldName: 'images.bg'},
+    {label: 'Frame', source: 'imagesInput.frame', imageFieldName: 'images.frame'},
+    {label: 'Side Left', source: 'imagesInput.sideL', imageFieldName: 'images.sideL'},
+    {label: 'Side Right', source: 'imagesInput.sideR', imageFieldName: 'images.sideR'},
+    {label: 'Side Bottom', source: 'imagesInput.sideB', imageFieldName: 'images.sideB'},
+    {label: 'Side Top', source: 'imagesInput.sideT', imageFieldName: 'images.sideT'},
 ];
 
 const fontFamiliesFields = [
@@ -127,7 +128,7 @@ const ImageGrid = props => (
     <Grid container spacing={2}>
         {imagesFields.map((field) =>
             <Grid key={field.source} item xs={4}>
-                <CustomImageField {...props} source={field.source} />
+                <CustomImageField {...props} source={field.source} imageFieldName={field.imageFieldName} />
             </Grid>
         )}
     </Grid>
@@ -176,7 +177,7 @@ export const createTheme = props => {
 };
 
 export const editTheme = props => (
-    <Edit {...props}>
+    <Edit {...props} title={<CustomEditTitle resource='Theme' />}>
         <ThemeForm />
     </Edit>
 );

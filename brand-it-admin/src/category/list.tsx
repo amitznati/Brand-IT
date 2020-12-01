@@ -11,7 +11,7 @@ import LinkToRelatedReference from "../commonComponents/LinkToRelatedReference";
 
 export const CategoryFilter = props => (
 	<Filter {...props}>
-		<SearchInput source="q" alwaysOn />
+		<SearchInput source="name" alwaysOn />
 	</Filter>
 );
 const CategoryList = (props) => (
