@@ -11,13 +11,13 @@ const BusinessList = (props) => (
 	<List {...props} actions={<ListActions />} >
 		<Datagrid>
 			<TextField source="name" />
-			<EditButton />
 			<LinkToRelatedReference
 				pathname="/Category"
 				filterFunc={(record) => ({business: record.id })}
 				icon={category.icon}
 				label="Categories"
 			/>
+			<EditButton />
 		</Datagrid>
 	</List>
 );
