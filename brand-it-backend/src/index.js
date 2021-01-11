@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import {typeDefs} from './typeDefs'
 import {resolvers} from './resolvers';
+import path from 'path'
 import {createFilesRoutes} from './fileManager';
 
 
@@ -16,6 +17,8 @@ const startServer = async () => {
 	mongoose.set('useFindAndModify', false);
 	mongoose.set('useCreateIndex', true);
 	mongoose.set('useUnifiedTopology', true);
+	console.log(path.join(__dirname, '../public'));
+	app.use(express.static(path.join(__dirname, '../public')));
 	await mongoose.connect('mongodb://localhost:27017/brand-it', {useNewUrlParser: true, useUnifiedTopology: true});
 
 	app.listen({ port: 4000 }, () => {
