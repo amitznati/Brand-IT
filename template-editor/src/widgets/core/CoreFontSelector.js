@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
 import BackIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -10,7 +11,6 @@ import {
   MenuList,
   Fab
 } from '@material-ui/core';
-import { googleFontAPIKey } from '../../sdk/config';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
@@ -42,6 +42,7 @@ class CoreFontPicker extends React.Component {
   }
 
   loadFonts = () => {
+    const googleFontAPIKey = this.props.googleFontAPIKey;
     // eslint-disable-next-line no-undef
     this.xhr1 = new XMLHttpRequest();
     /*eslint-disable */
@@ -181,4 +182,11 @@ CoreFontPicker.propTypes = {
   value: PropTypes.any
 };
 
-export default withStyles(styles)(CoreFontPicker);
+const Widget = withStyles(styles)(CoreFontPicker);
+export default connect((state, props) => {
+  console.log({ state, props });
+  return {
+    ...props,
+    googleFontAPIKey: state.EditTemplateMainView.googleFontAPIKey
+  };
+}, undefined)(Widget);

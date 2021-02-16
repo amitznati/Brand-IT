@@ -25,7 +25,8 @@ const initialState = {
       x: 0.5,
       y: 1.1
     },
-    dynamicTextOptions: []
+    dynamicTextOptions: [],
+    googleFontAPIKey: ''
   }
 };
 // const SUCCESS = '_SUCCESS';
